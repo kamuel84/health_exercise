@@ -12,8 +12,9 @@ import com.exercise.health_exercise.data.health_list.HealthListData
 import com.exercise.health_exercise.data.health_list_item.HealthList_ItemDao
 import com.exercise.health_exercise.data.health_list_item.HealthList_ItemsData
 
-@Database(entities = arrayOf(ExercisesData::class, HealthListData::class, HealthList_ItemsData::class), version = 1)
-abstract class AppDataBase private constructor() : RoomDatabase() {
+@Database(entities = arrayOf(HealthListData::class, ExercisesData::class, HealthList_ItemsData::class), version = 1, exportSchema = true)
+open abstract class AppDataBase : RoomDatabase() {
+
     abstract fun exercisesDao() : ExercisesDao
     abstract fun healthListItemDao() : HealthList_ItemDao
     abstract fun healthListDao() : HealthListDao
@@ -22,20 +23,16 @@ abstract class AppDataBase private constructor() : RoomDatabase() {
         private val DB_NAME = "health_exercise-db"
         @Volatile private var instance:AppDataBase ? = null
 
-        @JvmName("getInstance1")
+        @JvmStatic
         fun getInstance(context:Context):AppDataBase{
             return instance ?: synchronized(this){
                 instance ?: buildDataBase(context)
             }
         }
 
-        private fun buildDataBase(context:Context):AppDataBase{
-            return Room.databaseBuilder(context.applicationContext, AppDataBase::class.java, DB_NAME)
-                    .addCallback(object : RoomDatabase.Callback() {
-                        override fun onCreate(db: SupportSQLiteDatabase) {
-                            super.onCreate(db)
-                        }
-                    }).build()
+        open fun buildDataBase(context:Context):AppDataBase{
+            return Room.databaseBuilder(context, AppDataBase::class.java, DB_NAME)
+                    .build()
         }
     }
 

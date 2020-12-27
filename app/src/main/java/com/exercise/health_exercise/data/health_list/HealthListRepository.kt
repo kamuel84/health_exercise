@@ -7,40 +7,41 @@ import com.exercise.health_exercise.data.health_list_item.HealthList_ItemsData
 import com.exercise.health_exercise.database.AppDataBase
 import io.reactivex.rxjava3.core.Completable
 
-class HealthListRepository(daoHealthList:HealthListDao) {
+class HealthListRepository(application: Application) {
     private var healthListDao : HealthListDao
 
     companion object{
         @Volatile private var instance:HealthListRepository?=null
 
-        fun getInstance(healthDao:HealthListDao) =
+        fun getInstance(application: Application) =
                 instance ?: synchronized(this){
-                    instance?: HealthListRepository(healthDao).also { instance = it }
+                    instance?: HealthListRepository(application).also { instance = it }
                 }
     }
 
     init {
-        healthListDao = daoHealthList
+        val database = AppDataBase.getInstance(application)!!
+        healthListDao = (database as AppDataBase).healthListDao()
     }
 
     fun healthListAll(): LiveData<List<HealthListData>> {
         return healthListDao.getAll()
     }
 
-    fun healthListThatIndex(index:Int): LiveData<List<HealthListData>> {
-        return healthListDao.getIndexData(index)
+//    fun healthListThatIndex(index:Int): LiveData<List<HealthListData>> {
+//        return healthListDao.getIndexData(index)
+//    }
+
+    fun healthListInsert(entity: HealthListData) {
+        healthListDao.insert(entity)
     }
 
-    fun healthListInsert(entity: HealthListData) : Completable {
-        return healthListDao.insert(entity)
-    }
 
-
-    fun healthListUpdate(entity: HealthListData) : Completable {
+    fun healthListUpdate(entity: HealthListData) : Int {
         return healthListDao.update(entity)
     }
 
-    fun healthListDelete(entity: HealthListData) : Completable {
+    fun healthListDelete(entity: HealthListData) : Int {
         return healthListDao.delete(entity)
     }
 }

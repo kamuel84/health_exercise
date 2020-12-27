@@ -9,8 +9,8 @@ import com.exercise.health_exercise.data.BaseDao
 interface ExercisesDao : BaseDao<ExercisesData> {
 
     @Query("SELECT * FROM exercise")
-    fun getAll() : LiveData<ArrayList<ExercisesData>>
+    fun getAll() : LiveData<List<ExercisesData>>
 
-    @Query("SELECT * FROM exercise WHERE idx = :index")
-    fun getIndexData(index : Int) : LiveData<ArrayList<ExercisesData>>
+//    @Query("SELECT * FROM exercise WHERE idx = :index")
+//    fun getIndexData(index : Int) : LiveData<ArrayList<ExercisesData>>
 }

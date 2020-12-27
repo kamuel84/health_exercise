@@ -14,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.room.Room
+import com.exercise.health_exercise.data.AppContents
 import com.exercise.health_exercise.database.AppDataBase
 
 class MainActivity : AppCompatActivity() {
@@ -25,6 +26,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        AppContents.currentActivity = this
 
         /** 플로팅 버튼 **/
 //        val fab: FloatingActionButton = findViewById(R.id.fab)
@@ -43,9 +46,10 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         /** DB 생성 **/
-        val db:AppDataBase = Room.databaseBuilder(this, AppDataBase::class.java, "health_exercise-db")
-                .allowMainThreadQueries() /** 이값은 MainThread에서도 돌도록 만들어진 함수 **/
-                .build()
+        AppDataBase.getInstance(this)
+//        val db:AppDataBase = Room.databaseBuilder(this, AppDataBase::class.java, "health_exercise-db")
+//                .allowMainThreadQueries() /** 이값은 MainThread에서도 돌도록 만들어진 함수 **/
+//                .build()
 
     }
 

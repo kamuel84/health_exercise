@@ -7,12 +7,12 @@ import androidx.room.Update
 import io.reactivex.rxjava3.core.Completable
 
 interface BaseDao<T> {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(entity:T) : Completable
+    @Insert
+    fun insert(entity:T)
 
     @Update
-    fun update(entity:T) : Completable
+    fun update(entity:T):Int
 
     @Delete
-    fun delete(entity:T) : Completable
+    fun delete(entity:T):Int
 }

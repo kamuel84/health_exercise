@@ -1,7 +1,7 @@
 package com.exercise.health_exercise.utils
 
-class ArrayUtils {
-    fun <T> hasValue(arr: Collection<T>?): Boolean {
+open class ArrayUtils {
+    open fun <T> hasValue(arr: Collection<T>?): Boolean {
         return arr != null && arr.size > 0
     }
 

@@ -15,10 +15,10 @@ import com.exercise.health_exercise.data.health_list.HealthListData
 )
 data class HealthList_ItemsData(
     @PrimaryKey(autoGenerate = true)
-    var idx : Long,
-    var health_list_index:Long,
-    var health_index:Long,
-    var revert_count:Int,
-    var play_time:Long
+    val idx : Long,
+    val health_list_index:Long,
+    val health_index:Long,
+    val revert_count:Int,
+    val play_time:Long
 ) {
 }

@@ -12,16 +12,15 @@ class ExercisesRepository(application: Application) {
         exercisesDao = (database as AppDataBase).exercisesDao()
     }
 
-    fun exerciseInsert(entity: ExercisesData) : Completable{
-        return exercisesDao.insert(entity)
+    fun exerciseInsert(entity: ExercisesData){
+        exercisesDao.insert(entity)
     }
 
-
-    fun exerciseUpdate(entity: ExercisesData) : Completable{
+    fun exerciseUpdate(entity: ExercisesData) : Int{
         return exercisesDao.update(entity)
     }
 
-    fun exerciseDelete(entity:ExercisesData) : Completable{
+    fun exerciseDelete(entity:ExercisesData) : Int{
         return exercisesDao.delete(entity)
     }
 }

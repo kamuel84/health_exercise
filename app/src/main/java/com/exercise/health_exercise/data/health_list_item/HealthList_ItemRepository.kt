@@ -14,16 +14,16 @@ class HealthList_ItemRepository(application: Application) {
         healthListItemDao = (database as AppDataBase).healthListItemDao()
     }
 
-    fun healthListItemInsert(entity: HealthList_ItemsData) : Completable {
-        return healthListItemDao.insert(entity)
+    fun healthListItemInsert(entity: HealthList_ItemsData) {
+        healthListItemDao.insert(entity)
     }
 
 
-    fun healthListItemUpdate(entity: HealthList_ItemsData) : Completable {
+    fun healthListItemUpdate(entity: HealthList_ItemsData) : Int {
         return healthListItemDao.update(entity)
     }
 
-    fun healthListItemDelete(entity: HealthList_ItemsData) : Completable {
+    fun healthListItemDelete(entity: HealthList_ItemsData) : Int {
         return healthListItemDao.delete(entity)
     }
 }

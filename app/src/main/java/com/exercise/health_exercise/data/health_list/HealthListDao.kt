@@ -11,6 +11,6 @@ interface HealthListDao : BaseDao<HealthListData> {
     @Query("SELECT * FROM health_list")
     fun getAll() : LiveData<List<HealthListData>>
 
-    @Query("SELECT * FROM health_list WHERE idx = :index")
-    fun getIndexData(index : Int) : LiveData<List<HealthListData>>
+//    @Query("SELECT * FROM health_list WHERE idx = :index")
+//    fun getIndexData(index : Int) : LiveData<List<HealthListData>>
 }
