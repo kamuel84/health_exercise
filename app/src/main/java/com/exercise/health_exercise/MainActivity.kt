@@ -45,8 +45,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        /** DB 생성 **/
-        AppDataBase.getInstance(this)
 //        val db:AppDataBase = Room.databaseBuilder(this, AppDataBase::class.java, "health_exercise-db")
 //                .allowMainThreadQueries() /** 이값은 MainThread에서도 돌도록 만들어진 함수 **/
 //                .build()

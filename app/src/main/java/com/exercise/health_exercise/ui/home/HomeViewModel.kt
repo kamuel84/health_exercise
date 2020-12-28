@@ -24,7 +24,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val viewModelScope = CoroutineScope(Main + viewModelJob)
 
     fun insertHealthList(healthList:HealthListData){
-        viewModelScope.launch { healthListRepository.healthListInsert(healthList) }
+        healthListRepository.healthListInsert(healthList)
     }
 
     fun getAllHealthList() : LiveData<List<HealthListData>>?{

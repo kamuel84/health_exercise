@@ -32,7 +32,8 @@ open abstract class AppDataBase : RoomDatabase() {
 
         open fun buildDataBase(context:Context):AppDataBase{
             return Room.databaseBuilder(context, AppDataBase::class.java, DB_NAME)
-                    .build()
+                .allowMainThreadQueries()
+                .build()
         }
     }
 
