@@ -11,7 +11,7 @@ import com.exercise.health_exercise.data.health_list.HealthListData
 import com.exercise.health_exercise.utils.ArrayUtils
 
 
-class healthListAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class HealthListAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var healthList : List<HealthListData> ?= null
 

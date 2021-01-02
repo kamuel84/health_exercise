@@ -12,6 +12,6 @@ data class ExercisesData(
     val play_Time : Long,
     val health_Notice : String,
     val health_Photo : String) {
-
+    var check:Boolean = false
 
 }

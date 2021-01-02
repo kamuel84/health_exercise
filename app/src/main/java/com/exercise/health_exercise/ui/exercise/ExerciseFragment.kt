@@ -1,4 +1,4 @@
-package com.exercise.health_exercise.ui.home
+package com.exercise.health_exercise.ui.exercise
 
 import android.content.Context
 import android.os.Bundle
@@ -8,20 +8,24 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.exercise.health_exercise.R
+import com.exercise.health_exercise.adapters.ExerciseListAdapter
 import com.exercise.health_exercise.adapters.HealthListAdapter
 import com.exercise.health_exercise.data.AppContents
 import com.exercise.health_exercise.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 
-class HomeFragment : BaseFragment() {
+class ExerciseFragment : BaseFragment() {
 
-    var adapter: HealthListAdapter? = null
+    var adapter: ExerciseListAdapter? = null
 
-    val homeViewModel by lazy {
-        ViewModelProvider(this, HomeViewModel.Factory(AppContents.currentActivity!!.application)).get(HomeViewModel::class.java)
+    val exerciseViewModel by lazy {
+        ViewModelProvider(this, ExerciseViewModel.Factory(AppContents.currentActivity!!.application)).get(
+            ExerciseViewModel::class.java)
     }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -29,18 +33,17 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
-        homeViewModel.getAllHealthList()?.observe(viewLifecycleOwner, Observer {
+        exerciseViewModel.getExerciseAllList()?.observe(viewLifecycleOwner, Observer {
             if (adapter == null) {
-                adapter = HealthListAdapter(mContext!!)
+                adapter = ExerciseListAdapter(mContext!!)
                 listHome.adapter = adapter
-                listHome.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                listHome.layoutManager = GridLayoutManager(mContext, 2)
             }
 
 //            var addData: HealthListData = HealthListData(-1, "Add your own workout", "A")
@@ -49,13 +52,6 @@ class HomeFragment : BaseFragment() {
             adapter!!.updateList(it)
         })
 
-        return root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-//        var healthListData : HealthListData = HealthListData(0L, "운동리스트 2", "D")
-//        homeViewModel.insertHealthList(healthListData)
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 }

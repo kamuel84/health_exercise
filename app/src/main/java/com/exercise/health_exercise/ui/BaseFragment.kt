@@ -1,6 +1,8 @@
 package com.exercise.health_exercise.ui
 
+import android.content.Context
 import androidx.fragment.app.Fragment
 
-class BaseFragment : Fragment() {
+open class BaseFragment : Fragment() {
+    var mContext:Context ?= null
 }
