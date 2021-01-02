@@ -14,6 +14,11 @@ import com.exercise.health_exercise.utils.ArrayUtils
 
 class ExerciseListAdapter(var context:Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var exerciseList : List<ExercisesData> ?= null
+
+    interface onExerciseListener{
+        fun onChecked(data:ExercisesData, position:Int)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(context)
         val itemView: View = inflater.inflate(R.layout.holder_exerciselist, parent, false)
@@ -22,7 +27,7 @@ class ExerciseListAdapter(var context:Context) : RecyclerView.Adapter<RecyclerVi
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as HolderExerciseItem).setExercise(exerciseList!!.get(position))
+        (holder as HolderExerciseItem).setExercise(exerciseList!!.get(position), position)
     }
 
     override fun getItemCount(): Int {
