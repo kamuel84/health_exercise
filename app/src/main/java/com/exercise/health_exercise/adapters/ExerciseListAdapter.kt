@@ -12,7 +12,7 @@ import com.exercise.health_exercise.data.exercises.ExercisesData
 import com.exercise.health_exercise.data.health_list.HealthListData
 import com.exercise.health_exercise.utils.ArrayUtils
 
-class ExerciseListAdapter(var context:Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ExerciseListAdapter(var context:Context, var listener:ExerciseListAdapter.onExerciseListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), HolderExerciseItem.onExerciseItemListener {
     var exerciseList : List<ExercisesData> ?= null
 
     interface onExerciseListener{
@@ -22,7 +22,7 @@ class ExerciseListAdapter(var context:Context) : RecyclerView.Adapter<RecyclerVi
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(context)
         val itemView: View = inflater.inflate(R.layout.holder_exerciselist, parent, false)
-        var holder : RecyclerView.ViewHolder = HolderExerciseItem(itemView)
+        var holder : RecyclerView.ViewHolder = HolderExerciseItem(itemView, this)
         return holder
     }
 
@@ -40,5 +40,9 @@ class ExerciseListAdapter(var context:Context) : RecyclerView.Adapter<RecyclerVi
     fun updateList(list: List<ExercisesData>){
         exerciseList = list
         notifyDataSetChanged()
+    }
+
+    override fun onCheck(data: ExercisesData, position: Int) {
+        listener.onChecked(data, position)
     }
 }

@@ -8,7 +8,7 @@ import com.exercise.health_exercise.data.exercises.ExercisesData
 import com.exercise.health_exercise.utils.ViewUtils
 import kotlinx.android.synthetic.main.holder_exerciselist.view.*
 
-class HolderExerciseItem(itemView:View):RecyclerView.ViewHolder(itemView) {
+class HolderExerciseItem(itemView:View, var listener:HolderExerciseItem.onExerciseItemListener):RecyclerView.ViewHolder(itemView) {
     interface onExerciseItemListener{
         fun onCheck(data:ExercisesData, position:Int)
     }
@@ -21,6 +21,8 @@ class HolderExerciseItem(itemView:View):RecyclerView.ViewHolder(itemView) {
             clExerciseItem_Root.setOnClickListener {
                 var exerciseItem : ExercisesData = it.getTag(R.id.list_data) as ExercisesData
                 var pos : Int = it.getTag(R.id.list_position).toString().toInt()
+
+                listener.onCheck(exerciseItem, pos)
             }
 
             if(data.check){
@@ -29,7 +31,7 @@ class HolderExerciseItem(itemView:View):RecyclerView.ViewHolder(itemView) {
                 clExerciseItem_Root.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
             }
 
-            ViewUtils.loadImage(data.health_Photo, null).into(ivExerciseItem_Image)
+            ViewUtils.loadGifImage(data.health_Photo, null).into(ivExerciseItem_Image)
 
         }
     }

@@ -15,10 +15,11 @@ import com.exercise.health_exercise.R
 import com.exercise.health_exercise.adapters.ExerciseListAdapter
 import com.exercise.health_exercise.adapters.HealthListAdapter
 import com.exercise.health_exercise.data.AppContents
+import com.exercise.health_exercise.data.exercises.ExercisesData
 import com.exercise.health_exercise.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 
-class ExerciseFragment : BaseFragment() {
+class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener {
 
     var adapter: ExerciseListAdapter? = null
 
@@ -42,7 +43,7 @@ class ExerciseFragment : BaseFragment() {
 
         exerciseViewModel.getExerciseAllList()?.observe(viewLifecycleOwner, Observer {
             if (adapter == null) {
-                adapter = ExerciseListAdapter(mContext!!)
+                adapter = ExerciseListAdapter(mContext!!, this)
                 listHome.adapter = adapter
                 listHome.layoutManager = GridLayoutManager(mContext, 2)
             }
@@ -54,5 +55,13 @@ class ExerciseFragment : BaseFragment() {
         })
 
         return root
+    }
+
+    override fun onChecked(data: ExercisesData, position: Int) {
+        exerciseViewModel.getExerciseAllList()?.observe(viewLifecycleOwner, Observer {
+            it.get(position).check = !it.get(position).check
+
+            adapter!!.updateList(it)
+        })
     }
 }

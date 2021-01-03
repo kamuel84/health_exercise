@@ -11,7 +11,7 @@ data class ExercisesData(
     val revert_count : Int,
     val play_Time : Long,
     val health_Notice : String,
-    val health_Photo : String) {
-    var check:Boolean = false
+    val health_Photo : String,
+    var check:Boolean = false) {
 
 }
