@@ -1,6 +1,7 @@
 package com.exercise.health_exercise.ui.home
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,18 +10,20 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.exercise.health_exercise.ExerciseApplication
 import com.exercise.health_exercise.R
 import com.exercise.health_exercise.adapters.HealthListAdapter
 import com.exercise.health_exercise.data.AppContents
 import com.exercise.health_exercise.ui.BaseFragment
+import com.exercise.health_exercise.ui.activitys.ListAddActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment(), HealthListAdapter.onHealthListListener {
 
     var adapter: HealthListAdapter? = null
 
     val homeViewModel by lazy {
-        ViewModelProvider(this, HomeViewModel.Factory(AppContents.currentActivity!!.application)).get(HomeViewModel::class.java)
+        ViewModelProvider(this, HomeViewModel.Factory(ExerciseApplication.currentActivity!!.application)).get(HomeViewModel::class.java)
     }
 
     override fun onAttach(context: Context) {
@@ -38,7 +41,7 @@ class HomeFragment : BaseFragment() {
 
         homeViewModel.getAllHealthList()?.observe(viewLifecycleOwner, Observer {
             if (adapter == null) {
-                adapter = HealthListAdapter(mContext!!)
+                adapter = HealthListAdapter(mContext!!, this)
                 listHome.adapter = adapter
                 listHome.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             }
@@ -57,5 +60,10 @@ class HomeFragment : BaseFragment() {
 
 //        var healthListData : HealthListData = HealthListData(0L, "운동리스트 2", "D")
 //        homeViewModel.insertHealthList(healthListData)
+    }
+
+    override fun onAdd() {
+        var intent : Intent = Intent(ExerciseApplication.currentActivity, ListAddActivity::class.java)
+        startActivityForResult(intent, AppContents.REQUEST_CODE_ADDLIST)
     }
 }

@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        AppContents.currentActivity = this
+        ExerciseApplication.currentActivity = this
 
         /** 플로팅 버튼 **/
 //        val fab: FloatingActionButton = findViewById(R.id.fab)

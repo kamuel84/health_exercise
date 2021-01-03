@@ -4,6 +4,6 @@ import android.app.Activity
 
 class AppContents {
     companion object{
-        var currentActivity : Activity ?= null
+        const val REQUEST_CODE_ADDLIST = 1000
     }
 }

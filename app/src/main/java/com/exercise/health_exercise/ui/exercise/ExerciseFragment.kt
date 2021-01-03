@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.exercise.health_exercise.ExerciseApplication
 import com.exercise.health_exercise.R
 import com.exercise.health_exercise.adapters.ExerciseListAdapter
 import com.exercise.health_exercise.adapters.HealthListAdapter
@@ -22,7 +23,7 @@ class ExerciseFragment : BaseFragment() {
     var adapter: ExerciseListAdapter? = null
 
     val exerciseViewModel by lazy {
-        ViewModelProvider(this, ExerciseViewModel.Factory(AppContents.currentActivity!!.application)).get(
+        ViewModelProvider(this, ExerciseViewModel.Factory(ExerciseApplication.currentActivity!!.application)).get(
             ExerciseViewModel::class.java)
     }
 
@@ -52,6 +53,6 @@ class ExerciseFragment : BaseFragment() {
             adapter!!.updateList(it)
         })
 
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return root
     }
 }
