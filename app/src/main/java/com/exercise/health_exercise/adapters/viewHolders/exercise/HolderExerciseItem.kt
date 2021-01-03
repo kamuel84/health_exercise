@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.exercise.health_exercise.R
 import com.exercise.health_exercise.data.exercises.ExercisesData
+import com.exercise.health_exercise.utils.ViewUtils
 import kotlinx.android.synthetic.main.holder_exerciselist.view.*
 
 class HolderExerciseItem(itemView:View):RecyclerView.ViewHolder(itemView) {
@@ -27,6 +28,8 @@ class HolderExerciseItem(itemView:View):RecyclerView.ViewHolder(itemView) {
             } else {
                 clExerciseItem_Root.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
             }
+
+            ViewUtils.loadImage(data.health_Photo, null).into(ivExerciseItem_Image)
 
         }
     }
