@@ -1,6 +1,7 @@
 package com.exercise.health_exercise.data.health_list_item
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import com.exercise.health_exercise.data.exercises.ExercisesDao
 import com.exercise.health_exercise.data.exercises.ExercisesData
 import com.exercise.health_exercise.database.AppDataBase
@@ -12,6 +13,10 @@ class HealthList_ItemRepository(application: Application) {
     init {
         val database = AppDataBase.getInstance(application)!!
         healthListItemDao = (database as AppDataBase).healthListItemDao()
+    }
+
+    fun getItemList():LiveData<List<HealthList_ItemsData>>{
+        return healthListItemDao.getAll()
     }
 
     fun healthListItemInsert(entity: HealthList_ItemsData) {

@@ -64,8 +64,8 @@ class SplashActivity : AppCompatActivity() {
             }
 
             var exerciseList:ArrayList<ExercisesData> = ArrayList<ExercisesData>()
-            exerciseList.add(ExercisesData(0L, "운동 1", 3, 300000, "운동설명!!!!", "i_11", false))
-            exerciseList.add(ExercisesData(0L, "운동 2", 5, 600000, "운동설명22222!!!!", "i_12", false))
+            exerciseList.add(ExercisesData(0L, "운동 1", 3, 30000, "운동설명!!!!", "i_11", false))
+            exerciseList.add(ExercisesData(0L, "운동 2", 5, 60000, "운동설명22222!!!!", "i_12", false))
 
             exerciseList.forEachIndexed { index, exercisesData ->
                 AppDataBase.getInstance(this).exercisesDao().insert(exercisesData)

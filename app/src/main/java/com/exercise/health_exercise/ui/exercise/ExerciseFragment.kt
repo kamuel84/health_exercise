@@ -17,6 +17,7 @@ import com.exercise.health_exercise.adapters.HealthListAdapter
 import com.exercise.health_exercise.data.AppContents
 import com.exercise.health_exercise.data.exercises.ExercisesData
 import com.exercise.health_exercise.ui.BaseFragment
+import com.exercise.health_exercise.ui.activitys.ListAddActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener {
@@ -57,9 +58,29 @@ class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener 
         return root
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        if (ExerciseApplication.currentActivity is ListAddActivity) {
+            (ExerciseApplication.currentActivity as ListAddActivity).step = 1
+        }
+    }
+
     override fun onChecked(data: ExercisesData, position: Int) {
         exerciseViewModel.getExerciseAllList()?.observe(viewLifecycleOwner, Observer {
             it.get(position).check = !it.get(position).check
+
+            if (ExerciseApplication.currentActivity is ListAddActivity) {
+                var selectData: HashMap<Int, ExercisesData> = (ExerciseApplication.currentActivity as ListAddActivity).selectList
+
+                if (it.get(position).check) {
+                    if (!selectData.containsKey(position))
+                        selectData.put(position, it.get(position))
+                } else {
+                    if(selectData.containsKey(position))
+                        selectData.remove(position)
+                }
+            }
 
             adapter!!.updateList(it)
         })
