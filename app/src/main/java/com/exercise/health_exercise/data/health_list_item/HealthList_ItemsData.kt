@@ -5,6 +5,7 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.exercise.health_exercise.data.exercises.ExercisesData
 import com.exercise.health_exercise.data.health_list.HealthListData
+import java.io.Serializable
 
 @Entity(
     tableName = "health_list_items",
@@ -20,5 +21,5 @@ data class HealthList_ItemsData(
     val health_index:Long,
     val revert_count:Int,
     val play_time:Long
-) {
+) : Serializable {
 }

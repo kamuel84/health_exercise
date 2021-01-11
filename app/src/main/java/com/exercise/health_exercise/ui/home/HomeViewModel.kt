@@ -31,6 +31,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         return healthList
     }
 
+    fun getTopHealthList() : HealthListData?{
+        return getAllHealthList()!!.value!!.get(0)
+    }
+
     class Factory(val application: Application):ViewModelProvider.Factory{
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return HomeViewModel(application) as T

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.annotation.MainThread
+import androidx.appcompat.widget.ViewUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -22,6 +23,7 @@ import com.exercise.health_exercise.adapters.SelectExerciseListAdapter
 import com.exercise.health_exercise.data.exercises.ExercisesData
 import com.exercise.health_exercise.data.health_list_item.HealthList_ItemsData
 import com.exercise.health_exercise.ui.BaseFragment
+import com.exercise.health_exercise.ui.activitys.ListAddActivity
 import com.exercise.health_exercise.ui.exercise.ExerciseViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -76,6 +78,26 @@ class CustomExerciseFragment : BaseFragment(), SelectExerciseListAdapter.onSelec
         })
 
         return root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        if (ExerciseApplication.currentActivity is ListAddActivity) {
+            (ExerciseApplication.currentActivity as ListAddActivity).step = 2
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (ExerciseApplication.currentActivity is ListAddActivity) {
+            var hsSelect:HashMap<Long, ExercisesData> = (ExerciseApplication.currentActivity as ListAddActivity).selectList
+            viewModel.exerciseList!!.value!!.forEachIndexed { index, exercisesData ->
+                hsSelect.put(exercisesData.idx, exercisesData)
+            }
+        }
+
+        Toast.makeText(mContext, "onPause!!!", Toast.LENGTH_SHORT).show()
     }
 
     override fun onCountUp(data: ExercisesData, position: Int) {
