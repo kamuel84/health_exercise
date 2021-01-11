@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/clExerciseItem_Root"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/teal_200">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/tvSelectItem_ExerciseTitle"
@@ -18,13 +17,37 @@
 
     <ImageView
         android:id="@+id/ivSelectItem_Image"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="150dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ivSelectItem_SortUp"
         app:layout_constraintTop_toBottomOf="@id/tvSelectItem_ExerciseTitle" />
+
+    <ImageView
+        android:id="@+id/ivSelectItem_SortUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:src="@drawable/ic_arrow_circle_down"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ivSelectItem_Image"
+        app:layout_constraintBottom_toTopOf="@id/ivSelectItem_SortDown"
+        app:layout_constraintVertical_bias="0.5"
+        />
+
+    <ImageView
+        android:id="@+id/ivSelectItem_SortDown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:src="@drawable/ic_arrow_circle_up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivSelectItem_SortUp"
+        app:layout_constraintBottom_toBottomOf="@id/ivSelectItem_Image"
+        app:layout_constraintVertical_bias="0.5"
+        />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clSelectItem_CountArea"

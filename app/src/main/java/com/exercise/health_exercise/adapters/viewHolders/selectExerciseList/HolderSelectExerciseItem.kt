@@ -17,6 +17,8 @@ class HolderSelectExerciseItem(itemView:View, var listener:HolderSelectExerciseI
         fun onCountDown(data:ExercisesData, position:Int)
         fun onIntervalUp(data:ExercisesData, position:Int)
         fun onIntervalDown(data:ExercisesData, position:Int)
+        fun onSortUp(data:ExercisesData, position:Int)
+        fun onSortDown(data:ExercisesData, position:Int)
     }
     fun setSelectExercise(data:ExercisesData, position:Int){
         with(itemView){
@@ -33,6 +35,12 @@ class HolderSelectExerciseItem(itemView:View, var listener:HolderSelectExerciseI
 
             ivSelectItem_IntervalRight.setTag(R.id.list_data, data)
             ivSelectItem_IntervalRight.setTag(R.id.list_position, position)
+
+            ivSelectItem_SortUp.setTag(R.id.list_data, data)
+            ivSelectItem_SortUp.setTag(R.id.list_position, position)
+
+            ivSelectItem_SortDown.setTag(R.id.list_data, data)
+            ivSelectItem_SortDown.setTag(R.id.list_position, position)
 
             ivSelectItem_CountLeft.setOnClickListener {
                 var data:ExercisesData = it.getTag(R.id.list_data) as ExercisesData
@@ -60,6 +68,20 @@ class HolderSelectExerciseItem(itemView:View, var listener:HolderSelectExerciseI
                 var pos:Int = it.getTag(R.id.list_position).toString().toInt()
 
                 listener.onIntervalUp(data, pos)
+            }
+
+            ivSelectItem_SortUp.setOnClickListener {
+                var data:ExercisesData = it.getTag(R.id.list_data) as ExercisesData
+                var pos:Int = it.getTag(R.id.list_position).toString().toInt()
+
+                listener.onSortUp(data, pos)
+            }
+
+            ivSelectItem_SortDown.setOnClickListener {
+                var data:ExercisesData = it.getTag(R.id.list_data) as ExercisesData
+                var pos:Int = it.getTag(R.id.list_position).toString().toInt()
+
+                listener.onSortDown(data, pos)
             }
 
             tvSelectItem_Count.text = data.revert_count.toString()

@@ -20,6 +20,8 @@ class SelectExerciseListAdapter(var context: Context, var listener:SelectExercis
         fun onCountDown(data:ExercisesData, position:Int)
         fun onIntervalUp(data:ExercisesData, position:Int)
         fun onIntervalDown(data:ExercisesData, position:Int)
+        fun onSortUp(data:ExercisesData, position:Int)
+        fun onSortDown(data:ExercisesData, position:Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -45,6 +47,11 @@ class SelectExerciseListAdapter(var context: Context, var listener:SelectExercis
         notifyDataSetChanged()
     }
 
+    fun updateSortList(position:Int) : List<ExercisesData>{
+        notifyItemMoved(position, position-1)
+        return itemList!!
+    }
+
     override fun onCountUp(data: ExercisesData, position: Int) {
         listener.onCountUp(data, position)
     }
@@ -59,5 +66,13 @@ class SelectExerciseListAdapter(var context: Context, var listener:SelectExercis
 
     override fun onIntervalDown(data: ExercisesData, position: Int) {
         listener.onIntervalDown(data, position)
+    }
+
+    override fun onSortUp(data: ExercisesData, position: Int) {
+        listener.onSortUp(data,position)
+    }
+
+    override fun onSortDown(data: ExercisesData, position: Int) {
+        listener.onSortDown(data,position)
     }
 }
