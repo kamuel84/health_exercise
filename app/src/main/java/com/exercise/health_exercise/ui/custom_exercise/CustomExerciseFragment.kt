@@ -7,12 +7,14 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.exercise.health_exercise.ExerciseApplication
 import com.exercise.health_exercise.R
 import com.exercise.health_exercise.adapters.ExerciseListAdapter
@@ -64,7 +66,7 @@ class CustomExerciseFragment : BaseFragment(), SelectExerciseListAdapter.onSelec
             if (adapter == null) {
                 adapter = SelectExerciseListAdapter(mContext!!, this)
                 listHome.adapter = adapter
-                listHome.layoutManager = GridLayoutManager(mContext, 2)
+                listHome.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)
             }
 //
 ////            var addData: HealthListData = HealthListData(-1, "Add your own workout", "A")
@@ -117,5 +119,27 @@ class CustomExerciseFragment : BaseFragment(), SelectExerciseListAdapter.onSelec
             viewModel.exerciseList!!.value!!.get(position).play_Time = time
             adapter!!.updateList(viewModel.exerciseList!!.value!!)
         }
+    }
+
+    override fun onSortUp(data: ExercisesData, position: Int) {
+        var insertPosition = position
+        var removePosition = position
+
+        if(insertPosition < 2)
+            insertPosition = 0
+        else
+            insertPosition = position -2
+
+        viewModel.exerciseList!!.value!!.add(insertPosition, data)
+        viewModel.exerciseList!!.value!!.removeAt(position + 1)
+
+        adapter!!.updateList(viewModel.exerciseList!!.value!!)
+    }
+
+    override fun onSortDown(data: ExercisesData, position: Int) {
+        viewModel.exerciseList!!.value!!.add(position+2, data)
+        viewModel.exerciseList!!.value!!.removeAt(position)
+
+        adapter!!.updateList(viewModel.exerciseList!!.value!!)
     }
 }
