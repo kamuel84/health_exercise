@@ -19,6 +19,10 @@ class HealthList_ItemRepository(application: Application) {
         return healthListItemDao.getAll()
     }
 
+    fun getCustomData():LiveData<List<HealthList_ItemJoinData>>{
+        return healthListItemDao.getCustomExerciseList()
+    }
+
     fun healthListItemInsert(entity: HealthList_ItemsData) {
         healthListItemDao.insert(entity)
     }

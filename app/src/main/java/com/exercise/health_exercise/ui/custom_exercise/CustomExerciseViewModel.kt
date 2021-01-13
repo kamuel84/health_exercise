@@ -5,6 +5,7 @@ import androidx.annotation.MainThread
 import androidx.lifecycle.*
 import com.exercise.health_exercise.data.exercises.ExercisesData
 import com.exercise.health_exercise.data.exercises.ExercisesRepository
+import com.exercise.health_exercise.data.health_list_item.HealthList_ItemJoinData
 import com.exercise.health_exercise.data.health_list_item.HealthList_ItemRepository
 import com.exercise.health_exercise.data.health_list_item.HealthList_ItemsData
 import com.exercise.health_exercise.ui.exercise.ExerciseViewModel
@@ -17,10 +18,12 @@ class CustomExerciseViewModel(application: Application) : AndroidViewModel(appli
         HealthList_ItemRepository(application)
     }
     var itemList:LiveData<List<HealthList_ItemsData>> ?= null
+    var customList:LiveData<List<HealthList_ItemJoinData>> ?= null
     var exerciseList:MutableLiveData<ArrayList<ExercisesData>> ?= null
 
     init {
         itemList = itemRepository.getItemList()
+        customList = itemRepository.getCustomData()
     }
 
     private val viewModelJob = Job()
@@ -28,6 +31,10 @@ class CustomExerciseViewModel(application: Application) : AndroidViewModel(appli
 
     fun getItemAllList():LiveData<List<HealthList_ItemsData>>?{
         return itemList
+    }
+
+    fun getCustomAllList():LiveData<List<HealthList_ItemJoinData>>?{
+        return customList
     }
 
     fun setExerciseList(list:ArrayList<ExercisesData>){
