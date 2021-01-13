@@ -10,12 +10,12 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.annotation.MainThread
+import androidx.appcompat.widget.ViewUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.exercise.health_exercise.ExerciseApplication
 import com.exercise.health_exercise.R
 import com.exercise.health_exercise.adapters.ExerciseListAdapter
@@ -23,6 +23,7 @@ import com.exercise.health_exercise.adapters.SelectExerciseListAdapter
 import com.exercise.health_exercise.data.exercises.ExercisesData
 import com.exercise.health_exercise.data.health_list_item.HealthList_ItemsData
 import com.exercise.health_exercise.ui.BaseFragment
+import com.exercise.health_exercise.ui.activitys.ListAddActivity
 import com.exercise.health_exercise.ui.exercise.ExerciseViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -79,6 +80,26 @@ class CustomExerciseFragment : BaseFragment(), SelectExerciseListAdapter.onSelec
         return root
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        if (ExerciseApplication.currentActivity is ListAddActivity) {
+            (ExerciseApplication.currentActivity as ListAddActivity).step = 2
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (ExerciseApplication.currentActivity is ListAddActivity) {
+            var hsSelect:HashMap<Long, ExercisesData> = (ExerciseApplication.currentActivity as ListAddActivity).selectList
+            viewModel.exerciseList!!.value!!.forEachIndexed { index, exercisesData ->
+                hsSelect.put(exercisesData.idx, exercisesData)
+            }
+        }
+
+        Toast.makeText(mContext, "onPause!!!", Toast.LENGTH_SHORT).show()
+    }
+
     override fun onCountUp(data: ExercisesData, position: Int) {
         var count = viewModel.exerciseList!!.value!!.get(position).revert_count
 
@@ -123,16 +144,24 @@ class CustomExerciseFragment : BaseFragment(), SelectExerciseListAdapter.onSelec
     }
 
     override fun onSortUp(data: ExercisesData, position: Int) {
-        viewModel.exerciseList!!.value!!.add(position-1, data)
-        viewModel.exerciseList!!.value!!.removeAt(position+1)
+        var insertPosition = position
+        var removePosition = position
 
-        adapter!!.updateList(viewModel!!.exerciseList!!.value!!)
+        if(insertPosition < 2)
+            insertPosition = 0
+        else
+            insertPosition = position -2
+
+        viewModel.exerciseList!!.value!!.add(insertPosition, data)
+        viewModel.exerciseList!!.value!!.removeAt(position + 1)
+
+        adapter!!.updateList(viewModel.exerciseList!!.value!!)
     }
 
     override fun onSortDown(data: ExercisesData, position: Int) {
-        viewModel.exerciseList!!.value!!.add(position+1, data)
-        viewModel.exerciseList!!.value!!.removeAt(position-1)
+        viewModel.exerciseList!!.value!!.add(position+2, data)
+        viewModel.exerciseList!!.value!!.removeAt(position)
 
-        adapter!!.updateList(viewModel!!.exerciseList!!.value!!)
+        adapter!!.updateList(viewModel.exerciseList!!.value!!)
     }
 }

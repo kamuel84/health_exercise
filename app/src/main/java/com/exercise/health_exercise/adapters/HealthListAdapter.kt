@@ -27,7 +27,7 @@ class HealthListAdapter(var context: Context, var listener:HealthListAdapter.onH
         val inflater = LayoutInflater.from(context)
         if(viewType == VIEWTYPE_ITME) {
             val itemView: View = inflater.inflate(R.layout.holder_healthlist, parent, false)
-            var holder: RecyclerView.ViewHolder = HolderHealthListItem(itemView)
+            var holder: RecyclerView.ViewHolder = HolderHealthListItem(context, itemView)
             return holder
         } else {
             val itemView: View = inflater.inflate(R.layout.holder_addlist, parent, false)

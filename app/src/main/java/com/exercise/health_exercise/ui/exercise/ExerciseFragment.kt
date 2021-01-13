@@ -71,14 +71,14 @@ class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener 
             it.get(position).check = !it.get(position).check
 
             if (ExerciseApplication.currentActivity is ListAddActivity) {
-                var selectData: HashMap<Int, ExercisesData> = (ExerciseApplication.currentActivity as ListAddActivity).selectList
+                var selectData: HashMap<Long, ExercisesData> = (ExerciseApplication.currentActivity as ListAddActivity).selectList
 
                 if (it.get(position).check) {
-                    if (!selectData.containsKey(position))
-                        selectData.put(position, it.get(position))
+                    if (!selectData.containsKey(data.idx))
+                        selectData.put(data.idx, it.get(position))
                 } else {
-                    if(selectData.containsKey(position))
-                        selectData.remove(position)
+                    if(selectData.containsKey(data.idx))
+                        selectData.remove(data.idx)
                 }
             }
 
