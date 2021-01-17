@@ -12,7 +12,9 @@ import com.exercise.health_exercise.data.health_list.HealthListData
 import com.exercise.health_exercise.utils.ArrayUtils
 
 
-class HealthListAdapter(var context: Context, var listener:HealthListAdapter.onHealthListListener): RecyclerView.Adapter<RecyclerView.ViewHolder>(), HolderListAdd.onAddHolderListener {
+class HealthListAdapter(var context: Context, var listener:HealthListAdapter.onHealthListListener): RecyclerView.Adapter<RecyclerView.ViewHolder>(),
+    HolderListAdd.onAddHolderListener,
+    HolderHealthListItem.onHolderHealthListListener{
 
     var healthList : List<HealthListData> ?= null
 
@@ -21,13 +23,14 @@ class HealthListAdapter(var context: Context, var listener:HealthListAdapter.onH
 
     interface onHealthListListener{
         fun onAdd()
+        fun onSelectItem(data : HealthListData, position:Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(context)
         if(viewType == VIEWTYPE_ITME) {
             val itemView: View = inflater.inflate(R.layout.holder_healthlist, parent, false)
-            var holder: RecyclerView.ViewHolder = HolderHealthListItem(context, itemView)
+            var holder: RecyclerView.ViewHolder = HolderHealthListItem(context, itemView, this)
             return holder
         } else {
             val itemView: View = inflater.inflate(R.layout.holder_addlist, parent, false)
@@ -41,7 +44,7 @@ class HealthListAdapter(var context: Context, var listener:HealthListAdapter.onH
             /** ADD View **/
             (holder as HolderListAdd).setAdd()
         } else
-            (holder as HolderHealthListItem).setHealthListItem(healthList!!.get(position))
+            (holder as HolderHealthListItem).setHealthListItem(healthList!!.get(position), position)
     }
 
     override fun getItemCount(): Int {
@@ -65,5 +68,9 @@ class HealthListAdapter(var context: Context, var listener:HealthListAdapter.onH
 
     override fun onAddClick() {
         listener.onAdd()
+    }
+
+    override fun onSelectItem(data: HealthListData, position: Int) {
+        listener.onSelectItem(data, position)
     }
 }

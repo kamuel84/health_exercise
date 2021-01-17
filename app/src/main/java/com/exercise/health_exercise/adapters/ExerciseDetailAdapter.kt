@@ -9,12 +9,15 @@ import com.exercise.health_exercise.R
 import com.exercise.health_exercise.adapters.viewHolders.exercise.HolderCustomExerciseItem
 import com.exercise.health_exercise.adapters.viewHolders.exercise.HolderExerciseItem
 import com.exercise.health_exercise.data.health_list_item.HealthList_ItemJoinData
+import com.exercise.health_exercise.utils.ArrayUtils
 
-class ExerciseDetailAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
+class ExerciseDetailAdapter(var context: Context, var listener : ExerciseDetailAdapter.onExerciseDetailListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     HolderCustomExerciseItem.onCustomExerciseListener{
 
+    var list : List<HealthList_ItemJoinData> ?= null
+
     interface onExerciseDetailListener{
-        fun onItemSelect(data:HealthList_ItemJoinData)
+        fun onItemSelect(data:HealthList_ItemJoinData, position:Int)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(context)
@@ -24,14 +27,22 @@ class ExerciseDetailAdapter(var context: Context) : RecyclerView.Adapter<Recycle
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        if(ArrayUtils().hasValue(list))
+            return list!!.size
+        else
+            return 0
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        (holder as HolderCustomExerciseItem).setCustomExercise(list!!.get(position), position)
     }
 
     override fun onItemSelect(data: HealthList_ItemJoinData, position: Int) {
-        TODO("Not yet implemented")
+        listener.onItemSelect(data, position)
+    }
+
+    fun updateList(list:List<HealthList_ItemJoinData>){
+        this.list = list
+        notifyDataSetChanged()
     }
 }

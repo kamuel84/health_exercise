@@ -5,6 +5,9 @@ import android.app.Activity
 class AppContents {
     companion object{
         const val REQUEST_CODE_ADDLIST = 1000
+        const val REQUEST_CODE_LISTDETAIL = 2000
+
+        const val INTENT_DATA_LIST_INDEX = "INTENT_DATA_LIST_INDEX"
 
         const val RESULT_DATA_TITLE = "RESULT_DATA_TITLE"
         const val RESULT_DATA_LISTDATA = "RESULT_DATA_LIST_DATA"

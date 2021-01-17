@@ -23,7 +23,6 @@ class CustomExerciseViewModel(application: Application) : AndroidViewModel(appli
 
     init {
         itemList = itemRepository.getItemList()
-        customList = itemRepository.getCustomData()
     }
 
     private val viewModelJob = Job()
@@ -33,7 +32,8 @@ class CustomExerciseViewModel(application: Application) : AndroidViewModel(appli
         return itemList
     }
 
-    fun getCustomAllList():LiveData<List<HealthList_ItemJoinData>>?{
+    fun getCustomAllList(index:Long):LiveData<List<HealthList_ItemJoinData>>?{
+        customList = itemRepository.getCustomData(index)
         return customList
     }
 

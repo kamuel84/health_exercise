@@ -11,22 +11,32 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.exercise.health_exercise.ExerciseApplication
 import com.exercise.health_exercise.R
+import com.exercise.health_exercise.adapters.ExerciseDetailAdapter
 import com.exercise.health_exercise.adapters.SelectExerciseListAdapter
+import com.exercise.health_exercise.data.AppContents
 import com.exercise.health_exercise.data.exercises.ExercisesData
+import com.exercise.health_exercise.data.health_list_item.HealthList_ItemJoinData
 import com.exercise.health_exercise.ui.BaseFragment
 import com.exercise.health_exercise.ui.custom_exercise.CustomExerciseFragment
 import com.exercise.health_exercise.ui.custom_exercise.CustomExerciseViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 
-class ExerciseDetailFragment:BaseFragment() {
+class ExerciseDetailFragment:BaseFragment(), ExerciseDetailAdapter.onExerciseDetailListener {
     val viewModel: CustomExerciseViewModel by lazy {
         ViewModelProvider(this, CustomExerciseViewModel.Factory(ExerciseApplication.currentActivity!!.application)).get(
             CustomExerciseViewModel::class.java)
     }
+    var adapter : ExerciseDetailAdapter ?= null
+
     companion object{
         @JvmStatic
-        fun newInstance() : ExerciseDetailFragment {
+        fun newInstance(index:Long) : ExerciseDetailFragment {
             var fragment: ExerciseDetailFragment = ExerciseDetailFragment()
+            var bundle : Bundle = Bundle()
+            bundle.putLong(AppContents.INTENT_DATA_LIST_INDEX, index)
+
+            fragment.arguments = bundle
+
             return fragment
         }
     }
@@ -42,9 +52,13 @@ class ExerciseDetailFragment:BaseFragment() {
     ): View? {
         var rootView:View = inflater.inflate(R.layout.fragment_home, container, false)
 
-        viewModel.customList?.observe(viewLifecycleOwner, Observer {
+        var idx:Long = 0
+        if(arguments != null)
+            idx = requireArguments().getLong(AppContents.INTENT_DATA_LIST_INDEX, 0)
+
+        viewModel.getCustomAllList(idx)?.observe(viewLifecycleOwner, Observer {
             if (adapter == null) {
-                adapter = SelectExerciseListAdapter(mContext!!, this)
+                adapter = ExerciseDetailAdapter(mContext!!, this)
                 listHome.adapter = adapter
                 listHome.layoutManager = GridLayoutManager(mContext, 2)
             }
@@ -56,5 +70,9 @@ class ExerciseDetailFragment:BaseFragment() {
         })
 
         return rootView
+    }
+
+    override fun onItemSelect(data: HealthList_ItemJoinData, position: Int) {
+        TODO("Not yet implemented")
     }
 }

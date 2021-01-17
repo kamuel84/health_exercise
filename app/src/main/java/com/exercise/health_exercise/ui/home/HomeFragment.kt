@@ -21,6 +21,7 @@ import com.exercise.health_exercise.data.exercises.ExercisesData
 import com.exercise.health_exercise.data.health_list.HealthListData
 import com.exercise.health_exercise.data.health_list_item.HealthList_ItemsData
 import com.exercise.health_exercise.ui.BaseFragment
+import com.exercise.health_exercise.ui.activitys.ExerciseDetailActivity
 import com.exercise.health_exercise.ui.activitys.ListAddActivity
 import com.exercise.health_exercise.ui.custom_exercise.CustomExerciseViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -82,10 +83,9 @@ class HomeFragment : BaseFragment(), HealthListAdapter.onHealthListListener {
                 if(data != null){
                     var listData : HealthListData = data.getSerializableExtra(AppContents.RESULT_DATA_LISTDATA) as HealthListData
                     var healthList : ArrayList<ExercisesData> = data.getSerializableExtra(AppContents.RESULT_DATA_HEALTHLIST) as ArrayList<ExercisesData>
-
                     homeViewModel.insertHealthList(listData)
-                    var listIndex : Long = homeViewModel.getTopHealthList()!!.idx
 
+                    var listIndex : Long = homeViewModel.getLastIndex()
                     healthList.forEachIndexed { index, exercisesData ->
                         var customExerciseItem : HealthList_ItemsData = HealthList_ItemsData(0L, listIndex, exercisesData.idx, exercisesData.revert_count, exercisesData.play_Time)
                         customExerciseViewModel.insertItem(customExerciseItem)
@@ -98,5 +98,12 @@ class HomeFragment : BaseFragment(), HealthListAdapter.onHealthListListener {
     override fun onAdd() {
         var intent : Intent = Intent(ExerciseApplication.currentActivity, ListAddActivity::class.java)
         startActivityForResult(intent, AppContents.REQUEST_CODE_ADDLIST)
+    }
+
+    override fun onSelectItem(data: HealthListData, position: Int) {
+        var intent:Intent = Intent(ExerciseApplication.currentActivity, ExerciseDetailActivity::class.java)
+        intent.putExtra(AppContents.INTENT_DATA_LIST_INDEX, data.idx)
+
+        startActivityForResult(intent, AppContents.REQUEST_CODE_LISTDETAIL)
     }
 }
