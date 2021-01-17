@@ -27,15 +27,23 @@ class ExerciseDetailFragment:BaseFragment(), ExerciseDetailAdapter.onExerciseDet
             CustomExerciseViewModel::class.java)
     }
     var adapter : ExerciseDetailAdapter ?= null
+    var idx:Long = 0
+
+    interface onExerciseDetailListener{
+        fun onItemSelect(idx:Long)
+    }
 
     companion object{
+        var listener:ExerciseDetailFragment.onExerciseDetailListener ?= null
+
         @JvmStatic
-        fun newInstance(index:Long) : ExerciseDetailFragment {
+        fun newInstance(index:Long, listener:ExerciseDetailFragment.onExerciseDetailListener) : ExerciseDetailFragment {
             var fragment: ExerciseDetailFragment = ExerciseDetailFragment()
             var bundle : Bundle = Bundle()
             bundle.putLong(AppContents.INTENT_DATA_LIST_INDEX, index)
-
             fragment.arguments = bundle
+
+            this.listener = listener
 
             return fragment
         }
@@ -52,7 +60,6 @@ class ExerciseDetailFragment:BaseFragment(), ExerciseDetailAdapter.onExerciseDet
     ): View? {
         var rootView:View = inflater.inflate(R.layout.fragment_home, container, false)
 
-        var idx:Long = 0
         if(arguments != null)
             idx = requireArguments().getLong(AppContents.INTENT_DATA_LIST_INDEX, 0)
 
@@ -73,6 +80,7 @@ class ExerciseDetailFragment:BaseFragment(), ExerciseDetailAdapter.onExerciseDet
     }
 
     override fun onItemSelect(data: HealthList_ItemJoinData, position: Int) {
-        TODO("Not yet implemented")
+        if(listener != null)
+            listener!!.onItemSelect(idx)
     }
 }

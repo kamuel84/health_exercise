@@ -1,5 +1,6 @@
 package com.exercise.health_exercise.ui.exercise_detail
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,11 +8,17 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import com.exercise.health_exercise.ExerciseApplication
 import com.exercise.health_exercise.R
 import com.exercise.health_exercise.adapters.ExerciseDetailAdapter
+import com.exercise.health_exercise.adapters.ExerciseDetailItemAdapter
+import com.exercise.health_exercise.data.AppContents
 import com.exercise.health_exercise.ui.BaseFragment
+import com.exercise.health_exercise.ui.activitys.ExerciseDetailActivity
 import com.exercise.health_exercise.ui.custom_exercise.CustomExerciseViewModel
+import kotlinx.android.synthetic.main.activity_exercise_detail.*
+import kotlinx.android.synthetic.main.fragment_exercise_item_detail.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class ExerciseItemDetailFragment:BaseFragment() {
@@ -20,19 +27,54 @@ class ExerciseItemDetailFragment:BaseFragment() {
             CustomExerciseViewModel::class.java)
     }
 
+    var adapter : ExerciseDetailItemAdapter ?= null
+
+    companion object{
+        @JvmStatic
+        fun newInstance(index:Long) : ExerciseItemDetailFragment {
+            var fragment: ExerciseItemDetailFragment = ExerciseItemDetailFragment()
+            var bundle : Bundle = Bundle()
+            bundle.putLong(AppContents.INTENT_DATA_LIST_INDEX, index)
+
+            fragment.arguments = bundle
+
+            return fragment
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        /** 페이저 넣어야 함 **/
         var rootView:View = inflater.inflate(R.layout.fragment_exercise_item_detail, container, false)
 
-        viewModel.customList?.observe(viewLifecycleOwner, Observer {
-        })
+        var idx:Long = 0
+        if(arguments != null)
+            idx = requireArguments().getLong(AppContents.INTENT_DATA_LIST_INDEX, 0)
 
+        viewModel.getCustomAllList(idx)?.observe(viewLifecycleOwner, Observer {
+            if(adapter == null){
+                adapter = ExerciseDetailItemAdapter(mContext!!)
+                vpItemDetail.adapter = adapter
+                vpItemDetail.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+                    override fun onPageSelected(position: Int) {
+                        super.onPageSelected(position)
+
+                        if(ExerciseApplication.currentActivity is ExerciseDetailActivity){
+                            (ExerciseApplication.currentActivity as ExerciseDetailActivity).toolbar.title = it.get(position).health_title
+                        }
+                    }
+                })
+            }
+
+            adapter!!.updateList(it)
+        })
         return rootView
-        return super.onCreateView(inflater, container, savedInstanceState)
     }
 }
