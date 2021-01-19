@@ -11,6 +11,7 @@
     <color name="color_999999">#999999</color>
     <color name="color_99ccff">#99ccff</color>
     <color name="color_e5e5e5">#e5e5e5</color>
+    <color name="color_ff0000">#ff0000</color>
 
     <color name="color_font_black">@color/black</color>
 </resources>
