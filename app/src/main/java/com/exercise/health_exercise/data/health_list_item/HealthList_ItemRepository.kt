@@ -1,6 +1,7 @@
 package com.exercise.health_exercise.data.health_list_item
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.exercise.health_exercise.data.exercises.ExercisesDao
 import com.exercise.health_exercise.data.exercises.ExercisesData
@@ -17,6 +18,11 @@ class HealthList_ItemRepository(application: Application) {
 
     fun getItemList():LiveData<List<HealthList_ItemsData>>{
         return healthListItemDao.getAll()
+    }
+
+    fun getCustomData(index:Long):LiveData<List<HealthList_ItemJoinData>>{
+        Log.d("kamuel", "index ::: $index")
+        return healthListItemDao.getCustomExerciseList(index)
     }
 
     fun healthListItemInsert(entity: HealthList_ItemsData) {

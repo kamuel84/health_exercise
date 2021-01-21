@@ -31,8 +31,16 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         return healthList
     }
 
+    fun getLastIndex():Long{
+        return healthListRepository.healthLastIndex()
+    }
+
     fun getTopHealthList() : HealthListData?{
-        return getAllHealthList()!!.value!!.get(0)
+        var size : Int = getAllHealthList()!!.value!!.size
+        if(size > 0)
+            size = size-1
+
+        return getAllHealthList()!!.value!!.get(size)
     }
 
     class Factory(val application: Application):ViewModelProvider.Factory{
