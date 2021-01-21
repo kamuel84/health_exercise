@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
+import android.util.Log
+import androidx.annotation.MainThread
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -14,6 +16,8 @@ import com.exercise.health_exercise.data.AppContents
 import com.exercise.health_exercise.data.health_list_item.HealthList_ItemJoinData
 import com.exercise.health_exercise.ui.custom_exercise.CustomExerciseViewModel
 import com.exercise.health_exercise.utils.ArrayUtils
+import com.exercise.health_exercise.utils.ViewUtils
+import kotlinx.android.synthetic.main.activity_exercise.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class ExerciseActivity :BaseActivity(){
@@ -23,21 +27,36 @@ class ExerciseActivity :BaseActivity(){
                 if(msg.what == 0) {
                     if (!isPause) {
                         if(isReady) {
-                            playCount -= 1000
+                            runOnUiThread {
+                                playCount -= 1
+                                Log.d("kamuel", "playCount ::: $playCount")
+                                tvExercise_Count.text = "$playCount sec"
+                                pbExercise_PlayTime.progress = playCount.toInt()
+                                if(playCount == 0) {
+                                    isReady = false
+                                    playCount = 0
 
-                            if(playCount == 0) {
-
-                                isReady = false
-                                playCount = 0
+                                    pbExercise_PlayTime.max = maxCount.toInt()
+                                }
 
                                 handler.sendEmptyMessageDelayed(0, 1000)
                             }
-
                         } else {
-                            playCount += 1000
+                            runOnUiThread {
+                                playCount += 1000
 
-                            if(maxCount == playCount)
-                                handler.sendEmptyMessage(1)
+                                pbExercise_PlayTime.progress = playCount.toInt()
+
+                                var timeCount : Int = playCount / exercisePlayTime
+                                timeCount = exerciseCount - timeCount
+
+                                tvExercise_Count.text = "$timeCount ea"
+
+                                if(maxCount == playCount)
+                                    handler.sendEmptyMessage(1)
+                                else
+                                    handler.sendEmptyMessageDelayed(0, 1000)
+                            }
 
                         }
 
@@ -60,9 +79,12 @@ class ExerciseActivity :BaseActivity(){
     }
 
     var maxCount : Int = 0
-    var playCount : Int = 10000
-    var isPause : Boolean = false
+    var playCount : Int = 10
+    var isPause : Boolean = true
     var isReady : Boolean = true
+
+    var exerciseCount : Int = 0
+    var exercisePlayTime : Int = 0
     var idx:Long = 0
     var currentPos : Int = 0
 
@@ -86,9 +108,52 @@ class ExerciseActivity :BaseActivity(){
             setExerciseInfo(currentPos)
         })
 
+        ivExercise_Pre.setOnClickListener {
+            if(currentPos > 0) {
+                currentPos -= 1
+
+                if (currentPos < 0)
+                    currentPos = 0
+
+                isPause = true
+                isReady = true
+                ivExercise_Play.setImageResource(R.drawable.ic_play)
+
+                setExerciseInfo(currentPos)
+
+                /** currentPos 가 0이 되면 Pre 버튼 회색 처리 해야 할 듯 **/
+            }
+        }
+
+        ivExercise_Next.setOnClickListener {
+            if(currentPos < exerciseList!!.size-1){
+                currentPos += 1
+                isPause = true
+                isReady = true
+                ivExercise_Play.setImageResource(R.drawable.ic_play)
+                setExerciseInfo(currentPos)
+            }
+        }
+
+        ivExercise_Play.setOnClickListener {
+            if(!isPause){
+                ivExercise_Play.setImageResource(R.drawable.ic_play)
+            } else {
+                ivExercise_Play.setImageResource(R.drawable.ic_pause)
+                handler.sendEmptyMessage(0)
+            }
+
+            isPause = !isPause
+        }
     }
 
     fun setExerciseInfo(position:Int){
         /** 운동 이미지 바인딩 **/
+        var itemData : HealthList_ItemJoinData = exerciseList!!.get(position)
+        ViewUtils.loadGifImage(itemData.health_image_url, null).into(ivExercise_Image)
+
+        exerciseCount = itemData.custom_count
+        exercisePlayTime = itemData.custom_play_time.toInt()
+        maxCount = itemData.custom_count * itemData.custom_play_time.toInt()
     }
 }

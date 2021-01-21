@@ -35,6 +35,7 @@
             android:layout_marginEnd="5dp"
             android:text="운동상세"/>
         <Button
+            android:id="@+id/btnExerciseDetail_Start"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_weight="1"

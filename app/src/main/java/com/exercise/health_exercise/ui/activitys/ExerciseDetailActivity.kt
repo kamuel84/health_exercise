@@ -1,5 +1,6 @@
 package com.exercise.health_exercise.ui.activitys
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
@@ -16,6 +17,8 @@ import kotlinx.android.synthetic.main.activity_exercise_detail.*
 
 class ExerciseDetailActivity : BaseActivity(), ExerciseDetailFragment.onExerciseDetailListener {
 
+    var longExerciseIndex : Long = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercise_detail)
@@ -23,7 +26,16 @@ class ExerciseDetailActivity : BaseActivity(), ExerciseDetailFragment.onExercise
 
         ExerciseApplication.currentActivity = this
 
-        var exerciseDetailFragment: ExerciseDetailFragment = ExerciseDetailFragment.newInstance(intent.getLongExtra(AppContents.INTENT_DATA_LIST_INDEX, 0), this)
+        longExerciseIndex = intent.getLongExtra(AppContents.INTENT_DATA_LIST_INDEX, 0)
+
+        btnExerciseDetail_Start.setOnClickListener {
+            var exerciseStartItent : Intent = Intent(this@ExerciseDetailActivity, ExerciseActivity::class.java)
+            exerciseStartItent.putExtra(AppContents.INTENT_DATA_LIST_INDEX, longExerciseIndex)
+            startActivity(exerciseStartItent)
+
+        }
+
+        var exerciseDetailFragment: ExerciseDetailFragment = ExerciseDetailFragment.newInstance(longExerciseIndex, this)
         pushFragment(R.id.flContent, exerciseDetailFragment)
 
         toolbar.title = resources.getString(R.string.menu_exercise_detail_list)
