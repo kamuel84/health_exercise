@@ -9,6 +9,7 @@ class ExerciseApplication : MultiDexApplication() {
     companion object{
         @JvmField
         var instance:ExerciseApplication ?= null
+
         @JvmField
         var currentActivity:Activity?=null
 

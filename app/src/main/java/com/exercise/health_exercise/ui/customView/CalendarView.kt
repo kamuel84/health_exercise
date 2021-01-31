@@ -16,7 +16,13 @@ import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
+import com.exercise.health_exercise.ExerciseApplication
 import com.exercise.health_exercise.R
+import com.exercise.health_exercise.data.playExercise.PlayExerciseData
+import com.exercise.health_exercise.data.view_models.PlayExerciseViewModel
+import com.exercise.health_exercise.ui.exercise.ExerciseFragment
+import com.exercise.health_exercise.ui.exercise.ExerciseViewModel
 import com.exercise.health_exercise.utils.DateUtils
 import com.exercise.health_exercise.utils.FormatUtils
 import com.exercise.health_exercise.utils.ViewUtils
@@ -50,7 +56,7 @@ class CalendarView : LinearLayout, View.OnClickListener {
 
     private var listener: onCalendarListener? = null
 
-    private var reservationItemData: ArrayList<ReservationItemData> = ArrayList<ReservationItemData>()
+    private var reservationItemData: ArrayList<PlayExerciseData> = ArrayList<PlayExerciseData>()
 
     private var textViewListener: View.OnClickListener = View.OnClickListener {
         var selectTextView: TextView = it as TextView
@@ -258,7 +264,7 @@ class CalendarView : LinearLayout, View.OnClickListener {
 
         if (reservationItemData != null && reservationItemData.size > 0) {
             reservationItemData.forEachIndexed { index, reservationItemData ->
-                setReservtionData(reservationItemData.reservationDate, true)
+                setReservtionData(reservationItemData.strDate, true)
             }
         }
     }
@@ -417,7 +423,7 @@ class CalendarView : LinearLayout, View.OnClickListener {
         }
     }
 
-    fun setReservationData(reservationArray: ArrayList<ReservationItemData>) {
+    fun setReservationData(reservationArray: ArrayList<PlayExerciseData>) {
         this.reservationItemData = reservationArray
 
         Handler().postDelayed({

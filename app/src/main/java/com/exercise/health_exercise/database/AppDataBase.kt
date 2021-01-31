@@ -11,6 +11,7 @@ import com.exercise.health_exercise.data.health_list.HealthListDao
 import com.exercise.health_exercise.data.health_list.HealthListData
 import com.exercise.health_exercise.data.health_list_item.HealthList_ItemDao
 import com.exercise.health_exercise.data.health_list_item.HealthList_ItemsData
+import com.exercise.health_exercise.data.playExercise.PlayExerciseDao
 
 @Database(entities = arrayOf(HealthListData::class, ExercisesData::class, HealthList_ItemsData::class), version = 1, exportSchema = true)
 open abstract class AppDataBase : RoomDatabase() {
@@ -18,6 +19,7 @@ open abstract class AppDataBase : RoomDatabase() {
     abstract fun exercisesDao() : ExercisesDao
     abstract fun healthListItemDao() : HealthList_ItemDao
     abstract fun healthListDao() : HealthListDao
+    abstract fun playExerciseDao() : PlayExerciseDao
 
     companion object{
         private val DB_NAME = "health_exercise-db"
