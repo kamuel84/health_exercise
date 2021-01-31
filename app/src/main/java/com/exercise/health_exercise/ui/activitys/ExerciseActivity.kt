@@ -1,5 +1,6 @@
 package com.exercise.health_exercise.ui.activitys
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -28,6 +29,10 @@ class ExerciseActivity :BaseActivity(){
                     if (!isPause) {
                         if(isReady) {
                             runOnUiThread {
+                                //카운트 다운 소리 시작
+                                media = MediaPlayer.create(this@ExerciseActivity, R.raw.countdown)
+                                media!!.start()
+
                                 playCount -= 1
                                 Log.d("kamuel", "playCount ::: $playCount")
                                 tvExercise_Count.text = "$playCount sec"
@@ -38,7 +43,6 @@ class ExerciseActivity :BaseActivity(){
 
                                     pbExercise_PlayTime.max = maxCount.toInt()
                                 }
-
                                 handler.sendEmptyMessageDelayed(0, 1000)
                             }
                         } else {
@@ -50,7 +54,12 @@ class ExerciseActivity :BaseActivity(){
                                 var timeCount : Int = playCount / exercisePlayTime
                                 timeCount = exerciseCount - timeCount
 
-                                tvExercise_Count.text = "$timeCount ea"
+                                if(preTimeCount == 0 || timeCount != preTimeCount) {
+                                    preTimeCount = timeCount
+                                    media = MediaPlayer.create(this@ExerciseActivity, R.raw.exercisecount)
+                                    media!!.start()
+                                    tvExercise_Count.text = "$timeCount ea"
+                                }
 
                                 if(maxCount == playCount)
                                     handler.sendEmptyMessage(1)
@@ -65,11 +74,15 @@ class ExerciseActivity :BaseActivity(){
                     /** next 운동
                      * 다음 운동이 없을 경우 종료 **/
 
+                    isPause = true
                     isReady = true
 
                     if(ArrayUtils().hasValue(exerciseList)){
                         currentPos ++
                         setExerciseInfo(currentPos)
+
+                        isPause = false
+                        handler.sendEmptyMessageDelayed(0, 1000)
                     }
 
 
@@ -77,6 +90,8 @@ class ExerciseActivity :BaseActivity(){
             }
         }
     }
+
+    var media : MediaPlayer ? = null
 
     var maxCount : Int = 0
     var playCount : Int = 10
@@ -87,6 +102,7 @@ class ExerciseActivity :BaseActivity(){
     var exercisePlayTime : Int = 0
     var idx:Long = 0
     var currentPos : Int = 0
+    var preTimeCount : Int = 0
 
     val viewModel: CustomExerciseViewModel by lazy {
         ViewModelProvider(this, CustomExerciseViewModel.Factory(ExerciseApplication.currentActivity!!.application)).get(
@@ -116,7 +132,6 @@ class ExerciseActivity :BaseActivity(){
                     currentPos = 0
 
                 isPause = true
-                isReady = true
                 ivExercise_Play.setImageResource(R.drawable.ic_play)
 
                 setExerciseInfo(currentPos)
@@ -129,7 +144,6 @@ class ExerciseActivity :BaseActivity(){
             if(currentPos < exerciseList!!.size-1){
                 currentPos += 1
                 isPause = true
-                isReady = true
                 ivExercise_Play.setImageResource(R.drawable.ic_play)
                 setExerciseInfo(currentPos)
             }
@@ -151,6 +165,9 @@ class ExerciseActivity :BaseActivity(){
         /** 운동 이미지 바인딩 **/
         var itemData : HealthList_ItemJoinData = exerciseList!!.get(position)
         ViewUtils.loadGifImage(itemData.health_image_url, null).into(ivExercise_Image)
+
+        pbExercise_PlayTime.progress = 0
+        playCount = 10
 
         exerciseCount = itemData.custom_count
         exercisePlayTime = itemData.custom_play_time.toInt()
