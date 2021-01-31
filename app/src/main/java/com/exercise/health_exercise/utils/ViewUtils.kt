@@ -1,8 +1,9 @@
 package com.exercise.health_exercise.utils
 
-import android.R.id
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.util.DisplayMetrics
+import android.util.TypedValue
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.resource.gif.GifDrawable
@@ -46,6 +47,19 @@ class ViewUtils {
                 .load(url)
                 .apply(options)
 
+        }
+
+        @JvmStatic
+        fun dp2px(context: Context, dp: Float): Int {
+            val mat = context.resources.displayMetrics
+            val px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, mat)
+            return px.toInt()
+        }
+
+        @JvmStatic
+        fun px2dp(context: Context, px: Float): Float {
+            val mat = context.resources.displayMetrics
+            return px / (mat.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
         }
 
     }
