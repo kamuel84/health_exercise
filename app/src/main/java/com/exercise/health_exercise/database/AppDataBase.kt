@@ -13,7 +13,7 @@ import com.exercise.health_exercise.data.health_list_item.HealthList_ItemDao
 import com.exercise.health_exercise.data.health_list_item.HealthList_ItemsData
 import com.exercise.health_exercise.data.playExercise.PlayExerciseDao
 
-@Database(entities = arrayOf(HealthListData::class, ExercisesData::class, HealthList_ItemsData::class), version = 1, exportSchema = true)
+@Database(entities = arrayOf(HealthListData::class, ExercisesData::class, HealthList_ItemsData::class), version = 2, exportSchema = true)
 open abstract class AppDataBase : RoomDatabase() {
 
     abstract fun exercisesDao() : ExercisesDao
