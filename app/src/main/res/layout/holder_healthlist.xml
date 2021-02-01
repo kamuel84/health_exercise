@@ -26,13 +26,13 @@
             android:text="Title"
             android:textSize="18dp"
             android:textStyle="bold"
-            android:textColor="@color/white"/>
+            android:textColor="@color/color_white"/>
         <TextView
             android:id="@+id/tvList_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="subtitle"
-            android:textColor="@color/white"
+            android:textColor="@color/color_white"
             android:textSize="14dp"/>
     </LinearLayout>
 

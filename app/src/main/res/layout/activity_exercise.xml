@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/color_white">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clExercise_TitleArea"
         android:layout_width="match_parent"
@@ -57,7 +57,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             app:layout_constraintStart_toEndOf="@id/ivExercise_Pre"
-            app:layout_constraintEnd_toEndOf="@id/ivExercise_Next"/>
+            app:layout_constraintEnd_toStartOf="@id/ivExercise_Next"/>
         <ImageView
             android:id="@+id/ivExercise_Next"
             android:layout_width="wrap_content"

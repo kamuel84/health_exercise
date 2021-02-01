@@ -5,7 +5,7 @@
     android:id="@+id/clExerciseItem_Root"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:background="@color/white">
+    android:background="@color/color_white">
 
     <TextView
         android:id="@+id/tvExerciseItem_Title"

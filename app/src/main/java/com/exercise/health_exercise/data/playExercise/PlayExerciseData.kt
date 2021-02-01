@@ -2,6 +2,7 @@ package com.exercise.health_exercise.data.playExercise
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(tableName = "play_exercise")
 data class PlayExerciseData(
@@ -9,5 +10,5 @@ data class PlayExerciseData(
     val idx : Long,
     val strDate:String,
     val healthListItemIdx:Long
-) {
+):Serializable {
 }
