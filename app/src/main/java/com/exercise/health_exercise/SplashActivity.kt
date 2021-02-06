@@ -76,11 +76,11 @@ class SplashActivity : AppCompatActivity() {
             var exerciseList:ArrayList<ExercisesData> = ArrayList<ExercisesData>()
             /** ExercisesData(자동증가, 운동 Title, 운동 반복횟수, 운동 시간) **/
             /** idx = 1**/
-            exerciseList.add(ExercisesData(0L, "운동 1", 3, 30000, "운동설명!!!!", "i_11", false))
+            exerciseList.add(ExercisesData(0L, "운동 1", 3, 30000, "운동설명!!!!", "execrise1", false))
             /** idx = 2**/
-            exerciseList.add(ExercisesData(0L, "운동 2", 5, 60000, "운동설명22222!!!!", "i_12", false))
+            exerciseList.add(ExercisesData(0L, "운동 2", 5, 60000, "운동설명22222!!!!", "execrise2", false))
             /** idx = 3**/
-            exerciseList.add(ExercisesData(0L, "운동 3", 4, 20000, "운동설명333333!!!!", "i_13", false))
+            exerciseList.add(ExercisesData(0L, "운동 3", 4, 20000, "운동설명333333!!!!", "execrise3", false))
             /** idx = 4**/
             exerciseList.add(ExercisesData(0L, "운동 4", 2, 25000, "운동설명444444!!!!", "i_14", false))
             /** idx = 5**/

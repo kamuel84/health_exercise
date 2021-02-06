@@ -108,6 +108,7 @@ class ExerciseActivity :BaseActivity(){
         ViewModelProvider(this, CustomExerciseViewModel.Factory(ExerciseApplication.currentActivity!!.application)).get(
             CustomExerciseViewModel::class.java)
     }
+
     var exerciseList:List<HealthList_ItemJoinData> ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -17,4 +17,12 @@ class PlayExerciseRepository(application: Application) {
     fun getItemList(): LiveData<List<PlayExerciseData>> {
         return playExerciseDao.getAll()
     }
+
+    fun insertPlayData(itemData:PlayExerciseData){
+        playExerciseDao.insert(itemData)
+    }
+
+    fun updatePlayData(itemData:PlayExerciseData){
+        playExerciseDao.update(itemData)
+    }
 }

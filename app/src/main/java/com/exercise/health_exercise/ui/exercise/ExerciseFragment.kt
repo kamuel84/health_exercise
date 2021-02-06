@@ -18,6 +18,7 @@ import com.exercise.health_exercise.data.AppContents
 import com.exercise.health_exercise.data.exercises.ExercisesData
 import com.exercise.health_exercise.ui.BaseFragment
 import com.exercise.health_exercise.ui.activitys.ListAddActivity
+import com.exercise.health_exercise.ui.itemDecoration.gridItemDecoration
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener {
@@ -46,7 +47,10 @@ class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener 
             if (adapter == null) {
                 adapter = ExerciseListAdapter(mContext!!, this)
                 listHome.adapter = adapter
-                listHome.layoutManager = GridLayoutManager(mContext, 2)
+                var gridLayoutManager = GridLayoutManager(mContext, 2)
+                listHome.layoutManager = gridLayoutManager
+                listHome.addItemDecoration(gridItemDecoration(mContext!!))
+
             }
 
 //            var addData: HealthListData = HealthListData(-1, "Add your own workout", "A")

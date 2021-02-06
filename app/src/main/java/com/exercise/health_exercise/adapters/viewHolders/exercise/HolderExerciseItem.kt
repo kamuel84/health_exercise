@@ -26,9 +26,9 @@ class HolderExerciseItem(itemView:View, var listener:HolderExerciseItem.onExerci
             }
 
             if(data.check){
-                clExerciseItem_Root.setBackgroundColor(ContextCompat.getColor(context, R.color.color_99ccff))
+                cbExerciseItem_Check.isChecked = true
             } else {
-                clExerciseItem_Root.setBackgroundColor(ContextCompat.getColor(context, R.color.color_white))
+                cbExerciseItem_Check.isChecked = false
             }
 
             ViewUtils.loadGifImage(data.health_Photo, null).into(ivExerciseItem_Image)
