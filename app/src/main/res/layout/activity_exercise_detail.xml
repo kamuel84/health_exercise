@@ -28,6 +28,7 @@
         android:layout_gravity="bottom"
         android:paddingBottom="10dp">
         <Button
+            android:id="@+id/btnExerciseDetail_Detail"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_weight="1"

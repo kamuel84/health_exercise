@@ -31,7 +31,7 @@ class gridItemDecoration : RecyclerView.ItemDecoration {
         //상하 설정
         if (position == 0 || position == 1) {
             // 첫번 째 줄 아이템
-            outRect.top = 0
+            outRect.top = ViewUtils.dp2px(context!!, 5f)
             outRect.bottom = ViewUtils.dp2px(context!!, 10f)
         } else {
             outRect.bottom = ViewUtils.dp2px(context!!, 10f)

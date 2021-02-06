@@ -90,8 +90,8 @@
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:max="10"
-        android:progress="10"
+        android:max="3"
+        android:progress="3"
         android:progressDrawable="@drawable/bg_progressbar"
         app:layout_constraintBottom_toBottomOf="parent"/>
     <TextView

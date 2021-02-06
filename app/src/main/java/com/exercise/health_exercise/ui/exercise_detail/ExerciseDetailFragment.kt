@@ -2,6 +2,7 @@ package com.exercise.health_exercise.ui.exercise_detail
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import com.exercise.health_exercise.data.health_list_item.HealthList_ItemJoinDat
 import com.exercise.health_exercise.ui.BaseFragment
 import com.exercise.health_exercise.ui.custom_exercise.CustomExerciseFragment
 import com.exercise.health_exercise.ui.custom_exercise.CustomExerciseViewModel
+import com.exercise.health_exercise.ui.itemDecoration.gridItemDecoration
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class ExerciseDetailFragment:BaseFragment(), ExerciseDetailAdapter.onExerciseDetailListener {
@@ -68,6 +70,7 @@ class ExerciseDetailFragment:BaseFragment(), ExerciseDetailAdapter.onExerciseDet
                 adapter = ExerciseDetailAdapter(mContext!!, this)
                 listHome.adapter = adapter
                 listHome.layoutManager = GridLayoutManager(mContext, 2)
+                listHome.addItemDecoration(gridItemDecoration(mContext!!))
             }
 //
 ////            var addData: HealthListData = HealthListData(-1, "Add your own workout", "A")
@@ -77,6 +80,11 @@ class ExerciseDetailFragment:BaseFragment(), ExerciseDetailAdapter.onExerciseDet
         })
 
         return rootView
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("kameul", "-----------------")
     }
 
     override fun onItemSelect(data: HealthList_ItemJoinData, position: Int) {

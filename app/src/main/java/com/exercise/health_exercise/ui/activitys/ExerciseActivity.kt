@@ -75,26 +75,27 @@ class ExerciseActivity :BaseActivity(){
                      * 다음 운동이 없을 경우 종료 **/
 
                     isPause = true
-                    isReady = true
+                    isReady = false
 
                     if(ArrayUtils().hasValue(exerciseList)){
                         currentPos ++
                         setExerciseInfo(currentPos)
 
                         isPause = false
+                        isReady = true
+
                         handler.sendEmptyMessageDelayed(0, 1000)
                     }
-
-
                 }
             }
         }
     }
 
+    val defaultReadyCount:Int = 3
     var media : MediaPlayer ? = null
 
     var maxCount : Int = 0
-    var playCount : Int = 10
+    var playCount : Int = 3
     var isPause : Boolean = true
     var isReady : Boolean = true
 
@@ -160,6 +161,8 @@ class ExerciseActivity :BaseActivity(){
 
             isPause = !isPause
         }
+
+        tvExercise_Count.text = "$playCount sec"
     }
 
     fun setExerciseInfo(position:Int){
@@ -167,8 +170,9 @@ class ExerciseActivity :BaseActivity(){
         var itemData : HealthList_ItemJoinData = exerciseList!!.get(position)
         ViewUtils.loadGifImage(itemData.health_image_url, null).into(ivExercise_Image)
 
-        pbExercise_PlayTime.progress = 0
-        playCount = 10
+        pbExercise_PlayTime.progress = defaultReadyCount
+        pbExercise_PlayTime.max = defaultReadyCount
+        playCount = defaultReadyCount
 
         exerciseCount = itemData.custom_count
         exercisePlayTime = itemData.custom_play_time.toInt()

@@ -1,11 +1,13 @@
 package com.exercise.health_exercise.ui.activitys
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.exercise.health_exercise.utils.ArrayUtils
 
 open class BaseActivity:AppCompatActivity() {
 
@@ -20,8 +22,39 @@ open class BaseActivity:AppCompatActivity() {
         transaction.commitAllowingStateLoss()
     }
 
-    protected fun popFragment(){
-        val fm = supportFragmentManager
-        val popped = fm.popBackStackImmediate()
+    protected fun pushFragment(layoutID: Int, fragment: Fragment, tag:String){
+        Log.d("kamuel", "tag :: $tag")
+        var manager:FragmentManager = supportFragmentManager
+        var transaction:FragmentTransaction = manager.beginTransaction()
+        transaction.add(layoutID, fragment, tag)
+        transaction.addToBackStack(null)
+        transaction.commitAllowingStateLoss()
+    }
+
+    protected fun pushFragment(layoutID: Int, fragment: Fragment, tag:String, backStackTag:String){
+        Log.d("kamuel", "tag :: $tag")
+        Log.d("kamuel", "backStackTag :: $backStackTag")
+        var manager:FragmentManager = supportFragmentManager
+        var transaction:FragmentTransaction = manager.beginTransaction()
+        transaction.add(layoutID, fragment, tag)
+        transaction.addToBackStack(backStackTag)
+        transaction.commitAllowingStateLoss()
+    }
+
+    protected fun currentFragment():Fragment?{
+        var fragmentList:ArrayList<Fragment> ?= supportFragmentManager.fragments as ArrayList<Fragment>
+
+        if(ArrayUtils().hasValue(fragmentList))
+            return supportFragmentManager.fragments.get(fragmentList!!.size-1)
+        else
+            return null
+    }
+
+    protected fun popFragment(fragment:Fragment){
+        val manager: FragmentManager = supportFragmentManager
+        val trans: FragmentTransaction = manager.beginTransaction()
+        trans.remove(fragment)
+        trans.commit()
+        manager.popBackStack()
     }
 }
