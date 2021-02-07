@@ -53,12 +53,16 @@ class ExerciseDetailActivity : BaseActivity(), ExerciseDetailFragment.onExercise
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-
-        if(currentFragment() is ExerciseDetailFragment){
-            toolbar.title = resources.getString(R.string.menu_exercise_detail_list)
-            btnExerciseDetail_Detail.visibility = View.VISIBLE
-            btnExerciseDetail_Start.visibility = View.VISIBLE
+        var countFragment : Int = supportFragmentManager.backStackEntryCount
+        if(countFragment == 1) {
+            finish()
+        }else{
+            super.onBackPressed()
+            if (currentFragment() is ExerciseDetailFragment) {
+                toolbar.title = resources.getString(R.string.menu_exercise_detail_list)
+                btnExerciseDetail_Detail.visibility = View.VISIBLE
+                btnExerciseDetail_Start.visibility = View.VISIBLE
+            }
         }
     }
 

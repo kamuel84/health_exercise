@@ -42,11 +42,11 @@ open class BaseActivity:AppCompatActivity() {
     }
 
     protected fun currentFragment():Fragment?{
-        var fragmentList:ArrayList<Fragment> ?= supportFragmentManager.fragments as ArrayList<Fragment>
+        if(supportFragmentManager.fragments != null && supportFragmentManager.fragments.size > 0) {
+            var fragmentList: ArrayList<Fragment>? = supportFragmentManager.fragments as ArrayList<Fragment>
 
-        if(ArrayUtils().hasValue(fragmentList))
-            return supportFragmentManager.fragments.get(fragmentList!!.size-1)
-        else
+            return supportFragmentManager.fragments.get(fragmentList!!.size - 1)
+        } else
             return null
     }
 

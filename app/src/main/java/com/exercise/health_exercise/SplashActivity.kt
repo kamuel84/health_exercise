@@ -347,6 +347,11 @@ class SplashActivity : AppCompatActivity() {
             exerciseItemList.add(HealthList_ItemsData(0L, 2, 5, 1, 1000))
             exerciseItemList.add(HealthList_ItemsData(0L, 2, 6, 1, 1000))
 
+
+            exerciseItemList.forEachIndexed { index, exercisesData ->
+                AppDataBase.getInstance(this).healthListItemDao().insert(exercisesData)
+            }
+
             prefUtils.setBoolean("default_data", true)
         }
 
