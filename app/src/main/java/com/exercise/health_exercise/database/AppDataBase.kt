@@ -17,7 +17,8 @@ import com.exercise.health_exercise.data.playExercise.PlayExerciseData
 import com.exercise.health_exercise.data.playExerciseItem.PlayExerciseItemDao
 import com.exercise.health_exercise.data.playExerciseItem.PlayExerciseItemData
 
-@Database(entities = arrayOf(HealthListData::class, ExercisesData::class, HealthList_ItemsData::class, PlayExerciseData::class, PlayExerciseItemData::class), version = 3, exportSchema = true)
+@Database(entities = arrayOf(HealthListData::class, ExercisesData::class, HealthList_ItemsData::class,
+        PlayExerciseData::class, PlayExerciseItemData::class), version = 4, exportSchema = true)
 open abstract class AppDataBase : RoomDatabase() {
 
     abstract fun exercisesDao() : ExercisesDao
@@ -65,12 +66,20 @@ open abstract class AppDataBase : RoomDatabase() {
             }
         }
 
+        val MIGRATION_3_4 = object : Migration(3,4){
+            override fun migrate(database: SupportSQLiteDatabase) {
+
+
+            }
+        }
+
         open fun buildDataBase(context:Context):AppDataBase{
             mContext = context
             return Room.databaseBuilder(context, AppDataBase::class.java, DB_NAME)
                 .allowMainThreadQueries()
                 .addMigrations(MIGRATION_1_2)
                 .addMigrations(MIGRATION_2_3)
+                .addMigrations(MIGRATION_3_4)
                 .build()
         }
     }

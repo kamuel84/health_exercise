@@ -13,4 +13,13 @@ interface PlayExerciseDao : BaseDao<PlayExerciseData> {
     @Query("SELECT * FROM play_exercise")
     fun getAll() : LiveData<List<PlayExerciseData>>
 
+    @Query("SELECT * FROM play_exercise WHERE strDate=:date")
+    fun getAll(date:String):LiveData<List<PlayExerciseData>>?
+
+    @Query("SELECT * FROM play_exercise WHERE substr(strDate, 0,7)=:month GROUP BY strDate")
+    fun getGroupAll(month:String) : LiveData<List<PlayExerciseData>>
+
+    @Query("SELECT * FROM play_exercise WHERE strDate LIKE :date")
+    fun getCount(date:String): LiveData<List<PlayExerciseData>>
+
 }

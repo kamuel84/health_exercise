@@ -95,9 +95,9 @@ class CalendarView : LinearLayout, View.OnClickListener {
         month = array.getInt(R.styleable.CalendarView_selectMonth, date.get(Calendar.MONTH))
         day = array.getInt(R.styleable.CalendarView_selectDay, date.get(Calendar.DATE))
 
-        if (month == date.get(Calendar.MONTH)) {
-            ivCalendar_PreMonth.isEnabled = false
-        }
+//        if (month == date.get(Calendar.MONTH)) {
+//            ivCalendar_PreMonth.isEnabled = false
+//        }
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -309,83 +309,85 @@ class CalendarView : LinearLayout, View.OnClickListener {
             if (month == (this as CalendarView).month) {
                 Log.e("kamuel", "s ::: " + s)
                 Log.e("kamuel", "today ::: " + today)
-                if (today > s.toInt()) {
-                    tvDays.setTextColor(ContextCompat.getColor(context, R.color.color_979797))
-                } else {
-                    if (s != selectDay.toString()) {
-                        if (!isReservation) {
-                            Log.e("kamuel", "선택 불가!!! ::: ")
-                            tvDays.setTextColor(ContextCompat.getColor(context, R.color.color_979797))
-                        } else {
-                            Log.e("kamuel", "선택 가능!!! ::: ")
-                            if (weekPos == 6)
-                                tvDays.setTextColor(ContextCompat.getColor(context, R.color.color_0091ff))
-                            else if (weekPos == 0)
-                                tvDays.setTextColor(ContextCompat.getColor(context, R.color.color_ff0000))
-                            else
-                                tvDays.setTextColor(ContextCompat.getColor(context, R.color.font_color_black))
-                        }
 
-                        tvDays.setTag(R.id.item_checked, false)
+                if (s != selectDay.toString()) {
+                    if (!isReservation) {
+                        Log.e("kamuel", "선택 불가!!! ::: ")
+                        tvDays.setTextColor(ContextCompat.getColor(context, R.color.color_979797))
                         tvDays.setBackgroundColor(ContextCompat.getColor(context, R.color.color_white))
                     } else {
-                        /** 선택 배경 변경 **/
-                        Log.e("kamuel", "check 되라!!! ::: ")
-                        tvDays.setTag(R.id.item_checked, true)
-                        tvDays.setTextColor(ContextCompat.getColor(context, R.color.color_white))
-                        tvDays.setBackgroundColor(ContextCompat.getColor(context, R.color.color_ff6c2d))
-                        if (listener != null) {
-                            var monthInt: Int = (this as CalendarView).month + 1
-                            var monthString = monthInt.toString()
-                            var dayString: String = s
-
-                            if (monthInt < 10)
-                                monthString = String.format("0%s", monthInt.toString())
-
-                            if (s.toInt() < 10)
-                                dayString = String.format("0%s", s)
-
-
-                            selectDate = String.format("%s-%s-%s", (this as CalendarView).year.toString(), monthString, dayString)
-                            listener!!.onSelectDate((this as CalendarView).year.toString(), monthString, dayString)
-                        }
-                    }
-                }
-            } else {
-                if (s != selectDay.toString()) {
-                    if (!isReservation)
-                        tvDays.setTextColor(ContextCompat.getColor(context, R.color.color_979797))
-                    else {
+                        Log.e("kamuel", "선택 가능!!! ::: ")
                         if (weekPos == 6)
                             tvDays.setTextColor(ContextCompat.getColor(context, R.color.color_0091ff))
                         else if (weekPos == 0)
                             tvDays.setTextColor(ContextCompat.getColor(context, R.color.color_ff0000))
                         else
                             tvDays.setTextColor(ContextCompat.getColor(context, R.color.font_color_black))
+
+                        tvDays.setBackgroundResource(R.drawable.bg_calendar_99ccff)
                     }
 
                     tvDays.setTag(R.id.item_checked, false)
-                    tvDays.setBackgroundColor(ContextCompat.getColor(context, R.color.color_white))
+
                 } else {
                     /** 선택 배경 변경 **/
-                    tvDays.setTag(R.id.item_checked, true)
-                    tvDays.setTextColor(ContextCompat.getColor(context, R.color.color_white))
-                    tvDays.setBackgroundColor(ContextCompat.getColor(context, R.color.color_ff6c2d))
-                    if (listener != null) {
-                        var monthInt: Int = (this as CalendarView).month + 1
-                        var monthString = monthInt.toString()
-                        var dayString: String = s
+                    Log.e("kamuel", "check 되라!!! ::: ")
+//                        tvDays.setTag(R.id.item_checked, true)
+//                        tvDays.setTextColor(ContextCompat.getColor(context, R.color.color_white))
+//                        tvDays.setBackgroundColor(ContextCompat.getColor(context, R.color.color_ff6c2d))
+//                        if (listener != null) {
+//                            var monthInt: Int = (this as CalendarView).month + 1
+//                            var monthString = monthInt.toString()
+//                            var dayString: String = s
+//
+//                            if (monthInt < 10)
+//                                monthString = String.format("0%s", monthInt.toString())
+//
+//                            if (s.toInt() < 10)
+//                                dayString = String.format("0%s", s)
+//
+//
+//                            selectDate = String.format("%s-%s-%s", (this as CalendarView).year.toString(), monthString, dayString)
+//                            listener!!.onSelectDate((this as CalendarView).year.toString(), monthString, dayString)
+//                        }
+                }
+            } else {
+                if (s != selectDay.toString()) {
+                    if (!isReservation) {
+                        tvDays.setTextColor(ContextCompat.getColor(context, R.color.color_979797))
+                        tvDays.setBackgroundColor(ContextCompat.getColor(context, R.color.color_white))
+                    } else {
+                        if (weekPos == 6)
+                            tvDays.setTextColor(ContextCompat.getColor(context, R.color.color_0091ff))
+                        else if (weekPos == 0)
+                            tvDays.setTextColor(ContextCompat.getColor(context, R.color.color_ff0000))
+                        else
+                            tvDays.setTextColor(ContextCompat.getColor(context, R.color.font_color_black))
 
-                        if (monthInt < 10)
-                            monthString = String.format("0%s", monthInt.toString())
-
-                        if (s.toInt() < 10)
-                            dayString = String.format("0%s", s)
-
-
-                        selectDate = String.format("%s-%s-%s", (this as CalendarView).year.toString(), monthString, dayString)
-                        listener!!.onSelectDate((this as CalendarView).year.toString(), monthString, dayString)
+                        tvDays.setBackgroundResource(R.drawable.bg_calendar_99ccff)
                     }
+
+                    tvDays.setTag(R.id.item_checked, false)
+                } else {
+                    /** 선택 배경 변경 **/
+//                    tvDays.setTag(R.id.item_checked, true)
+//                    tvDays.setTextColor(ContextCompat.getColor(context, R.color.color_white))
+//                    tvDays.setBackgroundColor(ContextCompat.getColor(context, R.color.color_ff6c2d))
+//                    if (listener != null) {
+//                        var monthInt: Int = (this as CalendarView).month + 1
+//                        var monthString = monthInt.toString()
+//                        var dayString: String = s
+//
+//                        if (monthInt < 10)
+//                            monthString = String.format("0%s", monthInt.toString())
+//
+//                        if (s.toInt() < 10)
+//                            dayString = String.format("0%s", s)
+//
+//
+//                        selectDate = String.format("%s-%s-%s", (this as CalendarView).year.toString(), monthString, dayString)
+//                        listener!!.onSelectDate((this as CalendarView).year.toString(), monthString, dayString)
+//                    }
                 }
             }
         }
@@ -395,7 +397,9 @@ class CalendarView : LinearLayout, View.OnClickListener {
         if (daysTextView != null && daysTextView.size > 0) {
             var format: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
             var calendar: Calendar = Calendar.getInstance()
-            calendar.time = FormatUtils.string2date(dateString, "yyyy-MM-dd")
+            var dateChangeString = dateString.substring(0, 4)+"-"+dateString.substring(4,6)+"-"+dateString.substring(6,8)
+            var temp:Date ?= FormatUtils.string2date(dateChangeString, "yyyy-MM-dd")
+            calendar.time = FormatUtils.string2date(dateChangeString, "yyyy-MM-dd")
 
             var day: Int = calendar.get(Calendar.DATE)
             var month: Int = calendar.get(Calendar.MONTH)
@@ -406,14 +410,8 @@ class CalendarView : LinearLayout, View.OnClickListener {
                 var dayTextView: TextView = daysTextView.get(day.toString())!!
 
                 if (dayTextView != null) {
-                    Log.d("kamuel", "setReservationData :::: " + isReservation)
                     dayTextView.setTag(R.id.item_data, isReservation)
-
-                    if (isReservation)
-                        dayTextView.setOnClickListener(textViewListener)
-                    else
-                        dayTextView.setOnClickListener(null)
-
+                    dayTextView.setOnClickListener(textViewListener)
                     setDateTextView(dayTextView, day.toString())
 
 //                    dayTextView.setTag(R.id.item_checked, false)
@@ -469,6 +467,22 @@ class CalendarView : LinearLayout, View.OnClickListener {
                 }
             }
         }
+    }
+
+    fun getYear():String{
+        return year.toString()
+    }
+
+    fun getMonth():String{
+        var intMonth:Int = month
+        intMonth = intMonth + 1
+
+        var strMonth : String = String.format("%02d", intMonth)
+        return strMonth
+    }
+
+    fun getDay():String{
+        return day.toString()
     }
 
     fun setReservationDate(reservationDate: String) {
@@ -544,10 +558,10 @@ class CalendarView : LinearLayout, View.OnClickListener {
                 setSelectClear()
                 getCalendarItems()
 
-                if (DateUtils.getNowMonth() == month) {
-                    ivCalendar_PreMonth.isEnabled = false
-                    ivCalendar_NextMonth.isEnabled = true
-                }
+//                if (DateUtils.getNowMonth() == month) {
+//                    ivCalendar_PreMonth.isEnabled = false
+//                    ivCalendar_NextMonth.isEnabled = true
+//                }
             }
 
             R.id.ivCalendar_NextMonth -> {
@@ -568,10 +582,10 @@ class CalendarView : LinearLayout, View.OnClickListener {
 
                 var limitMonth: Int = DateUtils.getLimitMonth(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DATE), LIMITED_DATE)
 
-                if (limitMonth == month) {
-                    ivCalendar_PreMonth.isEnabled = true
-                    ivCalendar_NextMonth.isEnabled = false
-                }
+//                if (limitMonth == month) {
+//                    ivCalendar_PreMonth.isEnabled = true
+//                    ivCalendar_NextMonth.isEnabled = false
+//                }
             }
         }
     }

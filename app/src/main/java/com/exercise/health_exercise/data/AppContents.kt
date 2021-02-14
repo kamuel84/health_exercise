@@ -12,5 +12,8 @@ class AppContents {
         const val RESULT_DATA_TITLE = "RESULT_DATA_TITLE"
         const val RESULT_DATA_LISTDATA = "RESULT_DATA_LIST_DATA"
         const val RESULT_DATA_HEALTHLIST = "RESULT_DATA_HEATHLIST"
+
+        const val VIEWTYPE_DATEHADER = 0
+        const val VIEWTYPE_PLAYITEM = 1
     }
 }

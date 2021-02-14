@@ -2,6 +2,7 @@ package com.exercise.health_exercise
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -16,8 +17,12 @@ import androidx.appcompat.widget.Toolbar
 import androidx.room.Room
 import com.exercise.health_exercise.data.AppContents
 import com.exercise.health_exercise.database.AppDataBase
+import com.exercise.health_exercise.ui.activitys.BaseActivity
+import com.exercise.health_exercise.ui.fragments.CompleteExerciseFragment
+import com.exercise.health_exercise.ui.home.HomeFragment
+import kotlinx.android.synthetic.main.app_bar_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity(), View.OnClickListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -36,18 +41,23 @@ class MainActivity : AppCompatActivity() {
 //                    .setAction("Action", null).show()
 //        }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        val navView: NavigationView = findViewById(R.id.nav_view)
-        val navController = findNavController(R.id.nav_host_fragment)
+//        val navView: NavigationView = findViewById(R.id.nav_view)
+//        val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow), drawerLayout)
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+//        appBarConfiguration = AppBarConfiguration(setOf(
+//                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow), drawerLayout)
+//        setupActionBarWithNavController(navController, appBarConfiguration)
+//        navView.setupWithNavController(navController)
 
 //        val db:AppDataBase = Room.databaseBuilder(this, AppDataBase::class.java, "health_exercise-db")
 //                .allowMainThreadQueries() /** 이값은 MainThread에서도 돌도록 만들어진 함수 **/
 //                .build()
+
+        var fragment:HomeFragment = HomeFragment()
+        pushFragment(R.id.nav_host_fragment, fragment)
+        clMain_BottomMenu1.setOnClickListener(this)
+        clMain_BottomMenu4.setOnClickListener(this)
 
     }
 
@@ -60,5 +70,18 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onClick(v: View?) {
+        when (v){
+            clMain_BottomMenu1 -> {
+                var fragment : HomeFragment = HomeFragment()
+                pushFragment(R.id.nav_host_fragment, fragment)
+            }
+            clMain_BottomMenu4 -> {
+                var fragment : CompleteExerciseFragment = CompleteExerciseFragment.newInstance()
+                pushFragment(R.id.nav_host_fragment, fragment)
+            }
+        }
     }
 }

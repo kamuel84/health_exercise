@@ -15,8 +15,11 @@ import com.exercise.health_exercise.R
 import com.exercise.health_exercise.adapters.ExerciseDetailAdapter
 import com.exercise.health_exercise.data.AppContents
 import com.exercise.health_exercise.data.health_list_item.HealthList_ItemJoinData
+import com.exercise.health_exercise.data.playExercise.PlayExerciseData
+import com.exercise.health_exercise.data.playExerciseItem.PlayExerciseItemData
 import com.exercise.health_exercise.ui.custom_exercise.CustomExerciseViewModel
 import com.exercise.health_exercise.utils.ArrayUtils
+import com.exercise.health_exercise.utils.DateUtils
 import com.exercise.health_exercise.utils.ViewUtils
 import kotlinx.android.synthetic.main.activity_exercise.*
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -61,10 +64,30 @@ class ExerciseActivity :BaseActivity(){
                                     tvExercise_Count.text = "$timeCount ea"
                                 }
 
-                                if(maxCount == playCount)
+                                if(maxCount == playCount) {
+                                    var playItemData: PlayExerciseItemData = PlayExerciseItemData(
+                                            0L,
+                                            playId,
+                                            idx,
+                                            exerciseItemID,
+                                            playCount.toLong(),
+                                            true
+                                    )
+                                    viewModel.insertPlayItemExercise(playItemData)
+
                                     handler.sendEmptyMessage(1)
-                                else
+                                } else {
+                                    var playItemData : PlayExerciseItemData = PlayExerciseItemData(
+                                            0L,
+                                            playId,
+                                            idx,
+                                            exerciseItemID,
+                                            playCount.toLong(),
+                                            false
+                                    )
+                                    viewModel.insertPlayItemExercise(playItemData)
                                     handler.sendEmptyMessageDelayed(0, 1000)
+                                }
                             }
 
                         }
@@ -104,6 +127,8 @@ class ExerciseActivity :BaseActivity(){
     var idx:Long = 0
     var currentPos : Int = 0
     var preTimeCount : Int = 0
+    var playId:Long = -1
+    var exerciseItemID:Long = -1
 
     val viewModel: CustomExerciseViewModel by lazy {
         ViewModelProvider(this, CustomExerciseViewModel.Factory(ExerciseApplication.currentActivity!!.application)).get(
@@ -156,6 +181,12 @@ class ExerciseActivity :BaseActivity(){
                 ivExercise_Play.setImageResource(R.drawable.ic_play)
             } else {
                 ivExercise_Play.setImageResource(R.drawable.ic_pause)
+
+                if(viewModel.playExercisesRepository.getItemList(DateUtils.getNowDate("yyyyMMdd")) == 0){
+                    var playExerciseData : PlayExerciseData = PlayExerciseData(0L, DateUtils.getNowDate("yyyyMMdd"))
+                    playId = viewModel.playExercisesRepository.insertPlayData(playExerciseData)
+                }
+
                 handler.sendEmptyMessage(0)
             }
 
@@ -170,8 +201,10 @@ class ExerciseActivity :BaseActivity(){
         var itemData : HealthList_ItemJoinData = exerciseList!!.get(position)
         ViewUtils.loadGifImage(itemData.health_image_url, null).into(ivExercise_Image)
 
-        pbExercise_PlayTime.progress = defaultReadyCount
-        pbExercise_PlayTime.max = defaultReadyCount
+        exerciseItemID = itemData.item_idx
+
+        pbExercise_PlayTime.progress = defaultReadyCount.toInt()
+        pbExercise_PlayTime.max = defaultReadyCount.toInt()
         playCount = defaultReadyCount
 
         exerciseCount = itemData.custom_count

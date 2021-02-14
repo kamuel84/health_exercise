@@ -1,17 +1,23 @@
 package com.exercise.health_exercise.ui.custom_exercise
 
 import android.app.Application
+import android.util.Log
 import androidx.annotation.MainThread
 import androidx.lifecycle.*
+import com.exercise.health_exercise.data.AppContents
 import com.exercise.health_exercise.data.exercises.ExercisesData
 import com.exercise.health_exercise.data.exercises.ExercisesRepository
 import com.exercise.health_exercise.data.health_list_item.HealthList_ItemJoinData
 import com.exercise.health_exercise.data.health_list_item.HealthList_ItemRepository
 import com.exercise.health_exercise.data.health_list_item.HealthList_ItemsData
 import com.exercise.health_exercise.data.playExercise.PlayExerciseData
+import com.exercise.health_exercise.data.playExercise.PlayExerciseListData
 import com.exercise.health_exercise.data.playExercise.PlayExerciseRepository
+import com.exercise.health_exercise.data.playExerciseItem.PlayExerciseItemData
+import com.exercise.health_exercise.data.playExerciseItem.PlayExerciseItemHeaderData
 import com.exercise.health_exercise.data.playExerciseItem.PlayExerciseItemRepository
 import com.exercise.health_exercise.ui.exercise.ExerciseViewModel
+import com.exercise.health_exercise.utils.ArrayUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -32,6 +38,8 @@ class CustomExerciseViewModel(application: Application) : AndroidViewModel(appli
     var itemList:LiveData<List<HealthList_ItemsData>> ?= null
     var customList:LiveData<List<HealthList_ItemJoinData>> ?= null
     var exerciseList:MutableLiveData<ArrayList<ExercisesData>> ?= null
+    var playExerciseList:LiveData<List<PlayExerciseData>> ? = null
+    var groupPlayExerciseList:LiveData<List<PlayExerciseData>> ? = null
 
     init {
         itemList = itemRepository.getItemList()
@@ -70,12 +78,34 @@ class CustomExerciseViewModel(application: Application) : AndroidViewModel(appli
         itemRepository.healthListItemDelete(itemData)
     }
 
+    fun getPlayList():LiveData<List<PlayExerciseData>>?{
+        playExerciseList = playExercisesRepository.getItemList()
+        return playExerciseList
+    }
+
+    fun getPlayList(date:String):LiveData<List<PlayExerciseData>>?{
+        return playExercisesRepository.getAll(date)
+    }
+
+    fun getGroupPlayList(month:String):LiveData<List<PlayExerciseData>>?{
+        groupPlayExerciseList = playExercisesRepository.getGroupAll(month)
+        return groupPlayExerciseList
+    }
+
     fun insertPlayExercise(itemData:PlayExerciseData){
         playExercisesRepository.insertPlayData(itemData)
     }
 
     fun updatePlayExercise(itemData:PlayExerciseData){
         playExercisesRepository.insertPlayData(itemData)
+    }
+
+    fun insertPlayItemExercise(itemData:PlayExerciseItemData){
+        playExerciseItemRepository.insertPlayItemData(itemData)
+    }
+
+    fun getPlayItemExercise(date:String):LiveData<List<PlayExerciseItemHeaderData>>{
+        return playExerciseItemRepository.getItemList(date)
     }
 
     class Factory(val application: Application): ViewModelProvider.Factory{

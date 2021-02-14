@@ -8,7 +8,6 @@ import java.io.Serializable
 data class PlayExerciseData(
     @PrimaryKey(autoGenerate = true)
     val idx : Long,
-    val strDate:String,
-    val healthListItemIdx:Long
+    val strDate:String
 ):Serializable {
 }
