@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.exercise.health_exercise.data.health_list.HealthListData
 import com.exercise.health_exercise.data.health_list.HealthListRepository
+import com.exercise.health_exercise.data.health_list.HealthListWithItemData
 import com.exercise.health_exercise.utils.ArrayUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Main
@@ -29,6 +30,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getAllHealthList() : LiveData<List<HealthListData>>?{
         return healthList
+    }
+
+    fun getAllHealthListJoinItem() : LiveData<List<HealthListWithItemData>>?{
+        return healthListRepository.healthListWithItem()
     }
 
     fun getLastIndex():Long{

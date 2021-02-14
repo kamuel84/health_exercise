@@ -1,11 +1,15 @@
 package com.exercise.health_exercise.adapters.viewHolders.healthList
 
 import android.content.Context
+import android.text.TextUtils
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.exercise.health_exercise.ExerciseApplication
 import com.exercise.health_exercise.data.health_list.HealthListData
 import com.exercise.health_exercise.R
+import com.exercise.health_exercise.data.health_list.HealthListWithItemData
+import com.exercise.health_exercise.utils.ViewUtils
 import kotlinx.android.synthetic.main.holder_healthlist.view.*
 
 class HolderHealthListItem(var context:Context, itemView: View, var listener:HolderHealthListItem.onHolderHealthListListener) : RecyclerView.ViewHolder(itemView) {
@@ -13,7 +17,7 @@ class HolderHealthListItem(var context:Context, itemView: View, var listener:Hol
     interface onHolderHealthListListener{
         fun onSelectItem(data:HealthListData, position:Int)
     }
-    fun setHealthListItem(healthData:HealthListData, position:Int){
+    fun setHealthListItem(healthData: HealthListWithItemData, position:Int){
         with(itemView){
             tvList_Title.text = healthData.title
 
@@ -24,10 +28,16 @@ class HolderHealthListItem(var context:Context, itemView: View, var listener:Hol
                 var pos : Int = it.getTag(R.id.list_position).toString().toInt()
                 listener.onSelectItem(listData, pos)
             }
+
+            var path:String = ""
+
+            if(!TextUtils.isEmpty(healthData.health_Photo))
+                ViewUtils.loadGifImage(healthData.health_Photo!!, null).into(ivList_Exercise)
+
             if(healthData.list_type == "C")
-                ivList_Background.background = ContextCompat.getDrawable(context, R.drawable.bg_radius3_99ccff)
+                clList_Root.background = ContextCompat.getDrawable(context, R.drawable.bg_radius3_99ccff)
             else
-                ivList_Background.background = ContextCompat.getDrawable(context, R.drawable.bg_radius3_bb86fc)
+                clList_Root.background = ContextCompat.getDrawable(context, R.drawable.bg_radius3_line_e5e5e5)
         }
     }
 }

@@ -9,6 +9,7 @@ import com.exercise.health_exercise.R
 import com.exercise.health_exercise.adapters.viewHolders.HolderListAdd
 import com.exercise.health_exercise.adapters.viewHolders.healthList.HolderHealthListItem
 import com.exercise.health_exercise.data.health_list.HealthListData
+import com.exercise.health_exercise.data.health_list.HealthListWithItemData
 import com.exercise.health_exercise.utils.ArrayUtils
 
 
@@ -16,7 +17,7 @@ class HealthListAdapter(var context: Context, var listener:HealthListAdapter.onH
     HolderListAdd.onAddHolderListener,
     HolderHealthListItem.onHolderHealthListListener{
 
-    var healthList : List<HealthListData> ?= null
+    var healthList : List<HealthListWithItemData> ?= null
 
     val VIEWTYPE_ITME:Int = 0
     val VIEWTYPE_ADD:Int = 1
@@ -61,7 +62,7 @@ class HealthListAdapter(var context: Context, var listener:HealthListAdapter.onH
             return VIEWTYPE_ITME
     }
 
-    fun updateList(list: List<HealthListData>){
+    fun updateList(list: List<HealthListWithItemData>){
         healthList = list
         notifyDataSetChanged()
     }

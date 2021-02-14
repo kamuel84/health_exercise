@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "32dd067b37a6dd7a88ec2ac50bb3f223",
+    "identityHash": "c9a29b4c1af327ebd609c4664f31812c",
     "entities": [
       {
         "tableName": "health_list",
@@ -161,7 +161,7 @@
       },
       {
         "tableName": "play_exercise",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idx` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `strDate` TEXT NOT NULL, `healthListItemIdx` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idx` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `strDate` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "idx",
@@ -173,12 +173,6 @@
             "fieldPath": "strDate",
             "columnName": "strDate",
             "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "healthListItemIdx",
-            "columnName": "healthListItemIdx",
-            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -245,7 +239,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '32dd067b37a6dd7a88ec2ac50bb3f223')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c9a29b4c1af327ebd609c4664f31812c')"
     ]
   }
 }

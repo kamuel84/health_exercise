@@ -52,7 +52,7 @@ class HomeFragment : BaseFragment(), HealthListAdapter.onHealthListListener {
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
-        homeViewModel.getAllHealthList()?.observe(viewLifecycleOwner, Observer {
+        homeViewModel.getAllHealthListJoinItem()?.observe(viewLifecycleOwner, Observer {
             if (adapter == null) {
                 adapter = HealthListAdapter(mContext!!, this)
                 listHome.adapter = adapter
