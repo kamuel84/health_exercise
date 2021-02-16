@@ -57,7 +57,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         var fragment:HomeFragment = HomeFragment()
         pushFragment(R.id.nav_host_fragment, fragment)
         clMain_BottomMenu1.setOnClickListener(this)
-        clMain_BottomMenu4.setOnClickListener(this)
+        clMain_BottomMenu3.setOnClickListener(this)
 
     }
 
@@ -78,7 +78,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 var fragment : HomeFragment = HomeFragment()
                 pushFragment(R.id.nav_host_fragment, fragment)
             }
-            clMain_BottomMenu4 -> {
+            clMain_BottomMenu3 -> {
                 var fragment : CompleteExerciseFragment = CompleteExerciseFragment.newInstance()
                 pushFragment(R.id.nav_host_fragment, fragment)
             }

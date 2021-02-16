@@ -61,6 +61,15 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#ff99cc">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="운동리스트"
+                    android:textColor="@color/font_color_black"
+                    android:textSize="14dp"
+                    android:gravity="center"
+                    android:layout_marginBottom="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -70,6 +79,15 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#99ccff">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="나의운동리스트"
+                    android:textColor="@color/font_color_black"
+                    android:textSize="14dp"
+                    android:gravity="center"
+                    android:layout_marginBottom="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -79,16 +97,15 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#cc99ff">
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clMain_BottomMenu4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#99ffcc">
-
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="운동통계"
+                    android:textColor="@color/font_color_black"
+                    android:textSize="14dp"
+                    android:gravity="center"
+                    android:layout_marginBottom="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
