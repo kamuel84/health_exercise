@@ -40,6 +40,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         return healthListRepository.healthLastIndex()
     }
 
+    fun healthListDelete(index:Long){
+        healthListRepository.healthListDelete(index)
+    }
+
     fun getTopHealthList() : HealthListData?{
         var size : Int = getAllHealthList()!!.value!!.size
         if(size > 0)

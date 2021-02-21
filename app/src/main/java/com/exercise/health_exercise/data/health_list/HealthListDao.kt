@@ -26,6 +26,9 @@ interface HealthListDao : BaseDao<HealthListData> {
             "ON health_list.idx = health_list_items.health_list_index")
     fun getAllWithItem():LiveData<List<HealthListWithItemData>>
 
+    @Query("DELETE FROM health_list WHERE idx = :index")
+    fun deleteList(index:Long)
+
 //    @Query("SELECT * FROM health_list WHERE idx = :index")
 //    fun getIndexData(index : Int) : LiveData<List<HealthListData>>
 }

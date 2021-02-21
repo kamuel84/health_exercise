@@ -56,4 +56,8 @@ class HealthListRepository(application: Application) {
     fun healthListDelete(entity: HealthListData) : Int {
         return healthListDao.delete(entity)
     }
+
+    fun healthListDelete(index:Long){
+        healthListDao.deleteList(index)
+    }
 }

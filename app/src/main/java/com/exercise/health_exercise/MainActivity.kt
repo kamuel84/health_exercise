@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.annotation.ArrayRes
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -18,6 +19,7 @@ import com.exercise.health_exercise.data.health_list.HealthListData
 import com.exercise.health_exercise.data.health_list.HealthListWithItemData
 import com.exercise.health_exercise.ui.activitys.BaseActivity
 import com.exercise.health_exercise.ui.activitys.ListAddActivity
+import com.exercise.health_exercise.ui.custom_exercise.CustomExerciseViewModel
 import com.exercise.health_exercise.ui.fragments.CompleteExerciseFragment
 import com.exercise.health_exercise.ui.home.HomeFragment
 import com.exercise.health_exercise.utils.DialogUtils
@@ -29,8 +31,10 @@ import kotlin.collections.LinkedHashMap
 class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFragmentListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private var bottomDialog: BottomSheetDialog? = null
-    var selectData : HealthListWithItemData ?= null
+
+    val listViewModel:CustomExerciseViewModel by lazy {
+        ViewModelProvider(this, CustomExerciseViewModel.Factory(ExerciseApplication.currentActivity!!.application)).get(CustomExerciseViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,40 +103,9 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
         }
     }
 
-    /**
-     * 하단 BottomSheetDialog Show
-     */
-    private fun showBottomSheetDialog() {
-        if (bottomDialog != null && bottomDialog!!.isShowing()) {
-            bottomDialog!!.dismiss()
-            bottomDialog = null
-        }
 
-        var hsMenu: LinkedHashMap<String, String> = LinkedHashMap<String, String>()
-
-        hsMenu.put("Edit", "edit")
-        hsMenu.put("Delete", "delete")
-        hsMenu.put("Cancel", "cancel")
-
-        DialogUtils.showBottomSheetDialog(this, hsMenu, null, R.color.design_default_color_secondary, true, object : DialogUtils.OnBottomSheetSelectedListener{
-            override fun onSelected(index: Int, text: String, value: String) {
-                if(value == "edit"){
-                    Log.d("kamuel", "selectData!!.idx :: "+selectData!!.idx)
-                    var intent : Intent = Intent(this@MainActivity, ListAddActivity::class.java)
-                    intent.putExtra(AppContents.INTENT_DATA_EDIT_MODE, true)
-                    intent.putExtra(AppContents.INTENT_DATA_LIST_INDEX, selectData!!.idx)
-                    Log.d("kamuel", "selectData!!.idx 2 :: "+selectData!!.idx)
-
-                    this@MainActivity.startActivityForResult(intent, AppContents.REQUEST_CODE_ADDLIST)
-                } else if(value == "delete"){
-                    Toast.makeText(this@MainActivity, "작업 중 입니다. ㅠㅠ", Toast.LENGTH_SHORT).show()
-                }
-            }
-        })
-    }
 
     override fun onListMore(position: Int, data: HealthListWithItemData) {
-        selectData = data
-        showBottomSheetDialog()
+
     }
 }

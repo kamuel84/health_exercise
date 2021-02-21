@@ -73,6 +73,10 @@ class CustomExerciseViewModel(application: Application) : AndroidViewModel(appli
         return titleList
     }
 
+    fun deleteTitleList(index:Long){
+        titleRepository.healthListDelete(index)
+    }
+
     fun setExerciseList(list:ArrayList<ExercisesData>){
         if(exerciseList == null)
             exerciseList = MutableLiveData<ArrayList<ExercisesData>>(list)
