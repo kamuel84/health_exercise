@@ -110,6 +110,20 @@ class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener 
                     if(selectData.containsKey(data.idx))
                         selectData.remove(data.idx)
                 }
+
+
+                selectData.keys.forEachIndexed { index, l ->
+                    run hashKeys@{
+                        it.forEachIndexed { index, exercisesData ->
+                            if (exercisesData.idx == l) {
+                                exercisesData.check = true
+                                return@hashKeys
+                            }
+                        }
+                    }
+                }
+
+
             }
 
             adapter!!.updateList(it)
