@@ -7,6 +7,9 @@ import androidx.lifecycle.*
 import com.exercise.health_exercise.data.AppContents
 import com.exercise.health_exercise.data.exercises.ExercisesData
 import com.exercise.health_exercise.data.exercises.ExercisesRepository
+import com.exercise.health_exercise.data.health_list.HealthListDao
+import com.exercise.health_exercise.data.health_list.HealthListData
+import com.exercise.health_exercise.data.health_list.HealthListRepository
 import com.exercise.health_exercise.data.health_list_item.HealthList_ItemJoinData
 import com.exercise.health_exercise.data.health_list_item.HealthList_ItemRepository
 import com.exercise.health_exercise.data.health_list_item.HealthList_ItemsData
@@ -23,6 +26,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 
 class CustomExerciseViewModel(application: Application) : AndroidViewModel(application) {
+    val titleRepository:HealthListRepository by lazy {
+        HealthListRepository(application)
+    }
     val itemRepository:HealthList_ItemRepository by lazy {
         HealthList_ItemRepository(application)
     }
@@ -35,6 +41,7 @@ class CustomExerciseViewModel(application: Application) : AndroidViewModel(appli
         PlayExerciseItemRepository(application)
     }
 
+    var titleList:LiveData<List<HealthListData>> ?= null
     var itemList:LiveData<List<HealthList_ItemsData>> ?= null
     var customList:LiveData<List<HealthList_ItemJoinData>> ?= null
     var exerciseList:MutableLiveData<ArrayList<ExercisesData>> ?= null
@@ -52,9 +59,18 @@ class CustomExerciseViewModel(application: Application) : AndroidViewModel(appli
         return itemList
     }
 
+    fun getItemAllList(index:Long):LiveData<List<HealthList_ItemsData>>?{
+        return itemRepository.getItemList(index)
+    }
+
     fun getCustomAllList(index:Long):LiveData<List<HealthList_ItemJoinData>>?{
         customList = itemRepository.getCustomData(index)
         return customList
+    }
+
+    fun getTitleList(index:Long):LiveData<List<HealthListData>>?{
+        titleList = titleRepository.healthListAll(index)
+        return titleList
     }
 
     fun setExerciseList(list:ArrayList<ExercisesData>){

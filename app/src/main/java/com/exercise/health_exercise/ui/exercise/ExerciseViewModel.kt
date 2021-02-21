@@ -26,8 +26,23 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
     private val viewModelJob = Job()
     private val viewModelScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    fun getExerciseAllList() : LiveData<List<ExercisesData>>?{
-        return exerciseList
+    fun getExerciseAllList(editMode:Boolean, idx:Long) : LiveData<List<ExercisesData>>?{
+        if(!editMode)
+
+            return exerciseList
+        else {
+            exerciseList = exercisesRepository.exerciseList(idx)
+            return exerciseList
+        }
+    }
+
+    fun checkExerciseList(position:Int, isCheck:Boolean){
+        if(exerciseList != null && exerciseList!!.value != null){
+            exerciseList!!.value!!.forEachIndexed { index, exercisesData ->
+                if(position == index)
+                    exercisesData.check = isCheck
+            }
+        }
     }
 
     fun insertExercise(exercisesData: ExercisesData){

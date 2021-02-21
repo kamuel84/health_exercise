@@ -12,7 +12,7 @@ class HealthList_ItemRepository(application: Application) {
     private var healthListItemDao : HealthList_ItemDao
 
     init {
-        val database = AppDataBase.getInstance(application)!!
+        val database = AppDataBase.getInstance(application)
         healthListItemDao = (database as AppDataBase).healthListItemDao()
     }
 
@@ -20,8 +20,11 @@ class HealthList_ItemRepository(application: Application) {
         return healthListItemDao.getAll()
     }
 
+    fun getItemList(index:Long):LiveData<List<HealthList_ItemsData>>{
+        return healthListItemDao.getAll(index)
+    }
+
     fun getCustomData(index:Long):LiveData<List<HealthList_ItemJoinData>>{
-        Log.d("kamuel", "index ::: $index")
         return healthListItemDao.getCustomExerciseList(index)
     }
 

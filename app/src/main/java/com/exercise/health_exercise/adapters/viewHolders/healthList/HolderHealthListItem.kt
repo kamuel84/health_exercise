@@ -15,7 +15,8 @@ import kotlinx.android.synthetic.main.holder_healthlist.view.*
 class HolderHealthListItem(var context:Context, itemView: View, var listener:HolderHealthListItem.onHolderHealthListListener) : RecyclerView.ViewHolder(itemView) {
 
     interface onHolderHealthListListener{
-        fun onSelectItem(data:HealthListData, position:Int)
+        fun onSelectItem(data:HealthListWithItemData, position:Int)
+        fun onMore(data:HealthListWithItemData, position:Int)
     }
     fun setHealthListItem(healthData: HealthListWithItemData, position:Int){
         with(itemView){
@@ -23,8 +24,12 @@ class HolderHealthListItem(var context:Context, itemView: View, var listener:Hol
 
             clList_Root.setTag(R.id.list_data, healthData)
             clList_Root.setTag(R.id.list_position, position)
+
+            ivListMenu.setTag(R.id.list_data, healthData)
+            ivListMenu.setTag(R.id.list_position, position)
+
             clList_Root.setOnClickListener {
-                var listData : HealthListData = it.getTag(R.id.list_data) as HealthListData
+                var listData : HealthListWithItemData = it.getTag(R.id.list_data) as HealthListWithItemData
                 var pos : Int = it.getTag(R.id.list_position).toString().toInt()
                 listener.onSelectItem(listData, pos)
             }
@@ -34,10 +39,26 @@ class HolderHealthListItem(var context:Context, itemView: View, var listener:Hol
             if(!TextUtils.isEmpty(healthData.health_Photo))
                 ViewUtils.loadGifImage(healthData.health_Photo!!, null).into(ivList_Exercise)
 
-            if(healthData.list_type == "C")
+            if(healthData.list_type == "C") {
                 clList_Root.background = ContextCompat.getDrawable(context, R.drawable.bg_radius3_99ccff)
-            else
+                ivListMenu.visibility = View.VISIBLE
+                ivListMenu.setOnClickListener {
+                    var listData: HealthListWithItemData = it.getTag(R.id.list_data) as HealthListWithItemData
+                    var pos: Int = it.getTag(R.id.list_position).toString().toInt()
+                    listener.onMore(listData, pos)
+                }
+            } else {
                 clList_Root.background = ContextCompat.getDrawable(context, R.drawable.bg_radius3_line_e5e5e5)
+                ivListMenu.visibility = View.GONE
+                ivListMenu.setOnClickListener {}
+            }
+
+            ivListMenu.visibility = View.VISIBLE
+            ivListMenu.setOnClickListener {
+                var listData: HealthListWithItemData = it.getTag(R.id.list_data) as HealthListWithItemData
+                var pos: Int = it.getTag(R.id.list_position).toString().toInt()
+                listener.onMore(listData, pos)
+            }
         }
     }
 }

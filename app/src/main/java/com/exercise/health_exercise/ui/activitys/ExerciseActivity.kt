@@ -36,11 +36,12 @@ class ExerciseActivity :BaseActivity(){
                                 media = MediaPlayer.create(this@ExerciseActivity, R.raw.countdown)
                                 media!!.start()
 
-                                playCount -= 1
+                                playCount += 1
+                                readyCount -= 1
                                 Log.d("kamuel", "playCount ::: $playCount")
-                                tvExercise_Count.text = "$playCount sec"
+                                tvExercise_Count.text = "$readyCount sec"
                                 pbExercise_PlayTime.progress = playCount.toInt()
-                                if(playCount == 0) {
+                                if(playCount == 3) {
                                     isReady = false
                                     playCount = 0
 
@@ -118,7 +119,8 @@ class ExerciseActivity :BaseActivity(){
     var media : MediaPlayer ? = null
 
     var maxCount : Int = 0
-    var playCount : Int = 3
+    var playCount : Int = 0
+    var readyCount : Int = 3
     var isPause : Boolean = true
     var isReady : Boolean = true
 

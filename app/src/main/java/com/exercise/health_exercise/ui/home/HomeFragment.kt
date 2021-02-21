@@ -4,14 +4,13 @@ import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.exercise.health_exercise.ExerciseApplication
 import com.exercise.health_exercise.R
@@ -19,6 +18,7 @@ import com.exercise.health_exercise.adapters.HealthListAdapter
 import com.exercise.health_exercise.data.AppContents
 import com.exercise.health_exercise.data.exercises.ExercisesData
 import com.exercise.health_exercise.data.health_list.HealthListData
+import com.exercise.health_exercise.data.health_list.HealthListWithItemData
 import com.exercise.health_exercise.data.health_list_item.HealthList_ItemsData
 import com.exercise.health_exercise.ui.BaseFragment
 import com.exercise.health_exercise.ui.activitys.ExerciseDetailActivity
@@ -29,7 +29,12 @@ import kotlinx.coroutines.async
 
 class HomeFragment : BaseFragment(), HealthListAdapter.onHealthListListener {
 
+    interface onHomeFragmentListener{
+        fun onListMore(position:Int, data:HealthListWithItemData)
+    }
+
     var adapter: HealthListAdapter? = null
+    private var listener: onHomeFragmentListener ?= null
 
     val homeViewModel by lazy {
         ViewModelProvider(this, HomeViewModel.Factory(ExerciseApplication.currentActivity!!.application)).get(HomeViewModel::class.java)
@@ -37,6 +42,16 @@ class HomeFragment : BaseFragment(), HealthListAdapter.onHealthListListener {
 
     val customExerciseViewModel by lazy {
         ViewModelProvider(this, CustomExerciseViewModel.Factory(ExerciseApplication.currentActivity!!.application)).get(CustomExerciseViewModel::class.java)
+    }
+
+    companion object{
+        @JvmStatic
+        fun newInstance(listener: onHomeFragmentListener?):HomeFragment{
+            var fragment = HomeFragment()
+            fragment.listener = listener
+
+            return fragment
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -78,14 +93,35 @@ class HomeFragment : BaseFragment(), HealthListAdapter.onHealthListListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
+        Log.d("kamuel", "HomeFragment onActivityResult!!!")
         if(requestCode == AppContents.REQUEST_CODE_ADDLIST){
+            Log.d("kamuel", "HomeFragment onActivityResult!!! ::: REQUEST_CODE_ADDLIST")
             if(resultCode == RESULT_OK){
+                Log.d("kamuel", "HomeFragment onActivityResult!!! ::: RESULT_OK")
                 if(data != null){
+                    Log.d("kamuel", "HomeFragment onActivityResult!!! ::: data is not null")
                     var listData : HealthListData = data.getSerializableExtra(AppContents.RESULT_DATA_LISTDATA) as HealthListData
                     var healthList : ArrayList<ExercisesData> = data.getSerializableExtra(AppContents.RESULT_DATA_HEALTHLIST) as ArrayList<ExercisesData>
+                    var selectIndex : Long = data.getLongExtra(AppContents.INTENT_DATA_LIST_INDEX, 0)
+                    var isEdit : Boolean = data.getBooleanExtra(AppContents.INTENT_DATA_EDIT_MODE, false)
                     homeViewModel.insertHealthList(listData)
 
+
                     var listIndex : Long = homeViewModel.getLastIndex()
+
+                    if(isEdit){
+//                        customExerciseViewModel.get
+//                        customExerciseViewModel.deleteItemAll(selectIndex)
+                        customExerciseViewModel.getItemAllList(selectIndex)?.observe(viewLifecycleOwner, Observer {
+                            it.forEachIndexed { index, healthlistItemsdata ->
+                                customExerciseViewModel.deleteItem(healthlistItemsdata)
+                            }
+                        })
+
+                        listIndex = selectIndex
+                    }
+
+
                     healthList.forEachIndexed { index, exercisesData ->
                         var customExerciseItem : HealthList_ItemsData = HealthList_ItemsData(0L, listIndex, exercisesData.idx, exercisesData.revert_count, exercisesData.play_Time)
                         customExerciseViewModel.insertItem(customExerciseItem)
@@ -100,10 +136,15 @@ class HomeFragment : BaseFragment(), HealthListAdapter.onHealthListListener {
         startActivityForResult(intent, AppContents.REQUEST_CODE_ADDLIST)
     }
 
-    override fun onSelectItem(data: HealthListData, position: Int) {
+    override fun onSelectItem(data: HealthListWithItemData, position: Int) {
         var intent:Intent = Intent(ExerciseApplication.currentActivity, ExerciseDetailActivity::class.java)
         intent.putExtra(AppContents.INTENT_DATA_LIST_INDEX, data.idx)
 
         startActivityForResult(intent, AppContents.REQUEST_CODE_LISTDETAIL)
+    }
+
+    override fun onMore(data: HealthListWithItemData, position: Int) {
+        if(listener != null)
+            listener!!.onListMore(position, data)
     }
 }

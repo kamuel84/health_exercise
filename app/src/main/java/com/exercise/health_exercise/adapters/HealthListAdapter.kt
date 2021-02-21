@@ -24,7 +24,8 @@ class HealthListAdapter(var context: Context, var listener:HealthListAdapter.onH
 
     interface onHealthListListener{
         fun onAdd()
-        fun onSelectItem(data : HealthListData, position:Int)
+        fun onSelectItem(data : HealthListWithItemData, position:Int)
+        fun onMore(data:HealthListWithItemData, position:Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -71,7 +72,11 @@ class HealthListAdapter(var context: Context, var listener:HealthListAdapter.onH
         listener.onAdd()
     }
 
-    override fun onSelectItem(data: HealthListData, position: Int) {
+    override fun onSelectItem(data: HealthListWithItemData, position: Int) {
         listener.onSelectItem(data, position)
+    }
+
+    override fun onMore(data: HealthListWithItemData, position: Int) {
+        listener.onMore(data, position)
     }
 }

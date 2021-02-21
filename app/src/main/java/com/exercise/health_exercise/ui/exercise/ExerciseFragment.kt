@@ -24,6 +24,9 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener {
 
     var adapter: ExerciseListAdapter? = null
+    var listIndex : Int = -1
+    var isEditMode = false
+    var selectIndex:Long = -1L
 
     val exerciseViewModel by lazy {
         ViewModelProvider(this, ExerciseViewModel.Factory(ExerciseApplication.currentActivity!!.application)).get(
@@ -43,7 +46,13 @@ class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener 
     ): View? {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
-        exerciseViewModel.getExerciseAllList()?.observe(viewLifecycleOwner, Observer {
+        if(arguments != null ) {
+            isEditMode = requireArguments().getBoolean(AppContents.INTENT_DATA_EDIT_MODE, false)
+            selectIndex = requireArguments().getLong(AppContents.INTENT_DATA_LIST_INDEX, -1)
+        }
+
+
+        exerciseViewModel.getExerciseAllList(isEditMode, selectIndex)?.observe(viewLifecycleOwner, Observer {
             if (adapter == null) {
                 adapter = ExerciseListAdapter(mContext!!, this)
                 listHome.adapter = adapter
@@ -54,6 +63,23 @@ class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener 
             }
 
 //            var addData: HealthListData = HealthListData(-1, "Add your own workout", "A")
+
+            if(isEditMode){
+                it.forEachIndexed { index, data ->
+                    if (ExerciseApplication.currentActivity is ListAddActivity) {
+                        var selectData: HashMap<Long, ExercisesData> = (ExerciseApplication.currentActivity as ListAddActivity).selectList
+
+                        if (it.get(index).check) {
+                            if (!selectData.containsKey(data.idx))
+                                selectData.put(data.idx, it.get(index))
+                        } else {
+                            if(selectData.containsKey(data.idx))
+                                selectData.remove(data.idx)
+                        }
+                    }
+                }
+
+            }
 
             Toast.makeText(context, "Size ::: ${it.size}", Toast.LENGTH_SHORT).show()
             adapter!!.updateList(it)
@@ -71,8 +97,8 @@ class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener 
     }
 
     override fun onChecked(data: ExercisesData, position: Int) {
-        exerciseViewModel.getExerciseAllList()?.observe(viewLifecycleOwner, Observer {
-            it.get(position).check = !it.get(position).check
+        exerciseViewModel.getExerciseAllList(isEditMode, selectIndex)?.observe(viewLifecycleOwner, Observer {
+            it.get(position).check = !data.check
 
             if (ExerciseApplication.currentActivity is ListAddActivity) {
                 var selectData: HashMap<Long, ExercisesData> = (ExerciseApplication.currentActivity as ListAddActivity).selectList

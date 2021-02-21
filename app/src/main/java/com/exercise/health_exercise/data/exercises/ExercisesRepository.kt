@@ -18,6 +18,10 @@ class ExercisesRepository(application: Application) {
         return exercisesDao.getAll()
     }
 
+    fun exerciseList(idx:Long):LiveData<List<ExercisesData>>{
+        return exercisesDao.getEditMode(idx)
+    }
+
 
     fun exerciseInsert(entity: ExercisesData){
         exercisesDao.insert(entity)

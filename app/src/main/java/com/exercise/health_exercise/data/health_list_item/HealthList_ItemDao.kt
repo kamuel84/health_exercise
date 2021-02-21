@@ -11,6 +11,9 @@ interface HealthList_ItemDao : BaseDao<HealthList_ItemsData> {
     @Query("SELECT * FROM health_list_items")
     fun getAll() : LiveData<List<HealthList_ItemsData>>
 
+    @Query("SELECT * FROM health_list_items WHERE idx = :index")
+    fun getAll(index:Long) : LiveData<List<HealthList_ItemsData>>
+
     @Query("SELECT health_list_items.idx as item_idx," +
             "health_list_items.revert_count as custom_count," +
             "health_list_items.play_time as custom_play_time," +
