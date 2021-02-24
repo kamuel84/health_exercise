@@ -6,6 +6,7 @@ data class HealthListWithItemData(
         var idx : Long,
         var title : String,
         var list_type : String,
-        var health_Photo :String?
+        var health_Photo :String?,
+        var item_count:Int
 ):Serializable {
 }

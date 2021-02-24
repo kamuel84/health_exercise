@@ -21,6 +21,7 @@ import com.exercise.health_exercise.ui.activitys.BaseActivity
 import com.exercise.health_exercise.ui.activitys.ListAddActivity
 import com.exercise.health_exercise.ui.custom_exercise.CustomExerciseViewModel
 import com.exercise.health_exercise.ui.fragments.CompleteExerciseFragment
+import com.exercise.health_exercise.ui.fragments.CustomListFragment
 import com.exercise.health_exercise.ui.home.HomeFragment
 import com.exercise.health_exercise.utils.DialogUtils
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -67,6 +68,7 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
         var fragment: HomeFragment = HomeFragment.newInstance(this)
         pushFragment(R.id.nav_host_fragment, fragment)
         clMain_BottomMenu1.setOnClickListener(this)
+        clMain_BottomMenu2.setOnClickListener(this)
         clMain_BottomMenu3.setOnClickListener(this)
 
     }
@@ -94,6 +96,10 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
         when (v){
             clMain_BottomMenu1 -> {
                 var fragment : HomeFragment = HomeFragment()
+                pushFragment(R.id.nav_host_fragment, fragment)
+            }
+            clMain_BottomMenu2 -> {
+                var fragment : CustomListFragment = CustomListFragment()
                 pushFragment(R.id.nav_host_fragment, fragment)
             }
             clMain_BottomMenu3 -> {

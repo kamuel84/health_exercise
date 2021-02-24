@@ -39,6 +39,8 @@ class HolderHealthListItem(var context:Context, itemView: View, var listener:Hol
             if(!TextUtils.isEmpty(healthData.health_Photo))
                 ViewUtils.loadGifImage(healthData.health_Photo!!, null).into(ivList_Exercise)
 
+            tvList_subtitle.text = String.format("%s%s", healthData.item_count.toString(), " exercises")
+
             if(healthData.list_type == "C") {
                 clList_Root.background = ContextCompat.getDrawable(context, R.drawable.bg_radius3_99ccff)
                 ivListMenu.visibility = View.VISIBLE
@@ -51,13 +53,6 @@ class HolderHealthListItem(var context:Context, itemView: View, var listener:Hol
                 clList_Root.background = ContextCompat.getDrawable(context, R.drawable.bg_radius3_line_e5e5e5)
                 ivListMenu.visibility = View.GONE
                 ivListMenu.setOnClickListener {}
-            }
-
-            ivListMenu.visibility = View.VISIBLE
-            ivListMenu.setOnClickListener {
-                var listData: HealthListWithItemData = it.getTag(R.id.list_data) as HealthListWithItemData
-                var pos: Int = it.getTag(R.id.list_position).toString().toInt()
-                listener.onMore(listData, pos)
             }
         }
     }

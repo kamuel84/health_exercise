@@ -36,6 +36,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         return healthListRepository.healthListWithItem()
     }
 
+    fun getCustomHealthListJoinItem():LiveData<List<HealthListWithItemData>>?{
+        return healthListRepository.healthCustomListWithItem()
+    }
+
     fun getLastIndex():Long{
         return healthListRepository.healthLastIndex()
     }

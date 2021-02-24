@@ -36,6 +36,10 @@ class HealthListRepository(application: Application) {
         return healthListDao.getAllWithItem()
     }
 
+    fun healthCustomListWithItem():LiveData<List<HealthListWithItemData>>{
+        return healthListDao.getCustomWithItem()
+    }
+
     fun healthLastIndex():Long{
         return healthListDao.getLastIndex()
     }
