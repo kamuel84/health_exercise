@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.exercise.health_exercise.ExerciseApplication
@@ -63,15 +64,20 @@ class ListAddActivity : BaseActivity(), View.OnClickListener {
         if(v == btn_Next){
             if(step == 1){
                 /** 운동리스트의 세부 셋팅으로 이동 **/
-                var selectExercisList:ArrayList<ExercisesData> = ArrayList<ExercisesData>()
-                selectList.keys.forEachIndexed { index, key ->
+                if(selectList != null && selectList!!.size > 0) {
+                    var selectExercisList: ArrayList<ExercisesData> = ArrayList<ExercisesData>()
+                    selectList.keys.forEachIndexed { index, key ->
 
-                    if(selectList.get(key) != null)
-                        selectExercisList.add(selectList.get(key)!!)
+                        if (selectList.get(key) != null)
+                            selectExercisList.add(selectList.get(key)!!)
+                    }
+
+                    var nextFragment: CustomExerciseFragment =
+                        CustomExerciseFragment.newInstance(selectExercisList)
+                    pushFragment(R.id.layout_fragment, nextFragment)
+                } else {
+                    Toast.makeText(this, "운동을 1개 이상 선택 해주세요.", Toast.LENGTH_SHORT).show()
                 }
-
-                var nextFragment:CustomExerciseFragment = CustomExerciseFragment.newInstance(selectExercisList)
-                pushFragment(R.id.layout_fragment, nextFragment)
 
             } else if(step == 2){
                 /** 운동리스트의 Title을 입력 하는 화면으로 이동 **/
