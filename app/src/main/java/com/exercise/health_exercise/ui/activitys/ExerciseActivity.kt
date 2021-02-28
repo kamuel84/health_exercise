@@ -40,7 +40,6 @@ class ExerciseActivity :BaseActivity(){
                                 readyCount -= 1
                                 Log.d("kamuel", "playCount ::: $playCount")
                                 tvExercise_Count.text = "$readyCount sec"
-                                pbExercise_PlayTime.progress = playCount.toInt()
                                 if(playCount == 3) {
                                     isReady = false
                                     playCount = 0
@@ -103,24 +102,30 @@ class ExerciseActivity :BaseActivity(){
 
                     if(ArrayUtils().hasValue(exerciseList)){
                         currentPos ++
-                        setExerciseInfo(currentPos)
 
-                        isPause = false
-                        isReady = true
+                        if(currentPos < exerciseList!!.size) {
+                            setExerciseInfo(currentPos)
 
-                        handler.sendEmptyMessageDelayed(0, 1000)
+                            isPause = false
+                            isReady = true
+
+                            handler.sendEmptyMessageDelayed(0, 1000)
+                        } else {
+                            finish()
+                        }
                     }
                 }
             }
         }
     }
 
-    val defaultReadyCount:Int = 3
+    val defaultPlayCount:Int = 0
+    var defaultReadyCount:Int = 3
     var media : MediaPlayer ? = null
 
     var maxCount : Int = 0
-    var playCount : Int = 0
-    var readyCount : Int = 3
+    var playCount : Int = defaultPlayCount
+    var readyCount : Int = defaultReadyCount
     var isPause : Boolean = true
     var isReady : Boolean = true
 
@@ -198,19 +203,30 @@ class ExerciseActivity :BaseActivity(){
         tvExercise_Count.text = "$playCount sec"
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        isPause = true
+
+    }
+
     fun setExerciseInfo(position:Int){
         /** 운동 이미지 바인딩 **/
-        var itemData : HealthList_ItemJoinData = exerciseList!!.get(position)
-        ViewUtils.loadGifImage(itemData.health_image_url, null).into(ivExercise_Image)
+        if(position < exerciseList!!.size) {
+            var itemData: HealthList_ItemJoinData = exerciseList!!.get(position)
+            ViewUtils.loadGifImage(itemData.health_image_url, null).into(ivExercise_Image)
 
-        exerciseItemID = itemData.item_idx
+            exerciseItemID = itemData.item_idx
 
-        pbExercise_PlayTime.progress = defaultReadyCount.toInt()
-        pbExercise_PlayTime.max = defaultReadyCount.toInt()
-        playCount = defaultReadyCount
+            pbExercise_PlayTime.progress = 0
+            pbExercise_PlayTime.max = 0
+            playCount = defaultPlayCount
+            readyCount = defaultReadyCount
 
-        exerciseCount = itemData.custom_count
-        exercisePlayTime = itemData.custom_play_time.toInt()
-        maxCount = itemData.custom_count * itemData.custom_play_time.toInt()
+            exerciseCount = itemData.custom_count
+            exercisePlayTime = itemData.custom_play_time.toInt()
+            maxCount = itemData.custom_count * itemData.custom_play_time.toInt()
+        } else {
+            finish()
+        }
     }
 }
