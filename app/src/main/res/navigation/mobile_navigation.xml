@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.exercise.health_exercise.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_custom_list"
+        android:name="com.exercise.health_exercise.ui.fragments.CustomListFragment"
+        android:label="@string/menu_custom_list"
+        tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.exercise.health_exercise.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_complete"
+        android:name="com.exercise.health_exercise.ui.fragments.CompleteExerciseFragment"
+        android:label="@string/menu_complete_list"
+        tools:layout="@layout/activity_complete" />
 </navigation>
