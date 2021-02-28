@@ -42,9 +42,9 @@ class CompleteListAdapter(var context: Context):RecyclerView.Adapter<RecyclerVie
         var viewType:Int = list!!.get(position).view_type
 
         if(viewType == AppContents.VIEWTYPE_DATEHADER){
-            var headerData : PlayExerciseData = list!!.get(position).view_item as PlayExerciseData
-            if(!TextUtils.isEmpty(headerData.strDate)) {
-                var strDate: String = headerData.strDate.substring(0, 4) + "-" + headerData.strDate.substring(4, 6) + "-" + headerData.strDate.substring(6, 8)
+            var headerDate : String = list!!.get(position).view_item.toString()
+            if(!TextUtils.isEmpty(headerDate)) {
+                var strDate: String = headerDate.substring(0, 4) + "-" + headerDate.substring(4, 6) + "-" + headerDate.substring(6, 8)
                 (holder as HolderCompleteHeader).setHeaderData(strDate)
             }
         } else if(viewType == AppContents.VIEWTYPE_PLAYITEM){

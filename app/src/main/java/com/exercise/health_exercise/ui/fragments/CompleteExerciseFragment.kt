@@ -71,8 +71,15 @@ class CompleteExerciseFragment : BaseFragment() {
 
         viewModel.getPlayItemExercise(date)?.observe(baseActivity!!, Observer {
             var list:ArrayList<PlayExerciseListData> = ArrayList<PlayExerciseListData>()
+            var playDate : String = ""
+
             if(it != null && it.size > 0){
                 it.forEachIndexed { index, playExerciseItemHeaderData ->
+                    if(playDate == "" || playDate != playExerciseItemHeaderData.playDate){
+                        playDate = playExerciseItemHeaderData.playDate
+                        list.add(PlayExerciseListData(AppContents.VIEWTYPE_DATEHADER, playDate))
+                    }
+
                     list.add(PlayExerciseListData(AppContents.VIEWTYPE_PLAYITEM, playExerciseItemHeaderData))
                 }
 
