@@ -150,7 +150,7 @@ class CustomExerciseFragment : BaseFragment(), SelectExerciseListAdapter.onSelec
         if(insertPosition < 2)
             insertPosition = 0
         else
-            insertPosition = position -2
+            insertPosition = position -1
 
         viewModel.exerciseList!!.value!!.add(insertPosition, data)
         viewModel.exerciseList!!.value!!.removeAt(position + 1)

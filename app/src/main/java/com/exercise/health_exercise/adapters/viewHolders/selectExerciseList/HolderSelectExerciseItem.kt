@@ -1,6 +1,8 @@
 package com.exercise.health_exercise.adapters.viewHolders.selectExerciseList
 
+import android.content.Context
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.exercise.health_exercise.R
@@ -11,7 +13,7 @@ import kotlinx.android.synthetic.main.holder_exerciselist.view.*
 import kotlinx.android.synthetic.main.holder_exerciselist.view.clExerciseItem_Root
 import kotlinx.android.synthetic.main.holder_select_exerciselist.view.*
 
-class HolderSelectExerciseItem(itemView:View, var listener:HolderSelectExerciseItem.onSelectExerciseItemListener):RecyclerView.ViewHolder(itemView) {
+class HolderSelectExerciseItem(var context:Context, itemView:View, var listener:HolderSelectExerciseItem.onSelectExerciseItemListener):RecyclerView.ViewHolder(itemView) {
     interface onSelectExerciseItemListener{
         fun onCountUp(data:ExercisesData, position: Int)
         fun onCountDown(data:ExercisesData, position:Int)
@@ -20,7 +22,7 @@ class HolderSelectExerciseItem(itemView:View, var listener:HolderSelectExerciseI
         fun onSortUp(data:ExercisesData, position:Int)
         fun onSortDown(data:ExercisesData, position:Int)
     }
-    fun setSelectExercise(data:ExercisesData, position:Int){
+    fun setSelectExercise(data:ExercisesData, position:Int, max:Int){
         with(itemView){
             tvSelectItem_ExerciseTitle.text = data.title
 
@@ -74,14 +76,20 @@ class HolderSelectExerciseItem(itemView:View, var listener:HolderSelectExerciseI
                 var data:ExercisesData = it.getTag(R.id.list_data) as ExercisesData
                 var pos:Int = it.getTag(R.id.list_position).toString().toInt()
 
-                listener.onSortUp(data, pos)
+                if(pos == 0)
+                    Toast.makeText(context, "더 이상 올릴 수 없습니다.", Toast.LENGTH_SHORT).show()
+                else
+                    listener.onSortUp(data, pos)
             }
 
             ivSelectItem_SortDown.setOnClickListener {
                 var data:ExercisesData = it.getTag(R.id.list_data) as ExercisesData
                 var pos:Int = it.getTag(R.id.list_position).toString().toInt()
 
-                listener.onSortDown(data, pos)
+                if(pos >= max-1)
+                    Toast.makeText(context, "더 이상 내릴 수 없습니다.", Toast.LENGTH_SHORT).show()
+                else
+                    listener.onSortDown(data, pos)
             }
 
             tvSelectItem_Count.text = data.revert_count.toString()

@@ -27,12 +27,12 @@ class SelectExerciseListAdapter(var context: Context, var listener:SelectExercis
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(context)
         val itemView: View = inflater.inflate(R.layout.holder_select_exerciselist, parent, false)
-        var holder : RecyclerView.ViewHolder = HolderSelectExerciseItem(itemView, this)
+        var holder : RecyclerView.ViewHolder = HolderSelectExerciseItem(context, itemView, this)
         return holder
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as HolderSelectExerciseItem).setSelectExercise(itemList!!.get(position), position)
+        (holder as HolderSelectExerciseItem).setSelectExercise(itemList!!.get(position), position, itemList!!.size)
     }
 
     override fun getItemCount(): Int {
