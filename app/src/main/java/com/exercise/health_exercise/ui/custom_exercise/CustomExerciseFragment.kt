@@ -97,7 +97,6 @@ class CustomExerciseFragment : BaseFragment(), SelectExerciseListAdapter.onSelec
             }
         }
 
-        Toast.makeText(mContext, "onPause!!!", Toast.LENGTH_SHORT).show()
     }
 
     override fun onCountUp(data: ExercisesData, position: Int) {

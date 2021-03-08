@@ -79,8 +79,6 @@ class HomeFragment : BaseFragment(), HealthListAdapter.onHealthListListener {
             }
 
 //            var addData: HealthListData = HealthListData(-1, "Add your own workout", "A")
-
-            Toast.makeText(context, "Size ::: ${it.size}", Toast.LENGTH_SHORT).show()
             adapter!!.updateList(it)
         })
 

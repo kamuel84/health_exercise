@@ -81,7 +81,6 @@ class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener 
 
             }
 
-            Toast.makeText(context, "Size ::: ${it.size}", Toast.LENGTH_SHORT).show()
             adapter!!.updateList(it)
         })
 

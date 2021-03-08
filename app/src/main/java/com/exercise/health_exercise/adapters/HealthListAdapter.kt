@@ -42,11 +42,11 @@ class HealthListAdapter(var context: Context, var listener:HealthListAdapter.onH
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if(position > healthList!!.size-1){
+        if(position == 0){
             /** ADD View **/
             (holder as HolderListAdd).setAdd()
         } else
-            (holder as HolderHealthListItem).setHealthListItem(healthList!!.get(position), position)
+            (holder as HolderHealthListItem).setHealthListItem(healthList!!.get(position-1), position-1)
     }
 
     override fun getItemCount(): Int {
@@ -57,7 +57,7 @@ class HealthListAdapter(var context: Context, var listener:HealthListAdapter.onH
     }
 
     override fun getItemViewType(position: Int): Int {
-        if(position > healthList!!.size-1)
+        if(position == 0)
             return VIEWTYPE_ADD
         else
             return VIEWTYPE_ITME
