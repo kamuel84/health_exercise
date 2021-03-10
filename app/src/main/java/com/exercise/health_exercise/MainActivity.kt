@@ -107,6 +107,9 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
         super.onActivityResult(requestCode, resultCode, data)
         currentFragment().let {
             it!!.onActivityResult(requestCode, resultCode, data)
+
+            var fragment : CustomListFragment = CustomListFragment()
+            pushFragment(R.id.nav_host_fragment, fragment)
         }
     }
 
