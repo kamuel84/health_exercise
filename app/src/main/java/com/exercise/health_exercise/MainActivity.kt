@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.annotation.ArrayRes
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
@@ -124,14 +125,17 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
     override fun onClick(v: View?) {
         when (v){
             clMain_BottomMenu1 -> {
+                toolbar.title = resources.getString(R.string.menu_home)
                 var fragment : HomeFragment = HomeFragment()
                 pushFragment(R.id.nav_host_fragment, fragment)
             }
             clMain_BottomMenu2 -> {
+                toolbar.title = resources.getString(R.string.menu_custom_list)
                 var fragment : CustomListFragment = CustomListFragment()
                 pushFragment(R.id.nav_host_fragment, fragment)
             }
             clMain_BottomMenu3 -> {
+                toolbar.title = resources.getString(R.string.menu_complete_list)
                 var fragment : CompleteExerciseFragment = CompleteExerciseFragment.newInstance()
                 pushFragment(R.id.nav_host_fragment, fragment)
             }

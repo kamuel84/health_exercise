@@ -7,9 +7,9 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_custom_list">CustomList</string>
-    <string name="menu_complete_list">CompleteList</string>
+    <string name="menu_home">운동리스트</string>
+    <string name="menu_custom_list">나의운동리스트</string>
+    <string name="menu_complete_list">운동통계</string>
 
     <string name="menu_exercise_detail_list">운동리스트상세</string>
     <string name="menu_exercise_detail_item">운동세부상세</string>

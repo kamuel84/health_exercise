@@ -2,6 +2,7 @@ package com.exercise.health_exercise
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import com.exercise.health_exercise.data.exercises.ExercisesData
 import com.exercise.health_exercise.data.exercises.ExercisesRepository
@@ -35,9 +36,11 @@ class SplashActivity : AppCompatActivity() {
         super.onResume()
         init()
 
-        var intent:Intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish()
+        Handler().postDelayed({
+            var intent: Intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }, 5000)
     }
 
     fun init(){
