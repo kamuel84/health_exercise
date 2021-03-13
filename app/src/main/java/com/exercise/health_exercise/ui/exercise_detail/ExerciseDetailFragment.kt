@@ -32,7 +32,7 @@ class ExerciseDetailFragment:BaseFragment(), ExerciseDetailAdapter.onExerciseDet
     var idx:Long = 0
 
     interface onExerciseDetailListener{
-        fun onItemSelect(idx:Long)
+        fun onItemSelect(idx:Long, position:Int)
     }
 
     companion object{
@@ -89,6 +89,6 @@ class ExerciseDetailFragment:BaseFragment(), ExerciseDetailAdapter.onExerciseDet
 
     override fun onItemSelect(data: HealthList_ItemJoinData, position: Int) {
         if(listener != null)
-            listener!!.onItemSelect(idx)
+            listener!!.onItemSelect(idx, position)
     }
 }

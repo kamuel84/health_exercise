@@ -110,11 +110,13 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        currentFragment().let {
-            it!!.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == RESULT_OK){
+            currentFragment().let {
+                it!!.onActivityResult(requestCode, resultCode, data)
 
-            var fragment : CustomListFragment = CustomListFragment()
-            pushFragment(R.id.nav_host_fragment, fragment)
+                var fragment: CustomListFragment = CustomListFragment()
+                pushFragment(R.id.nav_host_fragment, fragment)
+            }
         }
     }
 

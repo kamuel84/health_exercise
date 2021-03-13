@@ -31,10 +31,11 @@ class ExerciseItemDetailFragment:BaseFragment() {
 
     companion object{
         @JvmStatic
-        fun newInstance(index:Long) : ExerciseItemDetailFragment {
+        fun newInstance(index:Long, position:Int) : ExerciseItemDetailFragment {
             var fragment: ExerciseItemDetailFragment = ExerciseItemDetailFragment()
             var bundle : Bundle = Bundle()
             bundle.putLong(AppContents.INTENT_DATA_LIST_INDEX, index)
+            bundle.putInt(AppContents.INTENT_DATA_LIST_POSITION, position)
 
             fragment.arguments = bundle
 
@@ -55,8 +56,11 @@ class ExerciseItemDetailFragment:BaseFragment() {
         var rootView:View = inflater.inflate(R.layout.fragment_exercise_item_detail, container, false)
 
         var idx:Long = 0
-        if(arguments != null)
+        var position:Int = 0
+        if(arguments != null) {
             idx = requireArguments().getLong(AppContents.INTENT_DATA_LIST_INDEX, 0)
+            position = requireArguments().getInt(AppContents.INTENT_DATA_LIST_POSITION, 0)
+        }
 
         viewModel.getCustomAllList(idx)?.observe(viewLifecycleOwner, Observer {
             if(adapter == null){
@@ -74,6 +78,8 @@ class ExerciseItemDetailFragment:BaseFragment() {
             }
 
             adapter!!.updateList(it)
+
+            vpItemDetail.setCurrentItem(position, false)
         })
         return rootView
     }

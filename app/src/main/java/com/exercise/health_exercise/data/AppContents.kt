@@ -8,6 +8,7 @@ class AppContents {
         const val REQUEST_CODE_LISTDETAIL = 2000
 
         const val INTENT_DATA_LIST_INDEX = "INTENT_DATA_LIST_INDEX"
+        const val INTENT_DATA_LIST_POSITION = "INTENT_DATA_LIST_POSITION"
         const val INTENT_DATA_EDIT_MODE = "INTENT_DATA_EDIT_MODE"
 
         const val RESULT_DATA_TITLE = "RESULT_DATA_TITLE"

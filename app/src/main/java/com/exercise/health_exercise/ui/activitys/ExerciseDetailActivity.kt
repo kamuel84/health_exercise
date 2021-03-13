@@ -33,7 +33,7 @@ class ExerciseDetailActivity : BaseActivity(), ExerciseDetailFragment.onExercise
         }
 
         btnExerciseDetail_Detail.setOnClickListener {
-            var nextFragment:ExerciseItemDetailFragment = ExerciseItemDetailFragment.newInstance(longExerciseIndex)
+            var nextFragment:ExerciseItemDetailFragment = ExerciseItemDetailFragment.newInstance(longExerciseIndex,0)
             pushFragment(R.id.flContent, nextFragment, nextFragment::class.simpleName.toString(), ExerciseDetailFragment::class.simpleName.toString())
             toolbar.title = resources.getString(R.string.menu_exercise_detail_item)
             btnExerciseDetail_Detail.visibility = View.GONE
@@ -66,8 +66,8 @@ class ExerciseDetailActivity : BaseActivity(), ExerciseDetailFragment.onExercise
         }
     }
 
-    override fun onItemSelect(idx: Long) {
-        var nextFragment:ExerciseItemDetailFragment = ExerciseItemDetailFragment.newInstance(idx)
+    override fun onItemSelect(idx: Long, position:Int) {
+        var nextFragment:ExerciseItemDetailFragment = ExerciseItemDetailFragment.newInstance(idx, position)
         pushFragment(R.id.flContent, nextFragment, nextFragment::class.simpleName.toString(), ExerciseDetailFragment::class.simpleName.toString())
         toolbar.title = resources.getString(R.string.menu_exercise_detail_item)
         btnExerciseDetail_Detail.visibility = View.GONE

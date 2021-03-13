@@ -1,5 +1,6 @@
 package com.exercise.health_exercise.ui.activitys
 
+import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
@@ -18,6 +19,8 @@ import com.exercise.health_exercise.data.health_list_item.HealthList_ItemJoinDat
 import com.exercise.health_exercise.data.playExercise.PlayExerciseData
 import com.exercise.health_exercise.data.playExerciseItem.PlayExerciseItemData
 import com.exercise.health_exercise.ui.custom_exercise.CustomExerciseViewModel
+import com.exercise.health_exercise.ui.exercise_detail.ExerciseDetailFragment
+import com.exercise.health_exercise.ui.exercise_detail.ExerciseItemDetailFragment
 import com.exercise.health_exercise.utils.ArrayUtils
 import com.exercise.health_exercise.utils.DateUtils
 import com.exercise.health_exercise.utils.ViewUtils
@@ -158,6 +161,14 @@ class ExerciseActivity :BaseActivity(){
             setExerciseInfo(currentPos)
         })
 
+        ivExercise_Info.setOnClickListener {
+            var intent:Intent = Intent(this, ExerciseItemDetailActivity::class.java)
+            intent.putExtra(AppContents.INTENT_DATA_LIST_INDEX, idx)
+            intent.putExtra(AppContents.INTENT_DATA_LIST_POSITION, currentPos)
+
+            startActivity(intent)
+        }
+
         ivExercise_Pre.setOnClickListener {
             if(currentPos > 0) {
                 currentPos -= 1
@@ -215,7 +226,7 @@ class ExerciseActivity :BaseActivity(){
             var itemData: HealthList_ItemJoinData = exerciseList!!.get(position)
             ViewUtils.loadGifImage(itemData.health_image_url, null).into(ivExercise_Image)
 
-            exerciseItemID = itemData.item_idx
+            exerciseItemID = itemData.health_index
 
             pbExercise_PlayTime.progress = 0
             pbExercise_PlayTime.max = 0
