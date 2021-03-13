@@ -71,16 +71,19 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
 
             when (it.itemId){
                 R.id.nav_home -> {
+                    toolbar.title = resources.getString(R.string.menu_home)
                     var fragment : HomeFragment = HomeFragment()
                     pushFragment(R.id.nav_host_fragment, fragment)
                 }
 
                 R.id.nav_custom_list -> {
+                    toolbar.title = resources.getString(R.string.menu_custom_list)
                     var fragment : CustomListFragment = CustomListFragment()
                     pushFragment(R.id.nav_host_fragment, fragment)
                 }
 
                 R.id.nav_complete -> {
+                    toolbar.title = resources.getString(R.string.menu_complete_list)
                     var fragment : CompleteExerciseFragment = CompleteExerciseFragment.newInstance()
                     pushFragment(R.id.nav_host_fragment, fragment)
                 }
@@ -101,6 +104,8 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
         clMain_BottomMenu2.setOnClickListener(this)
         clMain_BottomMenu3.setOnClickListener(this)
 
+        toolbar.title = resources.getString(R.string.menu_home)
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -114,9 +119,7 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-        return true
+        return false
     }
 
 
