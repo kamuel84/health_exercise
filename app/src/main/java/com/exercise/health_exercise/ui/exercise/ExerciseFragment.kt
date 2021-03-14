@@ -111,18 +111,30 @@ class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener 
                 }
 
 
-                selectData.keys.forEachIndexed { index, l ->
+                it.forEachIndexed { index, exercisesData ->
+                    var isContain = false
                     run hashKeys@{
-                        it.forEachIndexed { index, exercisesData ->
-                            if (exercisesData.idx == l) {
-                                exercisesData.check = true
+                        selectData.keys.forEachIndexed { index, idx ->
+                            if(exercisesData.idx == idx) {
+                                isContain = true
                                 return@hashKeys
-                            }
+                            } else
+                                isContain = false
                         }
                     }
+                    exercisesData.check = isContain
                 }
 
-
+//                selectData.keys.forEachIndexed { index, l ->
+//                    run hashKeys@{
+//                        it.forEachIndexed { index, exercisesData ->
+//                            if (exercisesData.idx == l) {
+//                                exercisesData.check = true
+//                                return@hashKeys
+//                            }
+//                        }
+//                    }
+//                }
             }
 
             adapter!!.updateList(it)
