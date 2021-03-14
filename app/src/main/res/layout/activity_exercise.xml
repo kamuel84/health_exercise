@@ -100,6 +100,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:gravity="center"
         app:layout_constraintTop_toTopOf="@id/pbExercise_PlayTime"
         app:layout_constraintStart_toStartOf="@id/pbExercise_PlayTime"
         app:layout_constraintEnd_toEndOf="@id/pbExercise_PlayTime"
