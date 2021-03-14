@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.util.Log
+import android.view.View
 import androidx.annotation.MainThread
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -42,6 +43,7 @@ class ExerciseActivity :BaseActivity(){
                                 playCount += 1
                                 readyCount -= 1
                                 Log.d("kamuel", "playCount ::: $playCount")
+                                tvExercise_Time.visibility = View.GONE
                                 tvExercise_Count.text = "$readyCount sec"
                                 if(playCount == 3) {
                                     isReady = false
@@ -54,6 +56,9 @@ class ExerciseActivity :BaseActivity(){
                         } else {
                             runOnUiThread {
                                 playCount += 1000
+
+                                tvExercise_Time.visibility = View.VISIBLE
+                                tvExercise_Time.text = (playCount / 1000).toString() + " sec"
 
                                 pbExercise_PlayTime.progress = playCount.toInt()
 
@@ -80,6 +85,10 @@ class ExerciseActivity :BaseActivity(){
 
                                     handler.sendEmptyMessage(1)
                                 } else {
+
+                                    media = MediaPlayer.create(this@ExerciseActivity, R.raw.countdown)
+                                    media!!.start()
+
                                     var playItemData : PlayExerciseItemData = PlayExerciseItemData(
                                             0L,
                                             playId,
