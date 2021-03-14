@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_exercise_detail.*
 class ExerciseDetailActivity : BaseActivity(), ExerciseDetailFragment.onExerciseDetailListener {
 
     var longExerciseIndex : Long = 0
+    var strTitle : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +26,7 @@ class ExerciseDetailActivity : BaseActivity(), ExerciseDetailFragment.onExercise
         ExerciseApplication.currentActivity = this
 
         longExerciseIndex = intent.getLongExtra(AppContents.INTENT_DATA_LIST_INDEX, 0)
+        strTitle = intent.getStringExtra(AppContents.INTENT_DATA_LIST_TITLE)!!
 
         btnExerciseDetail_Start.setOnClickListener {
             var exerciseStartItent : Intent = Intent(this@ExerciseDetailActivity, ExerciseActivity::class.java)
@@ -35,7 +37,6 @@ class ExerciseDetailActivity : BaseActivity(), ExerciseDetailFragment.onExercise
         btnExerciseDetail_Detail.setOnClickListener {
             var nextFragment:ExerciseItemDetailFragment = ExerciseItemDetailFragment.newInstance(longExerciseIndex,0)
             pushFragment(R.id.flContent, nextFragment, nextFragment::class.simpleName.toString(), ExerciseDetailFragment::class.simpleName.toString())
-            toolbar.title = resources.getString(R.string.menu_exercise_detail_item)
             btnExerciseDetail_Detail.visibility = View.GONE
             btnExerciseDetail_Start.visibility = View.GONE
         }
@@ -43,13 +44,11 @@ class ExerciseDetailActivity : BaseActivity(), ExerciseDetailFragment.onExercise
         var exerciseDetailFragment: ExerciseDetailFragment = ExerciseDetailFragment.newInstance(longExerciseIndex, this)
         pushFragment(R.id.flContent, exerciseDetailFragment, exerciseDetailFragment::class.simpleName.toString())
 
-        toolbar.title = resources.getString(R.string.menu_exercise_detail_list)
     }
 
     override fun onResume() {
         super.onResume()
-
-
+        toolbar.title = strTitle
     }
 
     override fun onBackPressed() {
@@ -59,7 +58,7 @@ class ExerciseDetailActivity : BaseActivity(), ExerciseDetailFragment.onExercise
         }else{
             super.onBackPressed()
             if (currentFragment() is ExerciseDetailFragment) {
-                toolbar.title = resources.getString(R.string.menu_exercise_detail_list)
+                toolbar.title = strTitle
                 btnExerciseDetail_Detail.visibility = View.VISIBLE
                 btnExerciseDetail_Start.visibility = View.VISIBLE
             }
@@ -69,7 +68,6 @@ class ExerciseDetailActivity : BaseActivity(), ExerciseDetailFragment.onExercise
     override fun onItemSelect(idx: Long, position:Int) {
         var nextFragment:ExerciseItemDetailFragment = ExerciseItemDetailFragment.newInstance(idx, position)
         pushFragment(R.id.flContent, nextFragment, nextFragment::class.simpleName.toString(), ExerciseDetailFragment::class.simpleName.toString())
-        toolbar.title = resources.getString(R.string.menu_exercise_detail_item)
         btnExerciseDetail_Detail.visibility = View.GONE
         btnExerciseDetail_Start.visibility = View.GONE
     }

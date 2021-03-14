@@ -135,6 +135,7 @@ class CustomListFragment:BaseFragment(), HealthListAdapter.onHealthListListener 
     override fun onSelectItem(data: HealthListWithItemData, position: Int) {
         var intent:Intent = Intent(ExerciseApplication.currentActivity, ExerciseDetailActivity::class.java)
         intent.putExtra(AppContents.INTENT_DATA_LIST_INDEX, data.idx)
+        intent.putExtra(AppContents.INTENT_DATA_LIST_TITLE, data.title)
 
         startActivityForResult(intent, AppContents.REQUEST_CODE_LISTDETAIL)
     }

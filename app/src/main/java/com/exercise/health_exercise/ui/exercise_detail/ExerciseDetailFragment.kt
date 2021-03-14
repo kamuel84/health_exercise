@@ -2,6 +2,9 @@ package com.exercise.health_exercise.ui.exercise_detail
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +21,7 @@ import com.exercise.health_exercise.data.AppContents
 import com.exercise.health_exercise.data.exercises.ExercisesData
 import com.exercise.health_exercise.data.health_list_item.HealthList_ItemJoinData
 import com.exercise.health_exercise.ui.BaseFragment
+import com.exercise.health_exercise.ui.activitys.ExerciseDetailActivity
 import com.exercise.health_exercise.ui.custom_exercise.CustomExerciseFragment
 import com.exercise.health_exercise.ui.custom_exercise.CustomExerciseViewModel
 import com.exercise.health_exercise.ui.itemDecoration.gridItemDecoration
@@ -30,6 +34,17 @@ class ExerciseDetailFragment:BaseFragment(), ExerciseDetailAdapter.onExerciseDet
     }
     var adapter : ExerciseDetailAdapter ?= null
     var idx:Long = 0
+
+    val handler:Handler by lazy {
+        object : Handler(Looper.getMainLooper()) {
+            override fun handleMessage(msg: Message){
+                var title:String = ""
+
+                title = msg.obj.toString()
+                (baseActivity as ExerciseDetailActivity).setTitle(title)
+            }
+        }
+    }
 
     interface onExerciseDetailListener{
         fun onItemSelect(idx:Long, position:Int)
@@ -76,6 +91,7 @@ class ExerciseDetailFragment:BaseFragment(), ExerciseDetailAdapter.onExerciseDet
 ////            var addData: HealthListData = HealthListData(-1, "Add your own workout", "A")
 //
 //            Toast.makeText(context, "Size ::: ${it.size}", Toast.LENGTH_SHORT).show()
+
             adapter!!.updateList(it)
         })
 
@@ -84,7 +100,7 @@ class ExerciseDetailFragment:BaseFragment(), ExerciseDetailAdapter.onExerciseDet
 
     override fun onResume() {
         super.onResume()
-        Log.d("kameul", "-----------------")
+        Log.d("kamuel", "-----------------")
     }
 
     override fun onItemSelect(data: HealthList_ItemJoinData, position: Int) {
