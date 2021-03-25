@@ -53,7 +53,7 @@ class HealthListAdapter(var context: Context, var listener:HealthListAdapter.onH
         if(ArrayUtils().hasValue(healthList))
             return healthList!!.size+1
         else
-            return 0
+            return 1
     }
 
     override fun getItemViewType(position: Int): Int {
