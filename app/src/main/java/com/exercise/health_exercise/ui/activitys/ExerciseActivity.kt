@@ -42,7 +42,6 @@ class ExerciseActivity :BaseActivity(){
 
                                 playCount += 1
                                 readyCount -= 1
-                                Log.d("kamuel", "playCount ::: $playCount")
                                 tvExercise_Time.visibility = View.GONE
                                 tvExercise_Count.text = "$readyCount sec"
                                 if(playCount == 3) {
@@ -83,7 +82,8 @@ class ExerciseActivity :BaseActivity(){
                                     )
                                     viewModel.insertPlayItemExercise(playItemData)
 
-                                    handler.sendEmptyMessage(1)
+                                    if(!isReady)
+                                        handler.sendEmptyMessage(1)
                                 } else {
 
                                     media = MediaPlayer.create(this@ExerciseActivity, R.raw.countdown)
@@ -98,7 +98,8 @@ class ExerciseActivity :BaseActivity(){
                                             false
                                     )
                                     viewModel.insertPlayItemExercise(playItemData)
-                                    handler.sendEmptyMessageDelayed(0, 1000)
+                                    if(!isReady)
+                                        handler.sendEmptyMessageDelayed(0, 1000)
                                 }
                             }
 
@@ -186,20 +187,29 @@ class ExerciseActivity :BaseActivity(){
                     currentPos = 0
 
                 isPause = true
+                isReady = true
                 ivExercise_Play.setImageResource(R.drawable.ic_play)
 
                 setExerciseInfo(currentPos)
 
-                /** currentPos 가 0이 되면 Pre 버튼 회색 처리 해야 할 듯 **/
+                tvExercise_Time.visibility = View.GONE
+                tvExercise_Count.text = "$readyCount sec"
             }
         }
 
         ivExercise_Next.setOnClickListener {
             if(currentPos < exerciseList!!.size-1){
-                currentPos += 1
+
                 isPause = true
+                isReady = true
+
+                currentPos ++
                 ivExercise_Play.setImageResource(R.drawable.ic_play)
+
                 setExerciseInfo(currentPos)
+
+                tvExercise_Time.visibility = View.GONE
+                tvExercise_Count.text = "$readyCount sec"
             }
         }
 
