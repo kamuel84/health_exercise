@@ -3,6 +3,7 @@ package com.exercise.health_exercise.ui.custom_title
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
@@ -80,13 +81,19 @@ class CustomTitleFragment : BaseFragment(){
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (ExerciseApplication.currentActivity is ListAddActivity) {
-                    (ExerciseApplication.currentActivity as ListAddActivity).title = s.toString()
+                    if(TextUtils.isEmpty(s.toString())) {
+                        (ExerciseApplication.currentActivity as ListAddActivity).setButtonEnable(false)
+                    } else {
+                        (ExerciseApplication.currentActivity as ListAddActivity).setButtonEnable(true)
+                        (ExerciseApplication.currentActivity as ListAddActivity).title = s.toString()
+                    }
                 }
             }
 
         })
 
         if (ExerciseApplication.currentActivity is ListAddActivity) {
+            (ExerciseApplication.currentActivity as ListAddActivity).setButtonEnable(false)
             (ExerciseApplication.currentActivity as ListAddActivity).step = 3
         }
     }

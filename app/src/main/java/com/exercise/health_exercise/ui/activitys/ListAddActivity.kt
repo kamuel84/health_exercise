@@ -60,6 +60,18 @@ class ListAddActivity : BaseActivity(), View.OnClickListener {
         btn_Next.setOnClickListener(this)
     }
 
+    fun setButtonEnable(isEnabled:Boolean){
+
+        btn_Next.isEnabled = isEnabled
+        if(isEnabled){
+            btn_Next.background = ContextCompat.getDrawable(this, R.drawable.bg_radius3_line_e5e5e5)
+//            btn_Next.setTextColor(ContextCompat.getColor(this, R.color.font_color_black))
+        } else {
+            btn_Next.setBackgroundColor(ContextCompat.getColor(this, R.color.color_e5e5e5))
+//            btn_Next.setTextColor(ContextCompat.getColor(this, R.color.font_color_black))
+        }
+    }
+
     override fun onClick(v: View?) {
         if(v == btn_Next){
             if(step == 1){
