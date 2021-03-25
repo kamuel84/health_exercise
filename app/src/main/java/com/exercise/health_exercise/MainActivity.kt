@@ -1,6 +1,7 @@
 package com.exercise.health_exercise
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -86,6 +87,13 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
                     toolbar.title = resources.getString(R.string.menu_complete_list)
                     var fragment : CompleteExerciseFragment = CompleteExerciseFragment.newInstance()
                     pushFragment(R.id.nav_host_fragment, fragment)
+                }
+
+                R.id.nav_webpage -> {
+                    var uri: Uri = Uri.parse("http://www.doclinic.kr")
+                    var intent:Intent = Intent(Intent.ACTION_VIEW)
+                    intent.setData(uri)
+                    startActivity(intent)
                 }
             }
 

@@ -19,4 +19,7 @@
             android:icon="@drawable/ic_calender"
             android:title="@string/menu_complete_list" />
     </group>
+    <item
+        android:id="@+id/nav_webpage"
+        android:title="두원경과사이트" />
 </menu>
