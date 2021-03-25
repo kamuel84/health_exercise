@@ -19,6 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/clExercise_TitleArea"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -27,6 +28,7 @@
             android:layout_width="43dp"
             android:layout_height="43dp"
             android:padding="5dp"
+            android:visibility="gone"
             android:src="@drawable/ic_info"/>
         <ImageView
             android:id="@+id/ivExercise_Setting"
@@ -35,6 +37,14 @@
             android:padding="5dp"
             android:visibility="gone"
             android:src="@drawable/ic_setting"/>
+
+        <TextView
+            android:id="@+id/tvExercise_Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/font_color_black"
+            android:textSize="25dp"
+            android:textStyle="bold"/>
     </LinearLayout>
     <!-- 이미지 영역 -->
     <androidx.constraintlayout.widget.ConstraintLayout

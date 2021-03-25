@@ -242,6 +242,7 @@ class ExerciseActivity :BaseActivity(){
             playCount = defaultPlayCount
             readyCount = defaultReadyCount
 
+            tvExercise_Title.text = itemData.health_title
             exerciseCount = itemData.custom_count
             exercisePlayTime = itemData.custom_play_time.toInt()
             maxCount = itemData.custom_count * itemData.custom_play_time.toInt()
