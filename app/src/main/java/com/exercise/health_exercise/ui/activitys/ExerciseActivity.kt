@@ -37,7 +37,7 @@ class ExerciseActivity :BaseActivity(){
                         if(isReady) {
                             runOnUiThread {
                                 //카운트 다운 소리 시작
-                                media = MediaPlayer.create(this@ExerciseActivity, R.raw.countdown)
+                                var media = MediaPlayer.create(this@ExerciseActivity, R.raw.countdown)
                                 media!!.start()
 
                                 playCount += 1
@@ -66,7 +66,7 @@ class ExerciseActivity :BaseActivity(){
 
                                 if(preTimeCount == 0 || timeCount != preTimeCount) {
                                     preTimeCount = timeCount
-                                    media = MediaPlayer.create(this@ExerciseActivity, R.raw.exercisecount)
+                                    var media = MediaPlayer.create(this@ExerciseActivity, R.raw.exercisecount)
                                     media!!.start()
                                     tvExercise_Count.text = "$timeCount ea"
                                 }
@@ -86,7 +86,7 @@ class ExerciseActivity :BaseActivity(){
                                         handler.sendEmptyMessage(1)
                                 } else {
 
-                                    media = MediaPlayer.create(this@ExerciseActivity, R.raw.countdown)
+                                    var media = MediaPlayer.create(this@ExerciseActivity, R.raw.countdown)
                                     media!!.start()
 
                                     var playItemData : PlayExerciseItemData = PlayExerciseItemData(
