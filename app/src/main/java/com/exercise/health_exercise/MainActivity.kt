@@ -33,6 +33,7 @@ import com.exercise.health_exercise.ui.home.HomeFragment
 import com.exercise.health_exercise.utils.DialogUtils
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import java.util.*
 import kotlin.collections.LinkedHashMap
@@ -60,33 +61,26 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
 //                    .setAction("Action", null).show()
 //        }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        val navView: NavigationView = findViewById(R.id.nav_view)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         toolbar.setNavigationIcon(R.drawable.ic_side_menu)
         toolbar.setNavigationOnClickListener {
-            drawerLayout.openDrawer(navView)
+            drawerLayout.openDrawer(nav_view)
         }
 
-        navView.setNavigationItemSelectedListener {
+        nav_view.setNavigationItemSelectedListener {
 
             when (it.itemId){
                 R.id.nav_home -> {
-                    toolbar.title = resources.getString(R.string.menu_home)
-                    var fragment : HomeFragment = HomeFragment()
-                    pushFragment(R.id.nav_host_fragment, fragment)
+                    setMenu(resources.getString(R.string.menu_home), 1)
                 }
 
                 R.id.nav_custom_list -> {
-                    toolbar.title = resources.getString(R.string.menu_custom_list)
-                    var fragment : CustomListFragment = CustomListFragment()
-                    pushFragment(R.id.nav_host_fragment, fragment)
+                    setMenu(resources.getString(R.string.menu_custom_list), 2)
                 }
 
                 R.id.nav_complete -> {
-                    toolbar.title = resources.getString(R.string.menu_complete_list)
-                    var fragment : CompleteExerciseFragment = CompleteExerciseFragment.newInstance()
-                    pushFragment(R.id.nav_host_fragment, fragment)
+                    setMenu(resources.getString(R.string.menu_complete_list), 3)
                 }
 
                 R.id.nav_webpage -> {
@@ -108,6 +102,7 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
 
         var fragment: HomeFragment = HomeFragment.newInstance(this)
         pushFragment(R.id.nav_host_fragment, fragment)
+        clMain_BottomMenu1.setBackgroundColor(ContextCompat.getColor(this, R.color.color_999999))
         clMain_BottomMenu1.setOnClickListener(this)
         clMain_BottomMenu2.setOnClickListener(this)
         clMain_BottomMenu3.setOnClickListener(this)
@@ -141,21 +136,49 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
     override fun onClick(v: View?) {
         when (v){
             clMain_BottomMenu1 -> {
-                toolbar.title = resources.getString(R.string.menu_home)
-                var fragment : HomeFragment = HomeFragment()
-                pushFragment(R.id.nav_host_fragment, fragment)
+                setMenu(resources.getString(R.string.menu_home), 1)
             }
             clMain_BottomMenu2 -> {
-                toolbar.title = resources.getString(R.string.menu_custom_list)
-                var fragment : CustomListFragment = CustomListFragment()
-                pushFragment(R.id.nav_host_fragment, fragment)
+                setMenu(resources.getString(R.string.menu_custom_list), 2)
+
             }
             clMain_BottomMenu3 -> {
-                toolbar.title = resources.getString(R.string.menu_complete_list)
-                var fragment : CompleteExerciseFragment = CompleteExerciseFragment.newInstance()
-                pushFragment(R.id.nav_host_fragment, fragment)
+                setMenu(resources.getString(R.string.menu_complete_list), 3)
             }
         }
+    }
+
+    fun setMenu(title:String, type:Int){
+        when(type){
+            1 ->{
+                var fragment : HomeFragment = HomeFragment()
+                pushFragment(R.id.nav_host_fragment, fragment)
+                nav_view.menu.getItem(0).isChecked = true
+                clMain_BottomMenu1.setBackgroundColor(ContextCompat.getColor(this, R.color.color_999999))
+                clMain_BottomMenu2.setBackgroundColor(ContextCompat.getColor(this, R.color.color_white))
+                clMain_BottomMenu3.setBackgroundColor(ContextCompat.getColor(this, R.color.color_white))
+            }
+
+            2->{
+                var fragment : CustomListFragment = CustomListFragment()
+                pushFragment(R.id.nav_host_fragment, fragment)
+                nav_view.menu.getItem(1).isChecked = true
+                clMain_BottomMenu1.setBackgroundColor(ContextCompat.getColor(this, R.color.color_white))
+                clMain_BottomMenu2.setBackgroundColor(ContextCompat.getColor(this, R.color.color_999999))
+                clMain_BottomMenu3.setBackgroundColor(ContextCompat.getColor(this, R.color.color_white))
+            }
+
+            3->{
+                var fragment : CompleteExerciseFragment = CompleteExerciseFragment.newInstance()
+                pushFragment(R.id.nav_host_fragment, fragment)
+                nav_view.menu.getItem(2).isChecked = true
+                clMain_BottomMenu1.setBackgroundColor(ContextCompat.getColor(this, R.color.color_white))
+                clMain_BottomMenu2.setBackgroundColor(ContextCompat.getColor(this, R.color.color_white))
+                clMain_BottomMenu3.setBackgroundColor(ContextCompat.getColor(this, R.color.color_999999))
+            }
+        }
+
+        toolbar.title = title
     }
 
 
