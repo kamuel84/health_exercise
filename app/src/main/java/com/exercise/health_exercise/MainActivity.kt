@@ -3,9 +3,6 @@ package com.exercise.health_exercise
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
-import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -29,6 +26,8 @@ import com.exercise.health_exercise.ui.activitys.ListAddActivity
 import com.exercise.health_exercise.ui.custom_exercise.CustomExerciseViewModel
 import com.exercise.health_exercise.ui.fragments.CompleteExerciseFragment
 import com.exercise.health_exercise.ui.fragments.CustomListFragment
+import com.exercise.health_exercise.ui.fragments.DialogFragment
+import com.exercise.health_exercise.ui.fragments.DialogFragment.ConfirmDialogListener
 import com.exercise.health_exercise.ui.home.HomeFragment
 import com.exercise.health_exercise.utils.DialogUtils
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -108,6 +107,16 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
         clMain_BottomMenu3.setOnClickListener(this)
 
         toolbar.title = resources.getString(R.string.menu_home)
+
+    }
+
+    override fun onBackPressed() {
+        DialogUtils.showMessageDialog(this.supportFragmentManager, "", "", "앱을 종료하시겠습니까?", "취소", "확인",
+                object: ConfirmDialogListener{
+                    override fun onConfirmDialogCallback(isOk: Boolean, data: String?) {
+                        if(isOk) finish()
+                    }
+                })
 
     }
 

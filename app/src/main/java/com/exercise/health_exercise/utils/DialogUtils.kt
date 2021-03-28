@@ -12,7 +12,9 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentManager
 import com.exercise.health_exercise.R
+import com.exercise.health_exercise.ui.fragments.DialogFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
@@ -115,6 +117,12 @@ class DialogUtils {
             bottomSheetDialog.show()
 
             return bottomSheetDialog
+        }
+
+        @JvmStatic
+        fun showMessageDialog(fm: FragmentManager, title:String, desc:String, message:String, black:String, orange:String, listener:DialogFragment.ConfirmDialogListener){
+            val dialog: DialogFragment = DialogFragment.newInstance(false, 0, title, desc, message, black, orange, null, listener)
+            dialog.show(fm, DialogFragment::class.java.getName())
         }
     }
 }
