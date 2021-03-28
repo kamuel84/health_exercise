@@ -21,5 +21,6 @@
     </group>
     <item
         android:id="@+id/nav_webpage"
-        android:title="두원경과사이트" />
+        android:icon="@android:drawable/ic_dialog_map"
+        android:title="두신경과 홈페이지" />
 </menu>
