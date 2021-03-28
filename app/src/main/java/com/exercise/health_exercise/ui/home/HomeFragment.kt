@@ -76,6 +76,7 @@ class HomeFragment : BaseFragment(), HealthListAdapter.onHealthListListener {
                 adapter = HealthListAdapter(mContext!!, this)
                 listHome.adapter = adapter
                 listHome.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                listHome.setHasFixedSize(true)
             }
 
 //            var addData: HealthListData = HealthListData(-1, "Add your own workout", "A")
