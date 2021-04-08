@@ -22,6 +22,7 @@
     <color name="color_e5e5e5">#e5e5e5</color>
     <color name="color_ff0000">#ff0000</color>
     <color name="color_70AB34">#70AB34</color>
+    <color name="color_D8BFD8">#D8BFD8</color>
 
     <color name="color_font_black">@color/black</color>
 </resources>

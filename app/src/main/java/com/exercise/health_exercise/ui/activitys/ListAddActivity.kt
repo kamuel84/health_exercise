@@ -64,7 +64,7 @@ class ListAddActivity : BaseActivity(), View.OnClickListener {
 
         btn_Next.isEnabled = isEnabled
         if(isEnabled){
-            btn_Next.background = ContextCompat.getDrawable(this, R.drawable.bg_radius3_line_e5e5e5)
+            btn_Next.background = ContextCompat.getDrawable(this, R.drawable.bg_radius3_line_999999)
 //            btn_Next.setTextColor(ContextCompat.getColor(this, R.color.font_color_black))
         } else {
             btn_Next.setBackgroundColor(ContextCompat.getColor(this, R.color.color_e5e5e5))

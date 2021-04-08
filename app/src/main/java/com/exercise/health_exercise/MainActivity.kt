@@ -101,7 +101,7 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
 
         var fragment: HomeFragment = HomeFragment.newInstance(this)
         pushFragment(R.id.nav_host_fragment, fragment)
-        clMain_BottomMenu1.setBackgroundColor(ContextCompat.getColor(this, R.color.color_999999))
+        clMain_BottomMenu1.setBackgroundColor(ContextCompat.getColor(this, R.color.color_D8BFD8))
         clMain_BottomMenu1.setOnClickListener(this)
         clMain_BottomMenu2.setOnClickListener(this)
         clMain_BottomMenu3.setOnClickListener(this)
@@ -163,7 +163,7 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
                 var fragment : HomeFragment = HomeFragment()
                 pushFragment(R.id.nav_host_fragment, fragment)
                 nav_view.menu.getItem(0).isChecked = true
-                clMain_BottomMenu1.setBackgroundColor(ContextCompat.getColor(this, R.color.color_999999))
+                clMain_BottomMenu1.setBackgroundColor(ContextCompat.getColor(this, R.color.color_D8BFD8))
                 clMain_BottomMenu2.setBackgroundColor(ContextCompat.getColor(this, R.color.color_white))
                 clMain_BottomMenu3.setBackgroundColor(ContextCompat.getColor(this, R.color.color_white))
             }
@@ -173,7 +173,7 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
                 pushFragment(R.id.nav_host_fragment, fragment)
                 nav_view.menu.getItem(1).isChecked = true
                 clMain_BottomMenu1.setBackgroundColor(ContextCompat.getColor(this, R.color.color_white))
-                clMain_BottomMenu2.setBackgroundColor(ContextCompat.getColor(this, R.color.color_999999))
+                clMain_BottomMenu2.setBackgroundColor(ContextCompat.getColor(this, R.color.color_D8BFD8))
                 clMain_BottomMenu3.setBackgroundColor(ContextCompat.getColor(this, R.color.color_white))
             }
 
@@ -183,7 +183,7 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
                 nav_view.menu.getItem(2).isChecked = true
                 clMain_BottomMenu1.setBackgroundColor(ContextCompat.getColor(this, R.color.color_white))
                 clMain_BottomMenu2.setBackgroundColor(ContextCompat.getColor(this, R.color.color_white))
-                clMain_BottomMenu3.setBackgroundColor(ContextCompat.getColor(this, R.color.color_999999))
+                clMain_BottomMenu3.setBackgroundColor(ContextCompat.getColor(this, R.color.color_D8BFD8))
             }
         }
 

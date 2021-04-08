@@ -126,15 +126,16 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_custom_exercise" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:text="나의운동리스트"
+                            android:gravity="center"
+                            android:text="나의운동"
                             android:textColor="@color/font_color_black"
                             android:textSize="14dp"
-                            android:gravity="center"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
+                            app:layout_constraintBottom_toBottomOf="parent" />
                     </LinearLayout>
 
 

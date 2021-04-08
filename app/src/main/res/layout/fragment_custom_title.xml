@@ -21,18 +21,20 @@
             android:textColor="@color/font_color_black"
             android:textStyle="bold"
             android:text="Specify Tilte" />
+
         <EditText
             android:id="@+id/tvCustom_Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:textColor="@color/color_font_black"
-            android:textSize="32dp"
-            android:layout_marginTop="20dp"
             android:layout_marginHorizontal="20dp"
-            android:padding="5dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_radius3_line_e5e5e5"
             android:hint="@string/custom_title"
-            android:background="@drawable/bg_radius3_line_e5e5e5" />
+            android:textColorHint="@color/colorAccent"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
