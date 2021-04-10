@@ -4,14 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/clList_Root"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="50dp"
     android:layout_marginHorizontal="10dp"
     android:layout_marginBottom="15dp"
     android:background="@drawable/bg_radius3_line_e5e5e5">
     <ImageView
         android:id="@+id/ivList_Exercise"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:scaleType="fitCenter"
         android:background="@drawable/bg_radius3_line_e5e5e5"
         app:layout_constraintTop_toTopOf="parent"
@@ -40,7 +40,8 @@
             android:layout_height="wrap_content"
             android:text="subtitle"
             android:textColor="@color/color_font_black"
-            android:textSize="14dp"/>
+            android:textSize="14dp"
+            android:visibility="invisible" />
     </LinearLayout>
 
     <ImageView

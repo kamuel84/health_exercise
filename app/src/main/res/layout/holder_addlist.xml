@@ -8,19 +8,19 @@
     android:layout_marginHorizontal="10dp"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="10dp"
-    android:layout_height="150dp">
+    android:layout_height="50dp">
 
     <TextView
         android:id="@+id/tvListAdd_ADD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="운동추가"
         android:drawableTop="@drawable/ic_add"
+        android:text="나의운동 추가"
         android:textColor="@color/font_color_black"
         android:textSize="16dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
