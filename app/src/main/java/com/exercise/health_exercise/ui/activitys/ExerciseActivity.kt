@@ -9,6 +9,7 @@ import android.os.Message
 import android.util.Log
 import android.view.View
 import androidx.annotation.MainThread
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -43,7 +44,8 @@ class ExerciseActivity :BaseActivity(){
                                 playCount += 1
                                 readyCount -= 1
                                 tvExercise_Time.visibility = View.GONE
-                                tvExercise_Count.text = "$readyCount sec"
+                                tvExercise_Count.text = "Ready Count : $readyCount sec"
+                                tvExercise_Count.setTextColor(ContextCompat.getColor(this@ExerciseActivity, R.color.color_70AB34))
                                 if(playCount == 3) {
                                     isReady = false
                                     playCount = 0
@@ -68,7 +70,8 @@ class ExerciseActivity :BaseActivity(){
                                     preTimeCount = timeCount
                                     var media = MediaPlayer.create(this@ExerciseActivity, R.raw.exercisecount)
                                     media!!.start()
-                                    tvExercise_Count.text = "$timeCount ea"
+                                    tvExercise_Count.text = "Repeat Count : $timeCount ea"
+                                    tvExercise_Count.setTextColor(ContextCompat.getColor(this@ExerciseActivity, R.color.font_color_black))
                                 }
 
                                 if(maxCount == playCount) {
@@ -133,7 +136,7 @@ class ExerciseActivity :BaseActivity(){
     }
 
     val defaultPlayCount:Int = 0
-    var defaultReadyCount:Int = 3
+    var defaultReadyCount:Int = 4
     var media : MediaPlayer ? = null
 
     var maxCount : Int = 0
@@ -193,7 +196,8 @@ class ExerciseActivity :BaseActivity(){
                 setExerciseInfo(currentPos)
 
                 tvExercise_Time.visibility = View.GONE
-                tvExercise_Count.text = "$readyCount sec"
+                tvExercise_Count.text = "Ready Count : $readyCount sec"
+                tvExercise_Count.setTextColor(ContextCompat.getColor(this@ExerciseActivity, R.color.color_70AB34))
             }
         }
 
@@ -209,7 +213,8 @@ class ExerciseActivity :BaseActivity(){
                 setExerciseInfo(currentPos)
 
                 tvExercise_Time.visibility = View.GONE
-                tvExercise_Count.text = "$readyCount sec"
+                tvExercise_Count.text = "Ready Count : $readyCount sec"
+                tvExercise_Count.setTextColor(ContextCompat.getColor(this@ExerciseActivity, R.color.color_70AB34))
             }
         }
 
