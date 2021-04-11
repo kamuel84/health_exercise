@@ -18,8 +18,20 @@ class ExercisesRepository(application: Application) {
         return exercisesDao.getAll()
     }
 
+    fun exerciseList(keyword:String): LiveData<List<ExercisesData>> {
+        return exercisesDao.getSearchExercise(keyword)
+    }
+
     fun exerciseList(idx:Long):LiveData<List<ExercisesData>>{
         return exercisesDao.getEditMode(idx)
+    }
+
+    fun exerciseList(idx:Long, keyword:String):LiveData<List<ExercisesData>>{
+        return exercisesDao.getEditMode(idx, keyword)
+    }
+
+    fun exerciseListInSearch(idx:Long, keyword:String):LiveData<List<ExercisesData>>{
+        return exercisesDao.getEditModeInSearch(idx, keyword)
     }
 
 

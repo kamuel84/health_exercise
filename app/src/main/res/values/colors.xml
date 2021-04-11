@@ -13,6 +13,7 @@
 
     <color name="transparent">#00000000</color>
     <color name="font_color_black">@color/black</color>
+    <color name="color_black_200">#80000000</color>
     <color name="color_ff6c2d">#ff6c2d</color>
     <color name="color_0091ff">#0091ff</color>
     <color name="color_white">#ffffff</color>

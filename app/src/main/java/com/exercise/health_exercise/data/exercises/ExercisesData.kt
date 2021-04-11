@@ -13,6 +13,7 @@ data class ExercisesData(
     var play_Time : Long,
     val health_Notice : String,
     val health_Photo : String,
+    var checkIndex:Int,
     var check:Boolean = false) : Serializable {
 
 }

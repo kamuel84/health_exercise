@@ -34,6 +34,7 @@ data class HealthList_ItemsData(
     val idx : Long,
     val health_list_index:Long,
     val health_index:Long,
+    val health_sort:Int,
     val revert_count:Int,
     val play_time:Long
 ) : Serializable {

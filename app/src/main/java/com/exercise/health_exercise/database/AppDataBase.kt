@@ -18,7 +18,7 @@ import com.exercise.health_exercise.data.playExerciseItem.PlayExerciseItemDao
 import com.exercise.health_exercise.data.playExerciseItem.PlayExerciseItemData
 
 @Database(entities = arrayOf(HealthListData::class, ExercisesData::class, HealthList_ItemsData::class,
-        PlayExerciseData::class, PlayExerciseItemData::class), version = 4, exportSchema = true)
+        PlayExerciseData::class, PlayExerciseItemData::class), version = 6, exportSchema = true)
 open abstract class AppDataBase : RoomDatabase() {
 
     abstract fun exercisesDao() : ExercisesDao
@@ -30,15 +30,26 @@ open abstract class AppDataBase : RoomDatabase() {
 
     companion object{
         var mContext:Context ?= null
+        var listener:RoomDatabase.Callback ?= null
         private val DB_NAME = "health_exercise-db"
         @Volatile private var instance:AppDataBase ?= null
 
         @JvmStatic
-        fun getInstance(context:Context):AppDataBase{
+        fun getInstance(context:Context, callback:RoomDatabase.Callback):AppDataBase{
+            listener = callback
             return instance ?: synchronized(this){
                 instance ?: buildDataBase(context)
             }
         }
+
+        @JvmStatic
+        fun getInstance(context:Context):AppDataBase{
+            listener = null
+            return instance ?: synchronized(this){
+                instance ?: buildDataBase(context)
+            }
+        }
+
 
         val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
@@ -73,14 +84,37 @@ open abstract class AppDataBase : RoomDatabase() {
             }
         }
 
+        val MIGRATION_4_5 = object :Migration(4,5){
+            override fun migrate(database: SupportSQLiteDatabase) {
+                var query:String = "ALTER TABLE 'exercise' add column 'checkIndex' INTEGER"
+
+                database.execSQL(query)
+            }
+        }
+
+        val MIGRATION_5_6 = object : Migration(5,6){
+            override fun migrate(database: SupportSQLiteDatabase) {
+                var query:String = "ALTER TABLE 'health_list_items' add column 'health_sort' INTEGER"
+                database.execSQL(query)
+            }
+        }
+
         open fun buildDataBase(context:Context):AppDataBase{
             mContext = context
-            return Room.databaseBuilder(context, AppDataBase::class.java, DB_NAME)
-                .allowMainThreadQueries()
-                .addMigrations(MIGRATION_1_2)
-                .addMigrations(MIGRATION_2_3)
-                .addMigrations(MIGRATION_3_4)
-                .build()
+            var builder = Room.databaseBuilder(context, AppDataBase::class.java, DB_NAME)
+            builder.fallbackToDestructiveMigration()
+                    .allowMainThreadQueries()
+                    .addMigrations(MIGRATION_1_2)
+                    .addMigrations(MIGRATION_2_3)
+                    .addMigrations(MIGRATION_3_4)
+                    .addMigrations(MIGRATION_4_5)
+                    .addMigrations(MIGRATION_5_6)
+
+            if(listener != null )
+                builder.addCallback(listener!!)
+
+            var dataBase : AppDataBase = builder.build()
+            return dataBase
         }
     }
 

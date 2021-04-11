@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_list_base.*
 
 class ListAddActivity : BaseActivity(), View.OnClickListener {
     var step:Int = 0
-    var selectList : HashMap<Long, ExercisesData> = HashMap<Long, ExercisesData>()
+    var selectList : LinkedHashMap<Long, ExercisesData> = LinkedHashMap<Long, ExercisesData>()
     var title : String = ""
     var isEdit : Boolean = false
     var selectIndex : Long = 0

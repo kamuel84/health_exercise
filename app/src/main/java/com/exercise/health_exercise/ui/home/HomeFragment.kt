@@ -119,7 +119,7 @@ class HomeFragment : BaseFragment(), HealthListAdapter.onHealthListListener {
                         listIndex = selectIndex
                     }
                     healthList.forEachIndexed { index, exercisesData ->
-                        var customExerciseItem : HealthList_ItemsData = HealthList_ItemsData(0L, listIndex, exercisesData.idx, exercisesData.revert_count, exercisesData.play_Time)
+                        var customExerciseItem : HealthList_ItemsData = HealthList_ItemsData(0L, listIndex, exercisesData.idx, exercisesData.revert_count, exercisesData.checkIndex, exercisesData.play_Time)
                         customExerciseViewModel.insertItem(customExerciseItem)
                     }
                 }

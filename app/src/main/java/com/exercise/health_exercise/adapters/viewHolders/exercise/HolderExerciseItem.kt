@@ -25,10 +25,19 @@ class HolderExerciseItem(itemView:View, var listener:HolderExerciseItem.onExerci
                 listener.onCheck(exerciseItem, pos)
             }
 
+            cbExerciseItem_Check.visibility = View.VISIBLE
+
             if(data.check){
                 cbExerciseItem_Check.isChecked = true
             } else {
                 cbExerciseItem_Check.isChecked = false
+            }
+
+            if(data.checkIndex != -1) {
+                tvExerciseItem_Index.visibility = View.VISIBLE
+                tvExerciseItem_Index.text = data.checkIndex.toString()
+            } else {
+                tvExerciseItem_Index.visibility = View.GONE
             }
 
             ViewUtils.loadGifImage(data.health_Photo, null).into(ivExerciseItem_Image)
