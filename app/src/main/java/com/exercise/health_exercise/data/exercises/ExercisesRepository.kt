@@ -2,6 +2,7 @@ package com.exercise.health_exercise.data.exercises
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.exercise.health_exercise.data.health_list.HealthListData
 import com.exercise.health_exercise.database.AppDataBase
 import io.reactivex.rxjava3.core.Completable
@@ -32,6 +33,10 @@ class ExercisesRepository(application: Application) {
 
     fun exerciseListInSearch(idx:Long, keyword:String):LiveData<List<ExercisesData>>{
         return exercisesDao.getEditModeInSearch(idx, keyword)
+    }
+
+    fun exerciseListInSearch(query: SupportSQLiteQuery):LiveData<List<ExercisesData>>{
+        return exercisesDao.getEditModeInSearch(query)
     }
 
 

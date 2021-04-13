@@ -114,14 +114,14 @@ class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener 
     fun searchKeyword(keyword:String){
 
         if(keyword.contains(",")){
-            var where:String = ""
-            keyword.split(',').forEachIndexed { index, s ->
-                if(!TextUtils.isEmpty(where)) where += " OR "
-
-                where += "exercise.title LIKE %$s%"
-
-            }
-            exerciseViewModel.setKeyword(true, where)
+//            var where:String = ""
+//            keyword.split(',').forEachIndexed { index, s ->
+//                if(!TextUtils.isEmpty(where)) where += " OR "
+//
+//                where += "exercise.title LIKE %$s%"
+//
+//            }
+            exerciseViewModel.setKeyword(true, keyword)
         } else {
             exerciseViewModel.setKeyword(false, keyword)
         }

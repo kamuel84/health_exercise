@@ -2,61 +2,79 @@ package com.exercise.health_exercise.ui.exercise
 
 import android.app.Application
 import androidx.lifecycle.*
+import androidx.sqlite.db.SimpleSQLiteQuery
 import com.exercise.health_exercise.data.exercises.ExercisesData
 import com.exercise.health_exercise.data.exercises.ExercisesRepository
-import com.exercise.health_exercise.data.health_list.HealthListData
-import com.exercise.health_exercise.ui.home.HomeViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+
 
 class ExerciseViewModel(application: Application) : AndroidViewModel(application) {
     val exercisesRepository by lazy {
         ExercisesRepository(application)
     }
-    var exerciseList:LiveData<List<ExercisesData>>?= null
+    var exerciseList: LiveData<List<ExercisesData>>? = null
     var filter = MutableLiveData<String>("%")
-    var idx:Long = -1
-    var isInSearch:Boolean = false
+    var idx: Long = -1
+    var isInSearch: Boolean = false
 
     init {
         exerciseList = Transformations.switchMap(filter) { filter ->
-            if(isInSearch) exercisesRepository.exerciseListInSearch(idx, filter)
-            else exercisesRepository.exerciseList(idx, filter)
+            if (isInSearch) {
+                var queryString: String = "SELECT exercise.idx, exercise.title, exercise.revert_count, exercise.play_time, exercise.health_notice, exercise.health_photo, "
+                queryString += "CASE WHEN health_list_items.idx not null THEN 1 else 0 end AS \'check\', "
+                queryString += "CASE WHEN health_list_items.idx not null THEN health_list_items.health_sort else -1 end AS \'checkIndex\' from exercise "
+                queryString += "LEFT JOIN health_list_items ON health_index = exercise.idx AND health_list_index = ? WHERE "
+                var args: ArrayList<Any> = ArrayList()
+                args.add(idx)
+
+                var commaFilter = filter.split(",")
+
+                commaFilter.forEachIndexed { index, s ->
+                    queryString += "exercise.title LIKE ? "
+                    args.add("%$s%")
+                    if (index < commaFilter.size-1)
+                        queryString += "OR "
+                }
+
+                val query = SimpleSQLiteQuery(queryString, args.toArray())
+                exercisesRepository.exerciseListInSearch(query)
+            } else exercisesRepository.exerciseList(idx, filter)
         }
     }
 
     private val viewModelJob = Job()
     private val viewModelScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private var checkList : ArrayList<ExercisesData> ?= null
+    private var checkList: ArrayList<ExercisesData>? = null
 
-    fun setKeyword(isInSearch:Boolean, keyword:String){
+    fun setKeyword(isInSearch: Boolean, keyword: String) {
         this.isInSearch = isInSearch
         val f = when {
             keyword.isEmpty() -> "%"
             else -> {
-//                if(isInSearch){
-//                    keyword
-//                } else "%$keyword%"
-
-                "%$keyword%"
+                if (isInSearch) {
+                    keyword
+                } else {
+                    "%$keyword%"
+                }
             }
         }
         filter.postValue(f)
     }
 
-    fun setCheckData(listData:List<ExercisesData>){
-        if(checkList == null)
+    fun setCheckData(listData: List<ExercisesData>) {
+        if (checkList == null)
             checkList = ArrayList<ExercisesData>()
         else
             checkList!!.clear()
 
         listData.forEachIndexed { index, exercisesData ->
-            if(exercisesData.check){
+            if (exercisesData.check) {
                 var index = exercisesData.checkIndex
 
-                if(checkList!!.size > index){
+                if (checkList!!.size > index) {
                     checkList!!.add(index, exercisesData)
                 } else
                     checkList!!.add(exercisesData)
@@ -66,16 +84,16 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
 
     }
 
-    fun checkData(exerciseData : List<ExercisesData>){
-        if(checkList != null && checkList!!.size > 0){
+    fun checkData(exerciseData: List<ExercisesData>) {
+        if (checkList != null && checkList!!.size > 0) {
 
             checkList!!.forEachIndexed { checkIndex, checkData ->
                 run checkData@{
-                    if(exerciseData != null && exerciseData!!.size > 0){
+                    if (exerciseData != null && exerciseData!!.size > 0) {
                         exerciseData.forEachIndexed { index, listData ->
-                            if(listData.idx == checkData.idx){
+                            if (listData.idx == checkData.idx) {
                                 listData.check = true
-                                listData.checkIndex = checkIndex+1
+                                listData.checkIndex = checkIndex + 1
                                 return@checkData
                             }
                         }
@@ -85,8 +103,8 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    fun getExerciseAllList(editMode:Boolean, idx:Long) : LiveData<List<ExercisesData>>?{
-        if(!editMode)
+    fun getExerciseAllList(editMode: Boolean, idx: Long): LiveData<List<ExercisesData>>? {
+        if (!editMode)
             return exerciseList
         else {
             this.idx = idx
@@ -94,13 +112,13 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    fun getExerciseSearchList(editMode:Boolean, idx:Long, keyword:String) : LiveData<List<ExercisesData>>?{
-        if(checkList == null)
+    fun getExerciseSearchList(editMode: Boolean, idx: Long, keyword: String): LiveData<List<ExercisesData>>? {
+        if (checkList == null)
             checkList = ArrayList<ExercisesData>()
 
-        if(!editMode) {
+        if (!editMode) {
             exerciseList = exercisesRepository.exerciseList(keyword)
-        }else {
+        } else {
             exerciseList = exercisesRepository.exerciseList(idx, keyword)
         }
 //        if(exerciseList != null && exerciseList!!.value != null) {
@@ -111,14 +129,14 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
 //            }
 //        }
 
-        if(checkList != null && checkList!!.size > 0){
+        if (checkList != null && checkList!!.size > 0) {
             run checkData@{
                 checkList!!.forEachIndexed { index, checkData ->
-                    if(exerciseList != null && exerciseList!!.value != null && exerciseList!!.value!!.size > 0){
+                    if (exerciseList != null && exerciseList!!.value != null && exerciseList!!.value!!.size > 0) {
                         exerciseList!!.value!!.forEachIndexed { index, exercisesData ->
-                            if(exercisesData.idx == checkData.idx){
+                            if (exercisesData.idx == checkData.idx) {
                                 exercisesData.check = true
-                                exercisesData.checkIndex = index+1
+                                exercisesData.checkIndex = index + 1
                                 return@checkData
                             }
                         }
@@ -130,29 +148,29 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
         return exerciseList
     }
 
-    fun checkExerciseList(data:ExercisesData, position:Int, isCheck:Boolean):LiveData<List<ExercisesData>>?{
-        if(checkList == null)
+    fun checkExerciseList(data: ExercisesData, position: Int, isCheck: Boolean): LiveData<List<ExercisesData>>? {
+        if (checkList == null)
             checkList = ArrayList<ExercisesData>()
 
-        if(isCheck)
+        if (isCheck)
             checkList?.add(data)
         else
             checkList?.remove(data)
 
-        if(exerciseList != null && exerciseList!!.value != null){
+        if (exerciseList != null && exerciseList!!.value != null) {
             run check@{
                 exerciseList!!.value!!.forEachIndexed { index, exercisesData ->
-                    if(exercisesData.idx == data.idx){
+                    if (exercisesData.idx == data.idx) {
                         exercisesData.check = isCheck
 //                        return@check
                     }
 
-                    if(!exercisesData.check)
+                    if (!exercisesData.check)
                         exercisesData.checkIndex = -1
 
                     checkList!!.forEachIndexed { index, checkedData ->
-                        if(checkedData.idx == exercisesData.idx){
-                            exercisesData.checkIndex = index+1
+                        if (checkedData.idx == exercisesData.idx) {
+                            exercisesData.checkIndex = index + 1
                         }
                     }
                 }
@@ -161,20 +179,20 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
         return exerciseList
     }
 
-    fun insertExercise(exercisesData: ExercisesData){
+    fun insertExercise(exercisesData: ExercisesData) {
         exercisesRepository.exerciseInsert(exercisesData)
     }
 
-    fun updateExercise(exercisesData: ExercisesData){
+    fun updateExercise(exercisesData: ExercisesData) {
         exercisesRepository.exerciseUpdate(exercisesData)
     }
 
-    fun deleteExercise(exercisesData: ExercisesData){
+    fun deleteExercise(exercisesData: ExercisesData) {
         exercisesRepository.exerciseDelete(exercisesData)
     }
 
 
-    class Factory(val application: Application): ViewModelProvider.Factory{
+    class Factory(val application: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return ExerciseViewModel(application) as T
         }

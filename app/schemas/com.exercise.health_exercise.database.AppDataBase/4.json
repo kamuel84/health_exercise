@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 4,
-    "identityHash": "f079c1442cfc2af1f541d6323dc88811",
+    "identityHash": "41fb1feac30c6cdc1a401314ec1e9acb",
     "entities": [
       {
         "tableName": "health_list",
@@ -38,7 +38,7 @@
       },
       {
         "tableName": "exercise",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idx` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `revert_count` INTEGER NOT NULL, `play_Time` INTEGER NOT NULL, `health_Notice` TEXT NOT NULL, `health_Photo` TEXT NOT NULL, `check` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idx` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `revert_count` INTEGER NOT NULL, `play_Time` INTEGER NOT NULL, `health_Notice` TEXT NOT NULL, `health_Photo` TEXT NOT NULL, `checkIndex` INTEGER NOT NULL, `check` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "idx",
@@ -74,6 +74,12 @@
             "fieldPath": "health_Photo",
             "columnName": "health_Photo",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "checkIndex",
+            "columnName": "checkIndex",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -264,7 +270,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f079c1442cfc2af1f541d6323dc88811')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '41fb1feac30c6cdc1a401314ec1e9acb')"
     ]
   }
 }

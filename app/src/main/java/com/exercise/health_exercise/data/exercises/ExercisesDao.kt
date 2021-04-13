@@ -2,6 +2,7 @@ package com.exercise.health_exercise.data.exercises
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.exercise.health_exercise.data.BaseDao
 
 /** DAO (Data Access Object) **/
@@ -32,6 +33,9 @@ interface ExercisesDao : BaseDao<ExercisesData> {
             "CASE WHEN health_list_items.idx not null THEN health_list_items.health_sort else -1 end AS \'checkIndex\' from exercise " +
             "LEFT JOIN health_list_items ON health_index = exercise.idx AND health_list_index = :index WHERE :keyword")
     fun getEditModeInSearch(index:Long, keyword:String) : LiveData<List<ExercisesData>>
+
+    @RawQuery(observedEntities = [ExercisesData::class])
+    fun getEditModeInSearch(query: SupportSQLiteQuery):LiveData<List<ExercisesData>>
 
 //    @Insert
 //    fun insertExercisesData(exercisesData : ExercisesData){
