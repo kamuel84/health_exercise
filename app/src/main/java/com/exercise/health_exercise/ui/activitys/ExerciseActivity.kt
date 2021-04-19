@@ -30,6 +30,7 @@ import kotlinx.android.synthetic.main.activity_exercise.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class ExerciseActivity :BaseActivity(){
+    var exerciseMedia : MediaPlayer ?= null
     val handler:Handler by lazy {
         object : Handler(Looper.getMainLooper()) {
             override fun handleMessage(msg:Message){
@@ -68,6 +69,11 @@ class ExerciseActivity :BaseActivity(){
 
                                 if(preTimeCount == 0 || timeCount != preTimeCount) {
                                     preTimeCount = timeCount
+                                    if(exerciseMedia != null && exerciseMedia!!.isPlaying){
+                                        exerciseMedia!!.stop()
+                                        exerciseMedia = null
+                                    }
+
                                     var media = MediaPlayer.create(this@ExerciseActivity, R.raw.exercisecount)
                                     media!!.start()
                                     tvExercise_Count.text = "Repeat Count : $timeCount ea"
@@ -85,12 +91,16 @@ class ExerciseActivity :BaseActivity(){
                                     )
                                     viewModel.insertPlayItemExercise(playItemData)
 
-                                    if(!isReady)
+                                    if(!isReady) {
                                         handler.sendEmptyMessage(1)
+                                    }
                                 } else {
 
-                                    var media = MediaPlayer.create(this@ExerciseActivity, R.raw.countdown)
-                                    media!!.start()
+                                    if(exerciseMedia == null) {
+                                        exerciseMedia = MediaPlayer.create(this@ExerciseActivity, R.raw.countdown_exercise)
+                                        exerciseMedia!!.start()
+                                        exerciseMedia!!.isLooping = true
+                                    }
 
                                     var playItemData : PlayExerciseItemData = PlayExerciseItemData(
                                             0L,
