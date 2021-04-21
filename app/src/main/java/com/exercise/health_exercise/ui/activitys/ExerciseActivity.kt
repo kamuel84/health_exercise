@@ -251,7 +251,26 @@ class ExerciseActivity :BaseActivity(){
     override fun onBackPressed() {
         super.onBackPressed()
         isPause = true
+    }
 
+    override fun onPause() {
+        super.onPause()
+
+        ivExercise_Play.setImageResource(R.drawable.ic_play)
+        isPause = true
+
+        if(exerciseMedia != null){
+            exerciseMedia!!.stop()
+            exerciseMedia = null
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        if(exerciseMedia != null){
+            exerciseMedia!!.stop()
+        }
     }
 
     fun setExerciseInfo(position:Int){
