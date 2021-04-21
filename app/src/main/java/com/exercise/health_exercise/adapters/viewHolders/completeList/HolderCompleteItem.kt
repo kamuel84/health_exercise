@@ -1,5 +1,6 @@
 package com.exercise.health_exercise.adapters.viewHolders.completeList
 
+import android.text.TextUtils
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.exercise.health_exercise.data.playExerciseItem.PlayExerciseItemHeaderData
@@ -8,7 +9,7 @@ import kotlinx.android.synthetic.main.holder_complete_item.view.*
 class HolderCompleteItem(itemView:View):RecyclerView.ViewHolder(itemView) {
     fun setItem(data : PlayExerciseItemHeaderData){
         with(itemView){
-            tvCompleteItem_Title.text = data.title
+            tvCompleteItem_Title.text = if(TextUtils.isEmpty(data.title)) "" else data.title
             tvCompleteItem_PlayCount.text = data.completeCount.toString()
             tvCompleteItem_TotalCount.text = String.format("/%s", data.playTotalCount.toString())
 
