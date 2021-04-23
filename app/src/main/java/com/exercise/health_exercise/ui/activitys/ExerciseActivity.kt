@@ -118,8 +118,13 @@ class ExerciseActivity :BaseActivity(){
 
                         }
 
+                    } else {
+                        if (exerciseMedia != null) {
+                            exerciseMedia!!.stop()
+                            exerciseMedia = null
+                        }
                     }
-                } else if(msg.what == 1){
+                } else if(msg.what == 1) {
                     /** next 운동
                      * 다음 운동이 없을 경우 종료 **/
 
@@ -251,6 +256,11 @@ class ExerciseActivity :BaseActivity(){
     override fun onBackPressed() {
         super.onBackPressed()
         isPause = true
+
+        if(exerciseMedia != null){
+            exerciseMedia!!.stop()
+            exerciseMedia = null
+        }
     }
 
     override fun onPause() {
