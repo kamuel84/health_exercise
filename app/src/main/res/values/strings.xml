@@ -11,6 +11,9 @@
     <string name="menu_custom_list">나의운동</string>
     <string name="menu_complete_list">운동통계</string>
 
+    <string name="select_menu_list">운동리스트에서 선택</string>
+    <string name="select_menu_all">운동전체에서 선택</string>
+
     <string name="menu_exercise_detail_list">운동리스트상세</string>
     <string name="menu_exercise_detail_item">운동세부상세</string>
 

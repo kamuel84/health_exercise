@@ -6,7 +6,7 @@
     android:id="@+id/clExerciseItem_Root"
     android:layout_width="match_parent"
     android:layout_height="250dp"
-    android:background="@drawable/bg_radius3_line_999999">
+    android:background="@drawable/bg_radius3_999999">
     <CheckBox
         android:id="@+id/cbExerciseItem_Check"
         android:layout_width="wrap_content"

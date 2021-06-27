@@ -20,7 +20,7 @@ import com.exercise.health_exercise.ui.BaseFragment
 import com.exercise.health_exercise.ui.activitys.ListAddActivity
 import com.exercise.health_exercise.ui.itemDecoration.gridItemDecoration
 import kotlinx.android.synthetic.main.fragment_home.*
-
+/** 전체운동 > 운동 검색 화면 **/
 class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener {
 
     var adapter: ExerciseListAdapter? = null
@@ -69,8 +69,8 @@ class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener 
                     exerciseViewModel.setCheckData(it)
 
                 it.forEachIndexed { index, data ->
-                    if (ExerciseApplication.currentActivity is ListAddActivity) {
-                        var selectData: HashMap<Long, ExercisesData> = (ExerciseApplication.currentActivity as ListAddActivity).selectList
+                    if (baseActivity is ListAddActivity) {
+                        var selectData: HashMap<Long, ExercisesData> = (baseActivity as ListAddActivity).listViewModel.selectList.value!!
 
                         if (it.get(index).check) {
                             if (!selectData.containsKey(data.idx))
@@ -144,18 +144,19 @@ class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener 
 
     override fun onChecked(data: ExercisesData, position: Int) {
         exerciseViewModel.checkExerciseList(data, position, !data.check)?.observe(viewLifecycleOwner, Observer {
-            if (ExerciseApplication.currentActivity is ListAddActivity) {
-                var selectData: LinkedHashMap<Long, ExercisesData> = (ExerciseApplication.currentActivity as ListAddActivity).selectList
-                if(data.check){
-                    if(!selectData.containsKey(data.idx)){
-                        selectData.put(data.idx, data)
-                    }
-                } else {
-                    if(selectData.containsKey(data.idx))
-                        selectData.remove(data.idx)
-                }
-
-                (ExerciseApplication.currentActivity as ListAddActivity).selectList = selectData
+            if (baseActivity is ListAddActivity) {
+                (baseActivity as ListAddActivity).listViewModel.checkSelectList(data.idx, data, data.check)
+//                var selectData: LinkedHashMap<Long, ExercisesData> = (baseActivity as ListAddActivity).selectList
+//                if(data.check){
+//                    if(!selectData.containsKey(data.idx)){
+//                        selectData.put(data.idx, data)
+//                    }
+//                } else {
+//                    if(selectData.containsKey(data.idx))
+//                        selectData.remove(data.idx)
+//                }
+//
+//                (ExerciseApplication.currentActivity as ListAddActivity).selectList = selectData
             }
             adapter!!.updateList(it)
         })

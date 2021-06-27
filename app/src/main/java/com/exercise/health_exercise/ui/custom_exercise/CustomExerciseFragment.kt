@@ -83,15 +83,15 @@ class CustomExerciseFragment : BaseFragment(), SelectExerciseListAdapter.onSelec
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        if (ExerciseApplication.currentActivity is ListAddActivity) {
-            (ExerciseApplication.currentActivity as ListAddActivity).step = 2
+        if (baseActivity is ListAddActivity) {
+            (baseActivity as ListAddActivity).listViewModel.setStep(2)
         }
     }
 
     override fun onPause() {
         super.onPause()
-        if (ExerciseApplication.currentActivity is ListAddActivity) {
-            var hsSelect:HashMap<Long, ExercisesData> = (ExerciseApplication.currentActivity as ListAddActivity).selectList
+        if (baseActivity is ListAddActivity) {
+            var hsSelect:HashMap<Long, ExercisesData> = (baseActivity as ListAddActivity).listViewModel.selectList.value!!
             viewModel.exerciseList!!.value!!.forEachIndexed { index, exercisesData ->
                 hsSelect.put(exercisesData.idx, exercisesData)
             }
