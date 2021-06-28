@@ -59,14 +59,14 @@ class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener 
                 var gridLayoutManager = GridLayoutManager(mContext, 2)
                 listHome.layoutManager = gridLayoutManager
                 listHome.addItemDecoration(gridItemDecoration(mContext!!))
-
+                exerciseViewModel.setItemCheck(baseActivity!!)
             }
 
 //            var addData: HealthListData = HealthListData(-1, "Add your own workout", "A")
 
             if(isEditMode){
                 if(!isLoading)
-                    exerciseViewModel.setCheckData(it)
+                    exerciseViewModel.setItemCheck(baseActivity!!)
 
                 it.forEachIndexed { index, data ->
                     if (baseActivity is ListAddActivity) {
@@ -83,7 +83,7 @@ class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener 
                 }
             }
 
-            exerciseViewModel.checkData(it)
+//            exerciseViewModel.checkData(it)
 
             adapter!!.updateList(it)
             isLoading = true
@@ -143,21 +143,7 @@ class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener 
     }
 
     override fun onChecked(data: ExercisesData, position: Int) {
-        exerciseViewModel.checkExerciseList(data, position, !data.check)?.observe(viewLifecycleOwner, Observer {
-            if (baseActivity is ListAddActivity) {
-                (baseActivity as ListAddActivity).listViewModel.checkSelectList(data.idx, data, data.check)
-//                var selectData: LinkedHashMap<Long, ExercisesData> = (baseActivity as ListAddActivity).selectList
-//                if(data.check){
-//                    if(!selectData.containsKey(data.idx)){
-//                        selectData.put(data.idx, data)
-//                    }
-//                } else {
-//                    if(selectData.containsKey(data.idx))
-//                        selectData.remove(data.idx)
-//                }
-//
-//                (ExerciseApplication.currentActivity as ListAddActivity).selectList = selectData
-            }
+        exerciseViewModel.checkExerciseList(baseActivity!!, position, data, !data.check)?.observe(viewLifecycleOwner, Observer {
             adapter!!.updateList(it)
         })
 //        exerciseViewModel.getExerciseAllList(isEditMode, selectIndex)?.observe(viewLifecycleOwner, Observer {

@@ -22,7 +22,7 @@ open class BaseActivity:AppCompatActivity() {
         transaction.commitAllowingStateLoss()
     }
 
-    protected fun pushFragment(layoutID: Int, fragment: Fragment, tag:String){
+    fun pushFragment(layoutID: Int, fragment: Fragment, tag:String){
         Log.d("kamuel", "tag :: $tag")
         var manager:FragmentManager = supportFragmentManager
         var transaction:FragmentTransaction = manager.beginTransaction()

@@ -12,6 +12,7 @@ import com.exercise.health_exercise.ExerciseApplication
 import com.exercise.health_exercise.R
 import com.exercise.health_exercise.adapters.GroupListAdapter
 import com.exercise.health_exercise.adapters.HealthListAdapter
+import com.exercise.health_exercise.data.AppContents
 import com.exercise.health_exercise.data.health_list.HealthListWithItemData
 import com.exercise.health_exercise.ui.BaseFragment
 import com.exercise.health_exercise.ui.home.HomeFragment
@@ -61,6 +62,13 @@ class GroupListFragment:BaseFragment(), GroupListAdapter.onGroupListListener  {
     }
 
     override fun onSelectItem(data: HealthListWithItemData, position: Int) {
-        /** 선택 리스트로 이동 **/
+        var fragment:GroupListDetailFragment = GroupListDetailFragment()
+        var bundle:Bundle = Bundle()
+
+        bundle.putLong(AppContents.INTENT_DATA_GROUP_INDEX, data.idx)
+
+        fragment.arguments = bundle
+        fragment.baseActivity = baseActivity
+        baseActivity?.pushFragment(R.id.layout_fragment, fragment, "group_list_detail")
     }
 }

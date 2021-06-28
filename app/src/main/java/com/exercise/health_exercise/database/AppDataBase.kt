@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.exercise.health_exercise.data.daos.GroupListDao
 import com.exercise.health_exercise.data.exercises.ExercisesDao
 import com.exercise.health_exercise.data.exercises.ExercisesData
 import com.exercise.health_exercise.data.health_list.HealthListDao
@@ -21,6 +22,7 @@ import com.exercise.health_exercise.data.playExerciseItem.PlayExerciseItemData
         PlayExerciseData::class, PlayExerciseItemData::class), version = 6, exportSchema = true)
 open abstract class AppDataBase : RoomDatabase() {
 
+    abstract fun groupListDao() : GroupListDao
     abstract fun exercisesDao() : ExercisesDao
     abstract fun healthListItemDao() : HealthList_ItemDao
     abstract fun healthListDao() : HealthListDao

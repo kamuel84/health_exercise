@@ -5,6 +5,8 @@ import androidx.lifecycle.*
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.exercise.health_exercise.data.exercises.ExercisesData
 import com.exercise.health_exercise.data.exercises.ExercisesRepository
+import com.exercise.health_exercise.ui.activitys.BaseActivity
+import com.exercise.health_exercise.ui.activitys.ListAddActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -148,36 +150,87 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
         return exerciseList
     }
 
-    fun checkExerciseList(data: ExercisesData, position: Int, isCheck: Boolean): LiveData<List<ExercisesData>>? {
-        if (checkList == null)
-            checkList = ArrayList<ExercisesData>()
+    fun checkExerciseList(baseActivity: BaseActivity, position: Int, data: ExercisesData, isCheck: Boolean): LiveData<List<ExercisesData>>? {
+        if (baseActivity is ListAddActivity) {
+            val addActivity: ListAddActivity = baseActivity as ListAddActivity
 
-        if (isCheck)
-            checkList?.add(data)
-        else
-            checkList?.remove(data)
+            addActivity.listViewModel.checkSelectList(data.idx, data, isCheck)
 
-        if (exerciseList != null && exerciseList!!.value != null) {
-            run check@{
-                exerciseList!!.value!!.forEachIndexed { index, exercisesData ->
-                    if (exercisesData.idx == data.idx) {
-                        exercisesData.check = isCheck
+            if(exerciseList != null && exerciseList!!.value != null){
+                run check@{
+                    exerciseList!!.value!!.forEachIndexed { index, exercisesData ->
+                        if (exercisesData.idx == data.idx) {
+                            exercisesData.check = isCheck
 //                        return@check
+                        }
+
+                        if (!exercisesData.check)
+                            exercisesData.checkIndex = -1
+
+                        addActivity.listViewModel.getSelectList()!!.forEachIndexed { index, checkedData ->
+                            if (checkedData.idx == exercisesData.idx) {
+                                exercisesData.checkIndex = index + 1
+                            }
+                        }
+
                     }
+                }
+            }
+        }
 
-                    if (!exercisesData.check)
-                        exercisesData.checkIndex = -1
+        return exerciseList
+    }
 
-                    checkList!!.forEachIndexed { index, checkedData ->
+    fun setItemCheck(baseActivity: BaseActivity): LiveData<List<ExercisesData>>?{
+        if (baseActivity is ListAddActivity) {
+            val addActivity: ListAddActivity = baseActivity as ListAddActivity
+
+            if(exerciseList != null && exerciseList!!.value != null){
+                exerciseList!!.value!!.forEachIndexed { index, exercisesData ->
+                    addActivity.listViewModel.getSelectList()!!.forEachIndexed { index, checkedData ->
                         if (checkedData.idx == exercisesData.idx) {
+                            exercisesData.check = true
                             exercisesData.checkIndex = index + 1
                         }
                     }
                 }
             }
         }
+
         return exerciseList
     }
+
+
+//    fun checkExerciseList(data: ExercisesData, position: Int, isCheck: Boolean): LiveData<List<ExercisesData>>? {
+//        if (checkList == null)
+//            checkList = ArrayList<ExercisesData>()
+//
+//        if (isCheck)
+//            checkList?.add(data)
+//        else
+//            checkList?.remove(data)
+//
+//        if (exerciseList != null && exerciseList!!.value != null) {
+//            run check@{
+//                exerciseList!!.value!!.forEachIndexed { index, exercisesData ->
+//                    if (exercisesData.idx == data.idx) {
+//                        exercisesData.check = isCheck
+////                        return@check
+//                    }
+//
+//                    if (!exercisesData.check)
+//                        exercisesData.checkIndex = -1
+//
+//                    checkList!!.forEachIndexed { index, checkedData ->
+//                        if (checkedData.idx == exercisesData.idx) {
+//                            exercisesData.checkIndex = index + 1
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        return exerciseList
+//    }
 
     fun insertExercise(exercisesData: ExercisesData) {
         exercisesRepository.exerciseInsert(exercisesData)
