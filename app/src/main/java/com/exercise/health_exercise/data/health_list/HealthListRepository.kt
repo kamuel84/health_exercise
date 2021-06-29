@@ -32,6 +32,10 @@ class HealthListRepository(application: Application) {
         return healthListDao.getAll(index)
     }
 
+    fun healthListWithItem(index:Long):List<HealthListWithItemData>{
+        return healthListDao.getAllWithItem(index)
+    }
+
     fun healthListWithItem():LiveData<List<HealthListWithItemData>>{
         return healthListDao.getAllWithItem()
     }

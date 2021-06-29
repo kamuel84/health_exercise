@@ -2,6 +2,7 @@ package com.exercise.health_exercise.ui.home
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.exercise.health_exercise.data.exercises.ExercisesRepository
 import com.exercise.health_exercise.data.health_list.HealthListData
 import com.exercise.health_exercise.data.health_list.HealthListRepository
 import com.exercise.health_exercise.data.health_list.HealthListWithItemData
@@ -15,6 +16,11 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     val healthListRepository by lazy {
         HealthListRepository(application)
     }
+
+    val exercisesRepository: ExercisesRepository by lazy {
+        ExercisesRepository(application)
+    }
+
     var healthList:LiveData<List<HealthListData>> ?= null
 
     init {
@@ -30,6 +36,18 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getAllHealthList() : LiveData<List<HealthListData>>?{
         return healthList
+    }
+
+    fun getAllHealthListJoinItem(index:Long) : String{
+        var strCode = ""
+        exercisesRepository.exerciseList(index).forEachIndexed { index, itemData ->
+            var strTemp = itemData.title
+
+            if(strCode != "")
+                strCode += ", "
+            strCode += strTemp.substring(strTemp.indexOf("[")+1, strTemp.indexOf("]"))
+        }
+        return strCode
     }
 
     fun getAllHealthListJoinItem() : LiveData<List<HealthListWithItemData>>?{

@@ -1,7 +1,10 @@
 package com.exercise.health_exercise.ui.fragments
 
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
+import android.content.Context.CLIPBOARD_SERVICE
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,6 +31,7 @@ import com.exercise.health_exercise.ui.custom_exercise.CustomExerciseViewModel
 import com.exercise.health_exercise.ui.home.HomeFragment
 import com.exercise.health_exercise.ui.home.HomeViewModel
 import com.exercise.health_exercise.utils.DialogUtils
+import com.exercise.health_exercise.utils.ViewUtils
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -158,6 +163,7 @@ class CustomListFragment:BaseFragment(), HealthListAdapter.onHealthListListener 
 
         hsMenu.put("Edit", "edit")
         hsMenu.put("Delete", "delete")
+        hsMenu.put("Copy", "copy")
         hsMenu.put("Cancel", "cancel")
 
         DialogUtils.showBottomSheetDialog(baseActivity!!, hsMenu, null, R.color.design_default_color_secondary, true, object : DialogUtils.OnBottomSheetSelectedListener{
@@ -171,6 +177,13 @@ class CustomListFragment:BaseFragment(), HealthListAdapter.onHealthListListener 
                 } else if(value == "delete"){
 //                    Toast.makeText(this@MainActivity, "작업 중 입니다. ㅠㅠ", Toast.LENGTH_SHORT).show()
                     homeViewModel.healthListDelete(selectData!!.idx)
+                } else if(value == "copy"){
+                    var strCode = homeViewModel.getAllHealthListJoinItem(selectData!!.idx)
+                    var clipboard : ClipboardManager? = mContext!!.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager?
+                    var clipData : ClipData = ClipData.newPlainText("", strCode)
+                    clipboard!!.setPrimaryClip(clipData)
+
+                    Toast.makeText(mContext, "코드가 복사 되었습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
         })
