@@ -114,41 +114,41 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    fun getExerciseSearchList(editMode: Boolean, idx: Long, keyword: String): LiveData<List<ExercisesData>>? {
-        if (checkList == null)
-            checkList = ArrayList<ExercisesData>()
-
-        if (!editMode) {
-            exerciseList = exercisesRepository.exerciseList(keyword)
-        } else {
-            exerciseList = exercisesRepository.exerciseList(idx, keyword)
-        }
-//        if(exerciseList != null && exerciseList!!.value != null) {
-//            exerciseList!!.value!!.forEachIndexed { index, exercisesData ->
-//                if (exercisesData.check) {
-//                    checkList?.add(exercisesData)
+//    fun getExerciseSearchList(editMode: Boolean, idx: Long, keyword: String): LiveData<List<ExercisesData>>? {
+//        if (checkList == null)
+//            checkList = ArrayList<ExercisesData>()
+//
+//        if (!editMode) {
+//            exerciseList = exercisesRepository.exerciseList(keyword)
+//        } else {
+//            exerciseList = exercisesRepository.exerciseList(idx, keyword)
+//        }
+////        if(exerciseList != null && exerciseList!!.value != null) {
+////            exerciseList!!.value!!.forEachIndexed { index, exercisesData ->
+////                if (exercisesData.check) {
+////                    checkList?.add(exercisesData)
+////                }
+////            }
+////        }
+//
+//        if (checkList != null && checkList!!.size > 0) {
+//            run checkData@{
+//                checkList!!.forEachIndexed { index, checkData ->
+//                    if (exerciseList != null && exerciseList!!.value != null && exerciseList!!.value!!.size > 0) {
+//                        exerciseList!!.value!!.forEachIndexed { index, exercisesData ->
+//                            if (exercisesData.idx == checkData.idx) {
+//                                exercisesData.check = true
+//                                exercisesData.checkIndex = index + 1
+//                                return@checkData
+//                            }
+//                        }
+//                    }
 //                }
 //            }
 //        }
-
-        if (checkList != null && checkList!!.size > 0) {
-            run checkData@{
-                checkList!!.forEachIndexed { index, checkData ->
-                    if (exerciseList != null && exerciseList!!.value != null && exerciseList!!.value!!.size > 0) {
-                        exerciseList!!.value!!.forEachIndexed { index, exercisesData ->
-                            if (exercisesData.idx == checkData.idx) {
-                                exercisesData.check = true
-                                exercisesData.checkIndex = index + 1
-                                return@checkData
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        return exerciseList
-    }
+//
+//        return exerciseList
+//    }
 
     fun checkExerciseList(baseActivity: BaseActivity, position: Int, data: ExercisesData, isCheck: Boolean): LiveData<List<ExercisesData>>? {
         if (baseActivity is ListAddActivity) {

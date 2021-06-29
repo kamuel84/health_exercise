@@ -16,11 +16,12 @@ interface ExercisesDao : BaseDao<ExercisesData> {
     fun getSearchExercise(keyword:String):LiveData<List<ExercisesData>>
 
     // LEFT JOIN health_list_items ON health_list_items.health_index = exercise.idx AND"
-    @Query("SELECT exercise.idx, exercise.title, exercise.revert_count, exercise.play_time, exercise.health_notice, exercise.health_photo, " +
-            "CASE WHEN health_list_items.idx not null THEN 1 else 0 end AS \'check\', " +
-            "CASE WHEN health_list_items.idx not null THEN health_list_items.health_sort else -1 end AS \'checkIndex\' from exercise " +
-            "LEFT JOIN health_list_items ON health_index = exercise.idx AND health_list_index = :index")
-    fun getEditMode(index:Long) : LiveData<List<ExercisesData>>
+//    @Query("SELECT exercise.idx, exercise.title, health_list_items.revert_count, health_list_items.play_time AS \'play_Time\', " +
+//            "exercise.health_Notice, exercise.health_Photo, health_list_items.health_sort AS \'checkIndex\', 1 AS \'check\' " +
+//            "FROM health_list_items " +
+//            "LEFT JOIN exercise ON health_list_items.health_index = exercise.idx WHERE health_list_items.health_list_index = :index")
+    @Query("SELECT health_list_items.health_index AS 'idx', exercise.title, health_list_items.revert_count, health_list_items.play_time AS 'play_Time',  exercise.health_Notice, exercise.health_Photo, health_list_items.health_sort AS 'checkIndex', 1 AS 'check' FROM exercise INNER JOIN health_list_items ON health_index = exercise.idx WHERE health_list_index = :idx")
+    fun getEditMode(idx:Long) :List<ExercisesData>
 
     @Query("SELECT exercise.idx, exercise.title, exercise.revert_count, exercise.play_time, exercise.health_notice, exercise.health_photo, " +
             "CASE WHEN health_list_items.idx not null THEN 1 else 0 end AS \'check\', " +

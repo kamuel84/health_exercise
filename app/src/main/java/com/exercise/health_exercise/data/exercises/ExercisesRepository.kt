@@ -23,7 +23,7 @@ class ExercisesRepository(application: Application) {
         return exercisesDao.getSearchExercise(keyword)
     }
 
-    fun exerciseList(idx:Long):LiveData<List<ExercisesData>>{
+    fun exerciseList(idx:Long):List<ExercisesData>{
         return exercisesDao.getEditMode(idx)
     }
 

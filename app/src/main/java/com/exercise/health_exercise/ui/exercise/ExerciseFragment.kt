@@ -64,24 +64,29 @@ class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener 
 
 //            var addData: HealthListData = HealthListData(-1, "Add your own workout", "A")
 
-            if(isEditMode){
-                if(!isLoading)
-                    exerciseViewModel.setItemCheck(baseActivity!!)
+//            if(isEditMode){
+            if(!isLoading)
+                exerciseViewModel.setItemCheck(baseActivity!!)
 
-                it.forEachIndexed { index, data ->
-                    if (baseActivity is ListAddActivity) {
-                        var selectData: HashMap<Long, ExercisesData> = (baseActivity as ListAddActivity).listViewModel.selectList.value!!
+            it.forEachIndexed { index, data ->
+                if (baseActivity is ListAddActivity) {
+                    var selectDatas: HashMap<Long, ExercisesData> = (baseActivity as ListAddActivity).listViewModel.selectList.value!!
 
-                        if (it.get(index).check) {
-                            if (!selectData.containsKey(data.idx))
-                                selectData.put(data.idx, it.get(index))
-                        } else {
-                            if(selectData.containsKey(data.idx))
-                                selectData.remove(data.idx)
-                        }
+                    if(selectDatas.containsKey(data.idx)){
+                        var selectData: ExercisesData? = selectDatas.get(data.idx)
+                        data.check = true
+                        data.checkIndex = selectData!!.checkIndex
                     }
+//                    if (it.get(index).check) {
+//                        if (!selectData.containsKey(data.idx))
+//                            selectData.put(data.idx, it.get(index))
+//                    } else {
+//                        if(selectData.containsKey(data.idx))
+//                            selectData.remove(data.idx)
+//                    }
                 }
             }
+//            }
 
 //            exerciseViewModel.checkData(it)
 
@@ -94,10 +99,6 @@ class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        if (ExerciseApplication.currentActivity is ListAddActivity) {
-            (ExerciseApplication.currentActivity as ListAddActivity).step = 1
-        }
 
         clSearchExercise_area.visibility = View.VISIBLE
         ivSearchExercise.setOnClickListener {

@@ -94,7 +94,7 @@ class CustomTitleFragment : BaseFragment(){
 
         if (ExerciseApplication.currentActivity is ListAddActivity) {
             (ExerciseApplication.currentActivity as ListAddActivity).setButtonEnable(false)
-            (ExerciseApplication.currentActivity as ListAddActivity).step = 3
+            (ExerciseApplication.currentActivity as ListAddActivity).listViewModel.setStep(3)
         }
     }
 }

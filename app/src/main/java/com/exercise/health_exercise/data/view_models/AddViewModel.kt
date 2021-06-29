@@ -1,14 +1,26 @@
 package com.exercise.health_exercise.data.view_models
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.exercise.health_exercise.data.exercises.ExercisesData
+import com.exercise.health_exercise.data.exercises.ExercisesRepository
+import com.exercise.health_exercise.data.health_list.HealthListRepository
+import com.exercise.health_exercise.ui.custom_exercise.CustomExerciseViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
-class AddViewModel: ViewModel() {
+class AddViewModel(application: Application): ViewModel() {
     private var step:Int = 0
     private var saveSelectList : ArrayList<ExercisesData> = ArrayList()
     private var _selectList : MutableLiveData<LinkedHashMap<Long, ExercisesData>> = MutableLiveData<LinkedHashMap<Long, ExercisesData>>()
+    val exercisesRepository: ExercisesRepository by lazy {
+        ExercisesRepository(application)
+    }
 
     val selectList:LiveData<LinkedHashMap<Long, ExercisesData>>
         get() = _selectList
@@ -25,6 +37,19 @@ class AddViewModel: ViewModel() {
         _selectList.postValue(LinkedHashMap())
     }
 
+    fun setSelectList(idx:Long){
+        var tempSelectData : LinkedHashMap<Long, ExercisesData> = LinkedHashMap<Long, ExercisesData>()
+        CoroutineScope(Dispatchers.Main).launch {
+            val checkList:List<ExercisesData> = async {
+                exercisesRepository.exerciseList(idx)
+            }.await()
+
+            checkList.forEachIndexed { index, exercisesData ->
+                tempSelectData.put(exercisesData.idx, exercisesData)
+            }
+            _selectList.value = tempSelectData
+        }
+    }
 
     fun checkSelectList(idx:Long, data:ExercisesData, isCheck:Boolean){
         if(_selectList.value != null) {
@@ -34,6 +59,7 @@ class AddViewModel: ViewModel() {
                 if(!isCheck && _selectList.value!!.containsKey(idx))
                     _selectList.value!!.remove(idx)
             }
+            _selectList.value = _selectList.value
         }
     }
 
@@ -48,5 +74,12 @@ class AddViewModel: ViewModel() {
         }
 
         return saveSelectList
+    }
+
+
+    class Factory(val application: Application): ViewModelProvider.Factory{
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return AddViewModel(application) as T
+        }
     }
 }
