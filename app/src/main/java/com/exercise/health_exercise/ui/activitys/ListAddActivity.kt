@@ -69,6 +69,11 @@ class ListAddActivity : BaseActivity(), View.OnClickListener {
             }
         })
 
+        listViewModel.menuTitle.observe(this, Observer {
+            tvAddTitle.setText(it)
+            llMenuTitle.visibility = View.VISIBLE
+        })
+
         btn_Next.visibility = View.GONE
     }
 
@@ -84,7 +89,16 @@ class ListAddActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if(currentFragment() is SelectMenuFragment){
+            llMenuTitle.visibility = View.GONE
+        }
+
+    }
+
     fun setListFragment() {
+        listViewModel.setMenuTitle(getString(R.string.select_menu_list))
         var groupListFragment: GroupListFragment = GroupListFragment.newInstance()
         groupListFragment.baseActivity = this
         pushFragment(R.id.layout_fragment, groupListFragment, "group_list")
@@ -94,6 +108,7 @@ class ListAddActivity : BaseActivity(), View.OnClickListener {
     }
 
     fun setAllFragment() {
+        listViewModel.setMenuTitle(getString(R.string.select_menu_all))
         var exerciseFrameLayout: ExerciseFragment = ExerciseFragment()
         var bundle: Bundle = Bundle()
 

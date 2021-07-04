@@ -22,6 +22,10 @@ class AddViewModel(application: Application): ViewModel() {
         ExercisesRepository(application)
     }
 
+    private var _menuTitle:MutableLiveData<String> = MutableLiveData()
+    val menuTitle:LiveData<String>
+        get() = _menuTitle
+
     val selectList:LiveData<LinkedHashMap<Long, ExercisesData>>
         get() = _selectList
 
@@ -49,6 +53,10 @@ class AddViewModel(application: Application): ViewModel() {
             }
             _selectList.value = tempSelectData
         }
+    }
+
+    fun setMenuTitle(title:String){
+        _menuTitle.value = title
     }
 
     fun checkSelectList(idx:Long, data:ExercisesData, isCheck:Boolean){
