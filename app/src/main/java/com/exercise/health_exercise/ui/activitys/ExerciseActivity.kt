@@ -2,45 +2,44 @@ package com.exercise.health_exercise.ui.activitys
 
 import android.content.Intent
 import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
-import android.util.Log
 import android.view.View
-import androidx.annotation.MainThread
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import com.exercise.health_exercise.ExerciseApplication
 import com.exercise.health_exercise.R
-import com.exercise.health_exercise.adapters.ExerciseDetailAdapter
 import com.exercise.health_exercise.data.AppContents
 import com.exercise.health_exercise.data.health_list_item.HealthList_ItemJoinData
 import com.exercise.health_exercise.data.playExercise.PlayExerciseData
 import com.exercise.health_exercise.data.playExerciseItem.PlayExerciseItemData
 import com.exercise.health_exercise.ui.custom_exercise.CustomExerciseViewModel
-import com.exercise.health_exercise.ui.exercise_detail.ExerciseDetailFragment
-import com.exercise.health_exercise.ui.exercise_detail.ExerciseItemDetailFragment
 import com.exercise.health_exercise.utils.ArrayUtils
 import com.exercise.health_exercise.utils.DateUtils
 import com.exercise.health_exercise.utils.ViewUtils
 import kotlinx.android.synthetic.main.activity_exercise.*
-import kotlinx.android.synthetic.main.fragment_home.*
 
 class ExerciseActivity :BaseActivity(){
     var exerciseMedia : MediaPlayer ?= null
+    var countMedia : MediaPlayer ?= null
     val handler:Handler by lazy {
         object : Handler(Looper.getMainLooper()) {
             override fun handleMessage(msg:Message){
+
                 if(msg.what == 0) {
                     if (!isPause) {
                         if(isReady) {
                             runOnUiThread {
                                 //카운트 다운 소리 시작
-                                var media = MediaPlayer.create(this@ExerciseActivity, R.raw.countdown)
-                                media!!.start()
+                                if(countMedia != null) {
+                                    countMedia!!.release()
+                                }
+                                countMedia = MediaPlayer.create(applicationContext, R.raw.countdown)
+                                countMedia!!.start()
 
                                 playCount += 1
                                 readyCount -= 1
@@ -74,8 +73,14 @@ class ExerciseActivity :BaseActivity(){
                                         exerciseMedia = null
                                     }
 
-                                    var media = MediaPlayer.create(this@ExerciseActivity, R.raw.exercisecount)
-                                    media!!.start()
+                                    if(countMedia != null) {
+                                        countMedia!!.release()
+                                    }
+
+                                    countMedia = MediaPlayer.create(applicationContext, R.raw.exercisecount)
+
+                                    countMedia!!.start()
+
                                     tvExercise_Count.text = "Repeat Count : $timeCount ea"
                                     tvExercise_Count.setTextColor(ContextCompat.getColor(this@ExerciseActivity, R.color.font_color_black))
                                 }
@@ -273,6 +278,11 @@ class ExerciseActivity :BaseActivity(){
             exerciseMedia!!.stop()
             exerciseMedia = null
         }
+
+        if(countMedia != null){
+            countMedia!!.stop()
+            countMedia!!.release()
+        }
     }
 
     override fun onDestroy() {
@@ -280,6 +290,10 @@ class ExerciseActivity :BaseActivity(){
 
         if(exerciseMedia != null){
             exerciseMedia!!.stop()
+        }
+
+        if(countMedia != null){
+            countMedia!!.release()
         }
     }
 
