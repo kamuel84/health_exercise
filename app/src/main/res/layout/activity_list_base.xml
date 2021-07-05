@@ -29,22 +29,45 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/color_white"
-        app:layout_constraintBottom_toTopOf="@id/btn_Next"
+        app:layout_constraintBottom_toTopOf="@id/llBottomArea"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/llMenuTitle">
 
     </FrameLayout>
 
-    <Button
-        android:id="@+id/btn_Next"
+    <LinearLayout
+        android:id="@+id/llBottomArea"
         android:layout_width="match_parent"
         android:layout_height="58dp"
-        android:background="@drawable/bg_radius3_line_e5e5e5"
-        android:text="@string/btn_next"
-        android:textColor="@color/color_font_black"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:background="@color/color_white"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <Button
+            android:id="@+id/btn_Pre"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_radius3_line_e5e5e5"
+            android:text="@string/btn_pre"
+            android:textColor="@color/color_font_black"
+            android:textSize="15dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/btn_Next"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_radius3_e5e5e5"
+            android:text="@string/btn_next"
+            android:textColor="@color/color_font_black"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -50,7 +50,7 @@ class HolderHealthListItem(var context:Context, itemView: View, var listener:Hol
                     listener.onMore(listData, pos)
                 }
             } else {
-                clList_Root.background = ContextCompat.getDrawable(context, R.drawable.bg_radius3_line_e5e5e5)
+                clList_Root.background = ContextCompat.getDrawable(context, R.drawable.bg_radius3_e5e5e5)
                 ivListMenu.visibility = View.GONE
                 ivListMenu.setOnClickListener {}
             }

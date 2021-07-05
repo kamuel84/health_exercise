@@ -11,7 +11,7 @@
         android:singleLine="true"
         android:padding="5dp"
         android:layout_marginHorizontal="10dp"
-        android:background="@drawable/bg_radius3_line_e5e5e5"
+        android:background="@drawable/bg_radius3_e5e5e5"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

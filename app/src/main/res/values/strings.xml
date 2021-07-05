@@ -17,6 +17,7 @@
     <string name="menu_exercise_detail_list">운동리스트상세</string>
     <string name="menu_exercise_detail_item">운동세부상세</string>
 
+    <string name="btn_pre">이전</string>
     <string name="btn_next">다음</string>
     <string name="btn_confirm">완료</string>
 

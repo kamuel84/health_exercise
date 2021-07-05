@@ -61,10 +61,15 @@ class ListAddActivity : BaseActivity(), View.OnClickListener {
         listViewModel.selectList.observe(this, Observer {
             if (it != null && it.size > 0) {
                 btn_Next.visibility = View.VISIBLE
+                llBottomArea.visibility = View.VISIBLE
                 btn_Next.setOnClickListener(this)
                 listViewModel.setStep(1)
             } else {
                 btn_Next.visibility = View.GONE
+                if(btn_Pre.visibility == View.VISIBLE)
+                    llBottomArea.visibility = View.VISIBLE
+                else
+                    llBottomArea.visibility = View.GONE
                 listViewModel.setStep(0)
             }
         })
@@ -74,7 +79,10 @@ class ListAddActivity : BaseActivity(), View.OnClickListener {
             llMenuTitle.visibility = View.VISIBLE
         })
 
+        llBottomArea.visibility = View.GONE
         btn_Next.visibility = View.GONE
+        btn_Pre.visibility = View.GONE
+        btn_Pre.setOnClickListener { onBackPressed() }
     }
 
     override fun onCreateView(parent: View?, name: String, context: Context, attrs: AttributeSet): View? {
@@ -91,14 +99,34 @@ class ListAddActivity : BaseActivity(), View.OnClickListener {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        btn_Next.text = getString(R.string.btn_next)
         if(currentFragment() is SelectMenuFragment){
             llMenuTitle.visibility = View.GONE
+
+            if(btn_Next.visibility == View.GONE)
+                llBottomArea.visibility = View.GONE
+            btn_Pre.visibility = View.GONE
+            if(listViewModel.getSelectList() != null && listViewModel.getSelectList().size > 0)
+                listViewModel.setStep(1)
+            else
+                listViewModel.setStep(0)
+        } else if(currentFragment() is CustomExerciseFragment){
+            listViewModel.setStep(2)
+        } else if(currentFragment() is CustomTitleFragment){
+            listViewModel.setStep(3)
+        } else {
+            if(listViewModel.getSelectList() != null && listViewModel.getSelectList().size > 0)
+                listViewModel.setStep(1)
+            else
+                listViewModel.setStep(0)
         }
 
     }
 
     fun setListFragment() {
         listViewModel.setMenuTitle(getString(R.string.select_menu_list))
+        btn_Pre.visibility = View.VISIBLE
+        llBottomArea.visibility = View.VISIBLE
         var groupListFragment: GroupListFragment = GroupListFragment.newInstance()
         groupListFragment.baseActivity = this
         pushFragment(R.id.layout_fragment, groupListFragment, "group_list")
@@ -109,6 +137,8 @@ class ListAddActivity : BaseActivity(), View.OnClickListener {
 
     fun setAllFragment() {
         listViewModel.setMenuTitle(getString(R.string.select_menu_all))
+        btn_Pre.visibility = View.VISIBLE
+        llBottomArea.visibility = View.VISIBLE
         var exerciseFrameLayout: ExerciseFragment = ExerciseFragment()
         var bundle: Bundle = Bundle()
 
@@ -139,6 +169,8 @@ class ListAddActivity : BaseActivity(), View.OnClickListener {
             if (listViewModel.getStep() == 1) {
                 /** 운동리스트의 세부 셋팅으로 이동 **/
                 if (listViewModel.getSelectList().size > 0) {
+                    btn_Pre.visibility = View.VISIBLE
+
                     var nextFragment: CustomExerciseFragment =
                             CustomExerciseFragment.newInstance(listViewModel.getSelectList())
                     nextFragment.baseActivity = this;
@@ -149,6 +181,7 @@ class ListAddActivity : BaseActivity(), View.OnClickListener {
 
             } else if (listViewModel.getStep() == 2) {
                 /** 운동리스트의 Title을 입력 하는 화면으로 이동 **/
+                btn_Pre.visibility = View.VISIBLE
                 var nextFragment: CustomTitleFragment = CustomTitleFragment()
                 var bundle: Bundle = Bundle()
                 bundle.putBoolean(AppContents.INTENT_DATA_EDIT_MODE, isEdit)
