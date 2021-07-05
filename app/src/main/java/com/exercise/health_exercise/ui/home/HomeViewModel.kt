@@ -44,7 +44,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             var strTemp = itemData.title
 
             if(strCode != "")
-                strCode += ", "
+                strCode += ","
             strCode += strTemp.substring(strTemp.indexOf("[")+1, strTemp.indexOf("]"))
         }
         return strCode
