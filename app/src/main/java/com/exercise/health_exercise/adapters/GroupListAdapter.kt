@@ -56,6 +56,11 @@ class GroupListAdapter(var context: Context, var listener:GroupListAdapter.onGro
         listener.onSelectItem(data, position)
     }
 
+    override fun onChecked(data: HealthListWithItemData, position: Int, isCheck:Boolean) {
+        /** 사용안함 **/
+        /** ViewHolder를 같이 사용하기 때문에 리스너를 붙어야 함 **/
+    }
+
     override fun onMore(data: HealthListWithItemData, position: Int) {
         /** 사용안함 **/
         /** ViewHolder를 같이 사용하기 때문에 리스너를 붙어야 함 **/

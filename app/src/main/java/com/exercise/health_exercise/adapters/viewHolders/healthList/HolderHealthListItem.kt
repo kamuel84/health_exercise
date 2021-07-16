@@ -16,6 +16,7 @@ class HolderHealthListItem(var context:Context, itemView: View, var listener:Hol
 
     interface onHolderHealthListListener{
         fun onSelectItem(data:HealthListWithItemData, position:Int)
+        fun onChecked(data:HealthListWithItemData, position: Int, isCheck:Boolean)
         fun onMore(data:HealthListWithItemData, position:Int)
     }
     fun setHealthListItem(healthData: HealthListWithItemData, position:Int){
@@ -27,6 +28,9 @@ class HolderHealthListItem(var context:Context, itemView: View, var listener:Hol
 
             ivListMenu.setTag(R.id.list_data, healthData)
             ivListMenu.setTag(R.id.list_position, position)
+
+            chkList.setTag(R.id.list_data, healthData)
+            chkList.setTag(R.id.list_position, position)
 
             clList_Root.setOnClickListener {
                 var listData : HealthListWithItemData = it.getTag(R.id.list_data) as HealthListWithItemData
@@ -44,6 +48,7 @@ class HolderHealthListItem(var context:Context, itemView: View, var listener:Hol
             if(healthData.list_type == "C") {
                 clList_Root.background = ContextCompat.getDrawable(context, R.drawable.bg_radius3_99ccff)
                 ivListMenu.visibility = View.VISIBLE
+                chkList.visibility = View.GONE
                 ivListMenu.setOnClickListener {
                     var listData: HealthListWithItemData = it.getTag(R.id.list_data) as HealthListWithItemData
                     var pos: Int = it.getTag(R.id.list_position).toString().toInt()
@@ -51,8 +56,15 @@ class HolderHealthListItem(var context:Context, itemView: View, var listener:Hol
                 }
             } else {
                 clList_Root.background = ContextCompat.getDrawable(context, R.drawable.bg_radius3_e5e5e5)
-                ivListMenu.visibility = View.GONE
+                ivListMenu.visibility = View.INVISIBLE
+                chkList.visibility = View.VISIBLE
                 ivListMenu.setOnClickListener {}
+
+                chkList.setOnCheckedChangeListener { buttonView, isChecked ->
+                    var listData: HealthListWithItemData = buttonView.getTag(R.id.list_data) as HealthListWithItemData
+                    var pos: Int = buttonView.getTag(R.id.list_position).toString().toInt()
+                    listener.onChecked(listData, pos, isChecked)
+                }
             }
         }
     }

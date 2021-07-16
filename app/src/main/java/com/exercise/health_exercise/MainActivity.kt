@@ -41,8 +41,11 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    val listViewModel:CustomExerciseViewModel by lazy {
-        ViewModelProvider(this, CustomExerciseViewModel.Factory(ExerciseApplication.currentActivity!!.application)).get(CustomExerciseViewModel::class.java)
+    val listViewModel: CustomExerciseViewModel by lazy {
+        ViewModelProvider(
+            this,
+            CustomExerciseViewModel.Factory(ExerciseApplication.currentActivity!!.application)
+        ).get(CustomExerciseViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,7 +72,7 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
 
         nav_view.setNavigationItemSelectedListener {
 
-            when (it.itemId){
+            when (it.itemId) {
                 R.id.nav_home -> {
                     setMenu(resources.getString(R.string.menu_home), 1)
                 }
@@ -84,7 +87,7 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
 
                 R.id.nav_webpage -> {
                     var uri: Uri = Uri.parse("http://www.doclinic.kr")
-                    var intent:Intent = Intent(Intent.ACTION_VIEW)
+                    var intent: Intent = Intent(Intent.ACTION_VIEW)
                     intent.setData(uri)
                     startActivity(intent)
                 }
@@ -111,23 +114,28 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
     }
 
     override fun onBackPressed() {
-        DialogUtils.showMessageDialog(this.supportFragmentManager, "", "", "앱을 종료하시겠습니까?", "취소", "확인",
-                object: ConfirmDialogListener{
-                    override fun onConfirmDialogCallback(isOk: Boolean, data: String?) {
-                        if(isOk) finish()
-                    }
-                })
+        DialogUtils.showMessageDialog(this.supportFragmentManager,
+            "",
+            "",
+            "앱을 종료하시겠습니까?",
+            "취소",
+            "확인",
+            object : ConfirmDialogListener {
+                override fun onConfirmDialogCallback(isOk: Boolean, data: String?) {
+                    if (isOk) finish()
+                }
+            })
 
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == RESULT_OK){
+
+        if (resultCode == RESULT_OK) {
             currentFragment().let {
                 it!!.onActivityResult(requestCode, resultCode, data)
 
-                var fragment: CustomListFragment = CustomListFragment()
-                pushFragment(R.id.nav_host_fragment, fragment)
+                setMenu(resources.getString(R.string.menu_custom_list), 2)
             }
         }
     }
@@ -143,7 +151,7 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
     }
 
     override fun onClick(v: View?) {
-        when (v){
+        when (v) {
             clMain_BottomMenu1 -> {
                 setMenu(resources.getString(R.string.menu_home), 1)
             }
@@ -157,39 +165,83 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
         }
     }
 
-    fun setMenu(title:String, type:Int){
-        when(type){
-            1 ->{
-                var fragment : HomeFragment = HomeFragment()
+    fun setMenu(title: String, type: Int) {
+        when (type) {
+            1 -> {
+                var fragment: HomeFragment = HomeFragment()
                 pushFragment(R.id.nav_host_fragment, fragment)
                 nav_view.menu.getItem(0).isChecked = true
-                clMain_BottomMenu1.setBackgroundColor(ContextCompat.getColor(this, R.color.color_D8BFD8))
-                clMain_BottomMenu2.setBackgroundColor(ContextCompat.getColor(this, R.color.color_white))
-                clMain_BottomMenu3.setBackgroundColor(ContextCompat.getColor(this, R.color.color_white))
+                clMain_BottomMenu1.setBackgroundColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.color_D8BFD8
+                    )
+                )
+                clMain_BottomMenu2.setBackgroundColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.color_white
+                    )
+                )
+                clMain_BottomMenu3.setBackgroundColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.color_white
+                    )
+                )
             }
 
-            2->{
-                var fragment : CustomListFragment = CustomListFragment()
+            2 -> {
+                var fragment: CustomListFragment = CustomListFragment()
                 pushFragment(R.id.nav_host_fragment, fragment)
                 nav_view.menu.getItem(1).isChecked = true
-                clMain_BottomMenu1.setBackgroundColor(ContextCompat.getColor(this, R.color.color_white))
-                clMain_BottomMenu2.setBackgroundColor(ContextCompat.getColor(this, R.color.color_D8BFD8))
-                clMain_BottomMenu3.setBackgroundColor(ContextCompat.getColor(this, R.color.color_white))
+                clMain_BottomMenu1.setBackgroundColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.color_white
+                    )
+                )
+                clMain_BottomMenu2.setBackgroundColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.color_D8BFD8
+                    )
+                )
+                clMain_BottomMenu3.setBackgroundColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.color_white
+                    )
+                )
             }
 
-            3->{
-                var fragment : CompleteExerciseFragment = CompleteExerciseFragment.newInstance()
+            3 -> {
+                var fragment: CompleteExerciseFragment = CompleteExerciseFragment.newInstance()
                 pushFragment(R.id.nav_host_fragment, fragment)
                 nav_view.menu.getItem(2).isChecked = true
-                clMain_BottomMenu1.setBackgroundColor(ContextCompat.getColor(this, R.color.color_white))
-                clMain_BottomMenu2.setBackgroundColor(ContextCompat.getColor(this, R.color.color_white))
-                clMain_BottomMenu3.setBackgroundColor(ContextCompat.getColor(this, R.color.color_D8BFD8))
+                clMain_BottomMenu1.setBackgroundColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.color_white
+                    )
+                )
+                clMain_BottomMenu2.setBackgroundColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.color_white
+                    )
+                )
+                clMain_BottomMenu3.setBackgroundColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.color_D8BFD8
+                    )
+                )
             }
         }
 
         toolbar.title = title
     }
-
 
 
     override fun onListMore(position: Int, data: HealthListWithItemData) {

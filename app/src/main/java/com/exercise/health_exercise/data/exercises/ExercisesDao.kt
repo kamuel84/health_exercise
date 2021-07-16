@@ -15,6 +15,9 @@ interface ExercisesDao : BaseDao<ExercisesData> {
     @Query("SELECT * FROM exercise WHERE title LIKE :keyword")
     fun getSearchExercise(keyword:String):LiveData<List<ExercisesData>>
 
+    @Query("SELECT * FROM exercise WHERE idx in (SELECT health_index from health_list_items WHERE health_list_index in ( :indexs ))")
+    fun getGroupSelectExercise(indexs:ArrayList<String>):List<ExercisesData>
+
     // LEFT JOIN health_list_items ON health_list_items.health_index = exercise.idx AND"
 //    @Query("SELECT exercise.idx, exercise.title, health_list_items.revert_count, health_list_items.play_time AS \'play_Time\', " +
 //            "exercise.health_Notice, exercise.health_Photo, health_list_items.health_sort AS \'checkIndex\', 1 AS \'check\' " +

@@ -33,6 +33,8 @@ class ListAddActivity : BaseActivity(), View.OnClickListener {
     var selectIndex: Long = 0
     var listType: String = "C"
 
+    var isGroupSelect :Boolean = false
+
     val listViewModel: AddViewModel by lazy {
         ViewModelProvider(this, AddViewModel.Factory(application)).get(AddViewModel::class.java)
     }
@@ -53,17 +55,21 @@ class ListAddActivity : BaseActivity(), View.OnClickListener {
             selectIndex = intent.getLongExtra(AppContents.INTENT_DATA_LIST_INDEX, 0)
         }
 
-        var menuFragment: SelectMenuFragment = SelectMenuFragment()
-        menuFragment.baseActivity = this
-        pushFragment(R.id.layout_fragment, menuFragment)
-
-
         listViewModel.selectList.observe(this, Observer {
             if (it != null && it.size > 0) {
                 btn_Next.visibility = View.VISIBLE
                 llBottomArea.visibility = View.VISIBLE
                 btn_Next.setOnClickListener(this)
                 listViewModel.setStep(1)
+
+                if(isGroupSelect){
+                    btn_Pre.visibility = View.VISIBLE
+
+                    var nextFragment: CustomExerciseFragment =
+                        CustomExerciseFragment.newInstance(listViewModel.getSelectList())
+                    nextFragment.baseActivity = this;
+                    pushFragment(R.id.layout_fragment, nextFragment, "list_detail")
+                }
             } else {
                 btn_Next.visibility = View.GONE
                 if(btn_Pre.visibility == View.VISIBLE)
@@ -83,6 +89,17 @@ class ListAddActivity : BaseActivity(), View.OnClickListener {
         btn_Next.visibility = View.GONE
         btn_Pre.visibility = View.GONE
         btn_Pre.setOnClickListener { onBackPressed() }
+
+        if(intent.hasExtra(AppContents.INTENT_DATA_CHECK_GROUP_INDEX)){
+            var selectGroupIndex:ArrayList<String>? = intent.getSerializableExtra(AppContents.INTENT_DATA_CHECK_GROUP_INDEX) as ArrayList<String>
+            isGroupSelect = true
+            listViewModel.setGroupSelectList(selectGroupIndex!!)
+            return
+        }
+
+        var menuFragment: SelectMenuFragment = SelectMenuFragment()
+        menuFragment.baseActivity = this
+        pushFragment(R.id.layout_fragment, menuFragment)
     }
 
     override fun onCreateView(parent: View?, name: String, context: Context, attrs: AttributeSet): View? {
@@ -98,7 +115,6 @@ class ListAddActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
         btn_Next.text = getString(R.string.btn_next)
         if(currentFragment() is SelectMenuFragment){
             llMenuTitle.visibility = View.GONE
@@ -111,7 +127,10 @@ class ListAddActivity : BaseActivity(), View.OnClickListener {
             else
                 listViewModel.setStep(0)
         } else if(currentFragment() is CustomExerciseFragment){
-            listViewModel.setStep(2)
+            if(isGroupSelect)
+                finish()
+            else
+                listViewModel.setStep(2)
         } else if(currentFragment() is CustomTitleFragment){
             listViewModel.setStep(3)
         } else {
@@ -120,6 +139,8 @@ class ListAddActivity : BaseActivity(), View.OnClickListener {
             else
                 listViewModel.setStep(0)
         }
+
+        super.onBackPressed()
 
     }
 

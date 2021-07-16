@@ -49,9 +49,21 @@
         android:id="@+id/ivListMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:src="@drawable/ic_more"
-        android:padding = "10dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/chkList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/color_979797"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/ivListMenu"
+        app:layout_constraintEnd_toEndOf="@id/ivListMenu"
+        app:layout_constraintStart_toStartOf="@id/ivListMenu"
+        app:layout_constraintTop_toTopOf="@id/ivListMenu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

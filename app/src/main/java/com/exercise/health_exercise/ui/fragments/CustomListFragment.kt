@@ -150,6 +150,10 @@ class CustomListFragment:BaseFragment(), HealthListAdapter.onHealthListListener 
         showBottomSheetDialog()
     }
 
+    override fun onChecked(data: HealthListWithItemData, position: Int, isCheck:Boolean) {
+        /** 사용 안함 **/
+    }
+
     /**
      * 하단 BottomSheetDialog Show
      */

@@ -40,6 +40,8 @@ class HomeFragment : BaseFragment(), HealthListAdapter.onHealthListListener {
     private var bottomDialog: BottomSheetDialog? = null
     var selectData : HealthListWithItemData ?= null
 
+    var checkList : ArrayList<String> = ArrayList<String>()
+
     val homeViewModel by lazy {
         ViewModelProvider(this, HomeViewModel.Factory(ExerciseApplication.currentActivity!!.application)).get(HomeViewModel::class.java)
     }
@@ -129,6 +131,10 @@ class HomeFragment : BaseFragment(), HealthListAdapter.onHealthListListener {
 
     override fun onAdd() {
         var intent : Intent = Intent(ExerciseApplication.currentActivity, ListAddActivity::class.java)
+
+        if(checkList != null && checkList.size > 0)
+            intent.putExtra(AppContents.INTENT_DATA_CHECK_GROUP_INDEX, checkList)
+
         startActivityForResult(intent, AppContents.REQUEST_CODE_ADDLIST)
     }
 
@@ -144,6 +150,14 @@ class HomeFragment : BaseFragment(), HealthListAdapter.onHealthListListener {
 
         selectData = data
         showBottomSheetDialog()
+    }
+
+    override fun onChecked(data: HealthListWithItemData, position: Int, isCheck:Boolean) {
+        if(isCheck){
+            checkList.add(data.idx.toString())
+        } else {
+            checkList.remove(data.idx.toString())
+        }
     }
 
     /**

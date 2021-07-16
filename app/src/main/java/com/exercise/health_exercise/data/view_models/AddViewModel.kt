@@ -55,6 +55,21 @@ class AddViewModel(application: Application): ViewModel() {
         }
     }
 
+    fun setGroupSelectList(indexs:ArrayList<String>){
+        var tempSelectData : LinkedHashMap<Long, ExercisesData> = LinkedHashMap<Long, ExercisesData>()
+        CoroutineScope(Dispatchers.Main).launch {
+            val checkList:List<ExercisesData> = async {
+                exercisesRepository.getGroupSelectExerciseList(indexs)
+            }.await()
+
+            checkList.forEachIndexed { index, exercisesData ->
+                exercisesData.checkIndex = index+1
+                tempSelectData.put(exercisesData.idx, exercisesData)
+            }
+            _selectList.value = tempSelectData
+        }
+    }
+
     fun setMenuTitle(title:String){
         _menuTitle.value = title
     }
