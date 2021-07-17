@@ -19,7 +19,7 @@ class HolderHealthListItem(var context:Context, itemView: View, var listener:Hol
         fun onChecked(data:HealthListWithItemData, position: Int, isCheck:Boolean)
         fun onMore(data:HealthListWithItemData, position:Int)
     }
-    fun setHealthListItem(healthData: HealthListWithItemData, position:Int){
+    fun setHealthListItem(healthData: HealthListWithItemData, position:Int, viewType:String){
         with(itemView){
             tvList_Title.text = healthData.title
 
@@ -59,12 +59,17 @@ class HolderHealthListItem(var context:Context, itemView: View, var listener:Hol
                 ivListMenu.visibility = View.INVISIBLE
                 chkList.visibility = View.VISIBLE
                 ivListMenu.setOnClickListener {}
+                chkList.isChecked = healthData.isChecked
 
                 chkList.setOnCheckedChangeListener { buttonView, isChecked ->
                     var listData: HealthListWithItemData = buttonView.getTag(R.id.list_data) as HealthListWithItemData
                     var pos: Int = buttonView.getTag(R.id.list_position).toString().toInt()
                     listener.onChecked(listData, pos, isChecked)
                 }
+            }
+
+            if(viewType == "group_list"){
+                chkList.visibility = View.GONE
             }
         }
     }

@@ -33,7 +33,7 @@ class GroupListAdapter(var context: Context, var listener:GroupListAdapter.onGro
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as HolderHealthListItem).setHealthListItem(healthList!!.get(position), position)
+        (holder as HolderHealthListItem).setHealthListItem(healthList!!.get(position), position, "group_list")
     }
 
     override fun getItemCount(): Int {

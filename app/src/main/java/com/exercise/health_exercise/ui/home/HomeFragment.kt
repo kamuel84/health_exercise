@@ -154,6 +154,7 @@ class HomeFragment : BaseFragment(), HealthListAdapter.onHealthListListener {
 
     override fun onChecked(data: HealthListWithItemData, position: Int, isCheck:Boolean) {
         if(isCheck){
+
             checkList.add(data.idx.toString())
         } else {
             checkList.remove(data.idx.toString())

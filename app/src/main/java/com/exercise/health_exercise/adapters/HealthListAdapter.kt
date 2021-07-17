@@ -52,7 +52,8 @@ class HealthListAdapter(
         } else
             (holder as HolderHealthListItem).setHealthListItem(
                 healthList!!.get(position - 1),
-                position - 1
+                position - 1,
+                "home_list"
             )
     }
 
@@ -84,6 +85,9 @@ class HealthListAdapter(
     }
 
     override fun onChecked(data: HealthListWithItemData, position: Int, isCheck:Boolean) {
+        if(healthList != null)
+            healthList!!.get(position).isChecked = isCheck
+
         listener.onChecked(data, position, isCheck)
     }
 
