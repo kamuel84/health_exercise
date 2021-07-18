@@ -58,13 +58,15 @@ class AddViewModel(application: Application): ViewModel() {
     fun setGroupSelectList(indexs:ArrayList<String>){
         var tempSelectData : LinkedHashMap<Long, ExercisesData> = LinkedHashMap<Long, ExercisesData>()
         CoroutineScope(Dispatchers.Main).launch {
-            val checkList:List<ExercisesData> = async {
-                exercisesRepository.getGroupSelectExerciseList(indexs)
-            }.await()
+            indexs.forEachIndexed { index, s ->
+                val checkList: List<ExercisesData> = async {
+                    exercisesRepository.getGroupSelectExerciseList(s)
+                }.await()
 
-            checkList.forEachIndexed { index, exercisesData ->
-                exercisesData.checkIndex = index+1
-                tempSelectData.put(exercisesData.idx, exercisesData)
+                checkList.forEachIndexed { index, exercisesData ->
+                    exercisesData.checkIndex = index + 1
+                    tempSelectData.put(exercisesData.idx, exercisesData)
+                }
             }
             _selectList.value = tempSelectData
         }

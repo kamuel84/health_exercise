@@ -23,8 +23,8 @@ class ExercisesRepository(application: Application) {
         return exercisesDao.getSearchExercise(keyword)
     }
 
-    fun getGroupSelectExerciseList(indexs:ArrayList<String>):List<ExercisesData>{
-        return exercisesDao.getGroupSelectExercise(indexs)
+    fun getGroupSelectExerciseList(index:String):List<ExercisesData>{
+        return exercisesDao.getGroupSelectExercise(index)
     }
 
     fun exerciseList(idx:Long):List<ExercisesData>{
