@@ -27,8 +27,8 @@
         android:padding="10dp"
         android:text="TextView"
         android:textColor="@color/color_font_black"
-        android:textSize="16dp"
-        android:singleLine="true"
+        android:textSize="12dp"
+        android:singleLine="false"
         app:layout_constraintStart_toEndOf="@id/cbExerciseItem_Check"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

@@ -20,7 +20,7 @@
             android:textSize="32dp"
             android:textColor="@color/font_color_black"
             android:textStyle="bold"
-            android:text="Specify Tilte" />
+            android:text="운동목록제목" />
 
         <EditText
             android:id="@+id/tvCustom_Title"
