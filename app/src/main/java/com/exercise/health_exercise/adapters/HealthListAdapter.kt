@@ -29,7 +29,7 @@ class HealthListAdapter(
         fun onAdd()
         fun onSelectItem(data: HealthListWithItemData, position: Int)
         fun onMore(data: HealthListWithItemData, position: Int)
-        fun onChecked(data: HealthListWithItemData, position: Int, isCheck:Boolean)
+        fun onChecked(data: HealthListWithItemData, position: Int, isCheck: Boolean)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -46,15 +46,17 @@ class HealthListAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (position == 0) {
+        if (healthList!!.size == 0 || position == healthList!!.size) {
+//        if (position == 0) {
             /** ADD View **/
             (holder as HolderListAdd).setAdd()
-        } else
+        } else {
             (holder as HolderHealthListItem).setHealthListItem(
-                healthList!!.get(position - 1),
-                position - 1,
+                healthList!!.get(position),
+                position,
                 "home_list"
             )
+        }
     }
 
     override fun getItemCount(): Int {
@@ -65,7 +67,7 @@ class HealthListAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (position == 0)
+        if (healthList!!.size == 0 || position == healthList!!.size)
             return VIEWTYPE_ADD
         else
             return VIEWTYPE_ITME
@@ -84,8 +86,8 @@ class HealthListAdapter(
         listener.onSelectItem(data, position)
     }
 
-    override fun onChecked(data: HealthListWithItemData, position: Int, isCheck:Boolean) {
-        if(healthList != null)
+    override fun onChecked(data: HealthListWithItemData, position: Int, isCheck: Boolean) {
+        if (healthList != null)
             healthList!!.get(position).isChecked = isCheck
 
         listener.onChecked(data, position, isCheck)
