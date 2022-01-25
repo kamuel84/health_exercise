@@ -15,6 +15,6 @@ interface PlayExerciseItemDao : BaseDao<PlayExerciseItemData> {
             "(SELECT title FROM health_list WHERE idx = health_list_index) AS title, " +
             "(SELECT count(*) FROM health_list_items GROUP BY health_list_index) AS playTotalCount, " +
             "(SELECT count(*) FROM play_exercise_item WHERE isComplete = 1 GROUP BY play_exercise_index) AS completeCount, " +
-            "sum(play_time) as playTime FROM play_exercise_item WHERE play_exercise_index IN (SELECT idx FROM play_exercise WHERE substr(strDate,0,7) = :date) GROUP BY play_exercise_index, title, playTotalCount, completeCount")
+            "sum(play_time) as playTime FROM play_exercise_item WHERE isComplete=1 AND play_exercise_index IN (SELECT idx FROM play_exercise WHERE substr(strDate,0,7) = :date) GROUP BY play_exercise_index, title, playTotalCount, completeCount")
     fun getSumPlayList(date : String) :LiveData<List<PlayExerciseItemHeaderData>>
 }
