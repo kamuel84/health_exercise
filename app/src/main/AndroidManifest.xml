@@ -36,6 +36,9 @@
 
         <activity android:name=".ui.activitys.ExerciseItemDetailActivity"
             android:theme="@style/Theme.Health_exercise.NoActionBar"/>
+
+        <activity android:name=".ui.activitys.GuidePopupActivity"
+            android:theme="@style/guideActivity"/>
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.exercise.health_exercise.ui.exercise
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.KeyEvent
@@ -17,8 +18,10 @@ import com.exercise.health_exercise.adapters.ExerciseListAdapter
 import com.exercise.health_exercise.data.AppContents
 import com.exercise.health_exercise.data.exercises.ExercisesData
 import com.exercise.health_exercise.ui.BaseFragment
+import com.exercise.health_exercise.ui.activitys.GuidePopupActivity
 import com.exercise.health_exercise.ui.activitys.ListAddActivity
 import com.exercise.health_exercise.ui.itemDecoration.gridItemDecoration
+import com.exercise.health_exercise.utils.DialogUtils
 import kotlinx.android.synthetic.main.fragment_home.*
 /** 전체운동 > 운동 검색 화면 **/
 class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener {
@@ -94,6 +97,7 @@ class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener 
             isLoading = true
         })
 
+        openGuidePopup()
         return root
     }
 
@@ -110,6 +114,11 @@ class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener 
             }
             return@setOnKeyListener false
         }
+    }
+
+    fun openGuidePopup(){
+        var intent = Intent(context, GuidePopupActivity::class.java)
+        startActivity(intent)
     }
 
     fun searchKeyword(keyword:String){
