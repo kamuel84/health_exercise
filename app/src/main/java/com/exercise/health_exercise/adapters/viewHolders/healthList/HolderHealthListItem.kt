@@ -57,7 +57,10 @@ class HolderHealthListItem(var context:Context, itemView: View, var listener:Hol
             } else {
                 clList_Root.background = ContextCompat.getDrawable(context, R.drawable.bg_radius3_e5e5e5)
                 ivListMenu.visibility = View.INVISIBLE
-                chkList.visibility = View.VISIBLE
+                if(healthData.list_type == "CD")
+                    chkList.visibility = View.GONE
+                else
+                    chkList.visibility = View.VISIBLE
                 ivListMenu.setOnClickListener {}
                 chkList.isChecked = healthData.isChecked
 

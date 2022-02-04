@@ -78,6 +78,41 @@
                 android:background="#fff"
                 android:orientation="horizontal"
                 >
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clMain_BottomMenu2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_custom_exercise" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center"
+                            android:text="나의운동"
+                            android:textColor="@color/font_color_black"
+                            android:textSize="14dp"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+                    </LinearLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/color_e5e5e5"/>
+
+
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/clMain_BottomMenu1"
@@ -105,39 +140,6 @@
                             app:layout_constraintBottom_toBottomOf="parent"/>
 
                     </LinearLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/color_e5e5e5"/>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clMain_BottomMenu2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:gravity="center">
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_custom_exercise" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:text="나의운동"
-                            android:textColor="@color/font_color_black"
-                            android:textSize="14dp"
-                            app:layout_constraintBottom_toBottomOf="parent" />
-                    </LinearLayout>
-
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 <View

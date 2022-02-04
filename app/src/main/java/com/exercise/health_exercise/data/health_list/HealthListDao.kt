@@ -14,7 +14,7 @@ interface HealthListDao : BaseDao<HealthListData> {
     @Query("SELECT * FROM health_list WHERE idx = :index")
     fun getAll(index:Long) : LiveData<List<HealthListData>>
 
-    @Query("SELECT * FROM health_list WHERE list_type = 'C'")
+    @Query("SELECT * FROM health_list WHERE list_type = 'C' OR list_type ='CD'")
     fun getCustomList() : LiveData<List<HealthListData>>
 
     @Query("SELECT idx FROM health_list ORDER BY idx DESC LIMIT 1")

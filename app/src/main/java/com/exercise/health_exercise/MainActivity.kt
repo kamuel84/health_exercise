@@ -102,9 +102,13 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
 //                .allowMainThreadQueries() /** 이값은 MainThread에서도 돌도록 만들어진 함수 **/
 //                .build()
 
-        var fragment: HomeFragment = HomeFragment.newInstance(this)
+//        var fragment: HomeFragment = HomeFragment.newInstance(this)
+//        pushFragment(R.id.nav_host_fragment, fragment)
+
+        var fragment: CustomListFragment = CustomListFragment()
         pushFragment(R.id.nav_host_fragment, fragment)
-        clMain_BottomMenu1.setBackgroundColor(ContextCompat.getColor(this, R.color.color_D8BFD8))
+
+        clMain_BottomMenu2.setBackgroundColor(ContextCompat.getColor(this, R.color.color_D8BFD8))
         clMain_BottomMenu1.setOnClickListener(this)
         clMain_BottomMenu2.setOnClickListener(this)
         clMain_BottomMenu3.setOnClickListener(this)

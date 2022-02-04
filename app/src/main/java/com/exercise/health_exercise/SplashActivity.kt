@@ -116,6 +116,13 @@ class SplashActivity : AppCompatActivity() {
             /** idx = 17**/
             healthList.add(HealthListData(0L, "17 [하체]-크로스-[LC]", "D"))
 
+            //2022.02.04_shahn_나의운동 디폴드 리스트 테스트------------------------------------------------
+            /** idx = 18**/
+            healthList.add(HealthListData(0L, "1 어지럼운동 테스트 001", "CD"))
+            /** idx = 19**/
+            healthList.add(HealthListData(0L, "1 어지럼운동 테스트 002", "CD"))
+            //2022.02.04 나의운동 디폴드 리스트 테스트------------------------------------------------------
+
             healthList.forEachIndexed { index, healthListData ->
                 AppDataBase.getInstance(this, callback).healthListDao().insert(healthListData)
             }
@@ -534,6 +541,17 @@ class SplashActivity : AppCompatActivity() {
             exerciseItemList.add(HealthList_ItemsData(0L, 17, 121, 5, 1, 30000))
             exerciseItemList.add(HealthList_ItemsData(0L, 17, 122, 6, 1, 30000))
             exerciseItemList.add(HealthList_ItemsData(0L, 17, 123, 7, 1, 30000))
+
+            //2022.02.04_shahn_나의운동 디폴드 리스트 테스트--------------------------------------------------------------------------------------
+            /** 18 **/
+            exerciseItemList.add(HealthList_ItemsData(0L, 18, 116, 0, 1, 30000))
+            exerciseItemList.add(HealthList_ItemsData(0L, 18, 117, 1, 1, 30000))
+            exerciseItemList.add(HealthList_ItemsData(0L, 18, 118, 2, 1, 30000))
+            /** 19 **/
+            exerciseItemList.add(HealthList_ItemsData(0L, 19, 116, 0, 1, 30000))
+            exerciseItemList.add(HealthList_ItemsData(0L, 19, 117, 1, 1, 30000))
+            exerciseItemList.add(HealthList_ItemsData(0L, 19, 118, 2, 1, 30000))
+            //----------------------------------------------------------------------------------------------------------------------------------
 
             exerciseItemList.forEachIndexed { index, exercisesData ->
                 AppDataBase.getInstance(this, callback).healthListItemDao().insert(exercisesData)
