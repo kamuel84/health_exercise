@@ -98,7 +98,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:gravity="center"
-                            android:text="나의운동"
+                            android:text="어지럼추천운동"
                             android:textColor="@color/font_color_black"
                             android:textSize="14dp"
                             app:layout_constraintBottom_toBottomOf="parent" />
@@ -133,7 +133,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:text="운동리스트"
+                            android:text="전체운동그룹"
                             android:textColor="@color/font_color_black"
                             android:textSize="14dp"
                             android:gravity="center"
