@@ -68,10 +68,10 @@ class ExerciseActivity :BaseActivity(){
 
                                 if(preTimeCount == 0 || timeCount != preTimeCount) {
                                     preTimeCount = timeCount
-                                    if(exerciseMedia != null && exerciseMedia!!.isPlaying){
-                                        exerciseMedia!!.stop()
-                                        exerciseMedia = null
-                                    }
+//                                    if(exerciseMedia != null && exerciseMedia!!.isPlaying){
+//                                        exerciseMedia!!.stop()
+//                                        exerciseMedia = null
+//                                    }
 
                                     if(countMedia != null) {
                                         countMedia!!.release()
@@ -101,11 +101,11 @@ class ExerciseActivity :BaseActivity(){
                                     }
                                 } else {
 
-                                    if(exerciseMedia == null) {
-                                        exerciseMedia = MediaPlayer.create(this@ExerciseActivity, R.raw.countdown_exercise)
-                                        exerciseMedia!!.start()
-                                        exerciseMedia!!.isLooping = true
-                                    }
+//                                    if(exerciseMedia == null) {
+//                                        exerciseMedia = MediaPlayer.create(this@ExerciseActivity, R.raw.countdown_exercise)
+//                                        exerciseMedia!!.start()
+//                                        exerciseMedia!!.isLooping = true
+//                                    }
 
                                     var playItemData : PlayExerciseItemData = PlayExerciseItemData(
                                             0L,
