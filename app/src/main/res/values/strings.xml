@@ -7,8 +7,8 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">운동리스트</string>
-    <string name="menu_custom_list">나의운동</string>
+    <string name="menu_home">전체운동그룹</string>
+    <string name="menu_custom_list">어지럼추천운동</string>
     <string name="menu_complete_list">운동통계</string>
 
     <string name="select_menu_list">운동리스트에서 선택</string>
@@ -157,39 +157,39 @@
     </string>
     <string name="uc_cfs">"[운동제목 - 준비중입니다...]\n[UC-CFS]\n상체크로스-가슴 굴곡근 이완\n\n\n[운동설명]\n양 손을 머리 뒤로 올리고, 한 손으로 반대쪽 팔꿈치를 당깁니다."
     </string>
-    <string name="llsc_hmr">"[운동제목]\n[LLSC-HMR]\n하체스트리칭의자-힙 스트레칭-우측\n\n\n[운동설명]\n몸을 옆으로 돌려 엉덩이를 뒤로 밀면서 다리를 폅니다."
+    <string name="llsc_hmr">"[운동제목]\n[LLSC-HMR]\n하체스트레칭의자-힙 스트레칭-우측\n\n\n[운동설명]\n몸을 옆으로 돌려 엉덩이를 뒤로 밀면서 다리를 폅니다."
     </string>
-    <string name="llsc_hml">"[운동제목]\n[LLSC-HML]\n하체스트리칭의자-힙 스트레칭-좌측\n\n\n[운동설명]\n몸을 옆으로 돌려 엉덩이를 뒤로 밀면서 다리를 폅니다."
+    <string name="llsc_hml">"[운동제목]\n[LLSC-HML]\n하체스트레칭의자-힙 스트레칭-좌측\n\n\n[운동설명]\n몸을 옆으로 돌려 엉덩이를 뒤로 밀면서 다리를 폅니다."
     </string>
-    <string name="llsc_hp">"[운동제목]\n[LLSC-HP]\n하체스트리칭의자-몸 흔들며 발 돌리기\n\n\n[운동설명]\n양쪽 뒤꿈치에 체중을 싣고 양쪽 앞꿈치를 든 뒤 몸과 함께 좌우로 돌립니다."
+    <string name="llsc_hp">"[운동제목]\n[LLSC-HP]\n하체스트레칭의자-몸 흔들며 발 돌리기\n\n\n[운동설명]\n양쪽 뒤꿈치에 체중을 싣고 양쪽 앞꿈치를 든 뒤 몸과 함께 좌우로 돌립니다."
     </string>
-    <string name="llsc_clr">"[운동제목]\n[LLSC-CLR]\n하체스트리칭의자-발 교차하여 멀리 딛기-우측\n\n\n[운동설명]\n한쪽 발을 다른 발의 앞으로 멀리 디딥니다."
+    <string name="llsc_clr">"[운동제목]\n[LLSC-CLR]\n하체스트레칭의자-발 교차하여 멀리 딛기-우측\n\n\n[운동설명]\n한쪽 발을 다른 발의 앞으로 멀리 디딥니다."
     </string>
-    <string name="llsc_cll">"[운동제목]\n[LLSC-CLL]\n하체스트리칭의자-발 교차하여 멀리 딛기-좌측\n\n\n[운동설명]\n한쪽 발을 다른 발의 앞으로 멀리 디딥니다."
+    <string name="llsc_cll">"[운동제목]\n[LLSC-CLL]\n하체스트레칭의자-발 교차하여 멀리 딛기-좌측\n\n\n[운동설명]\n한쪽 발을 다른 발의 앞으로 멀리 디딥니다."
     </string>
-    <string name="llsc_llr">"[운동제목]\n[LLSC-LLR]\n하체스트리칭의자-무릎 앞으로 당기기-우측\n\n\n[운동설명]\n한쪽 발을 앞으로 올려 손으로 잡고 당깁니다."
+    <string name="llsc_llr">"[운동제목]\n[LLSC-LLR]\n하체스트레칭의자-무릎 앞으로 당기기-우측\n\n\n[운동설명]\n한쪽 발을 앞으로 올려 손으로 잡고 당깁니다."
     </string>
-    <string name="llsc_lll">"[운동제목]\n[LLSC-LLL]\n하체스트리칭의자-무릎 앞으로 당기기-좌측\n\n\n[운동설명]\n한쪽 발을 앞으로 올려 손으로 잡고 당깁니다."
+    <string name="llsc_lll">"[운동제목]\n[LLSC-LLL]\n하체스트레칭의자-무릎 앞으로 당기기-좌측\n\n\n[운동설명]\n한쪽 발을 앞으로 올려 손으로 잡고 당깁니다."
     </string>
-    <string name="llsc_rlr">"[운동제목]\n[LLSC-RLR]\n하체"스트리칭의자-발 뒤로 당기기-우측\n\n\n[운동설명]\n한쪽 발을 뒤로 올려 손으로 잡고 당깁니다."
+    <string name="llsc_rlr">"[운동제목]\n[LLSC-RLR]\n하체"스트레칭의자-발 뒤로 당기기-우측\n\n\n[운동설명]\n한쪽 발을 뒤로 올려 손으로 잡고 당깁니다."
     </string>
-    <string name="llsc_rll">"[운동제목]\n[LLSC-RLL]\n하체스트리칭의자-발 뒤로 당기기-좌측\n\n\n[운동설명]\n한쪽 발을 뒤로 올려 손으로 잡고 당깁니다."
+    <string name="llsc_rll">"[운동제목]\n[LLSC-RLL]\n하체스트레칭의자-발 뒤로 당기기-좌측\n\n\n[운동설명]\n한쪽 발을 뒤로 올려 손으로 잡고 당깁니다."
     </string>
-    <string name="llsc_flr">"[운동제목]\n[LLSC-FLR]\n하체스트리칭의자-발 앞으로 당기기-우측\n\n\n[운동설명]\n한쪽 발을 앞으로 올려 손으로 잡고 당깁니다."
+    <string name="llsc_flr">"[운동제목]\n[LLSC-FLR]\n하체스트레칭의자-발 앞으로 당기기-우측\n\n\n[운동설명]\n한쪽 발을 앞으로 올려 손으로 잡고 당깁니다."
     </string>
-    <string name="llsc_fll">"[운동제목]\n[LLSC-FLL]\n하체스트리칭의자-발 앞으로 당기기-좌측\n\n\n[운동설명]\n한쪽 발을 앞으로 올려 손으로 잡고 당깁니다."
+    <string name="llsc_fll">"[운동제목]\n[LLSC-FLL]\n하체스트레칭의자-발 앞으로 당기기-좌측\n\n\n[운동설명]\n한쪽 발을 앞으로 올려 손으로 잡고 당깁니다."
     </string>
-    <string name="lls_hm">"[운동제목]\n[LLS-HM]\n하체스트리칭-힙 스트레칭\n\n\n[운동설명]\n몸을 옆으로 돌려 엉덩이를 뒤로 밀면서 다리를 폅니다."
+    <string name="lls_hm">"[운동제목]\n[LLS-HM]\n하체스트레칭-힙 스트레칭\n\n\n[운동설명]\n몸을 옆으로 돌려 엉덩이를 뒤로 밀면서 다리를 폅니다."
     </string>
-    <string name="lls_rll">"[운동제목]\n[LLS-RLL]\n하체스트리칭-발 뒤로 당기기\n\n\n[운동설명]\n한쪽 발을 뒤로 올려 손으로 잡고 당깁니다."
+    <string name="lls_rll">"[운동제목]\n[LLS-RLL]\n하체스트레칭-발 뒤로 당기기\n\n\n[운동설명]\n한쪽 발을 뒤로 올려 손으로 잡고 당깁니다."
     </string>
-    <string name="lls_fll">"[운동제목]\n[LLS-FLL]\n하체스트리칭-발 앞으로 당기기\n\n\n[운동설명]\n한쪽 발을 앞으로 올려 발목과 무릎을 잡고 당깁니다."
+    <string name="lls_fll">"[운동제목]\n[LLS-FLL]\n하체스트레칭-발 앞으로 당기기\n\n\n[운동설명]\n한쪽 발을 앞으로 올려 발목과 무릎을 잡고 당깁니다."
     </string>
-    <string name="lls_fkl">"[운동제목]\n[LLS-FKL]\n하체스트리칭-무릎 앞으로 당기기\n\n\n[운동설명]\n한쪽 무릎을 올려 가슴에 붙이고 당깁니다."
+    <string name="lls_fkl">"[운동제목]\n[LLS-FKL]\n하체스트레칭-무릎 앞으로 당기기\n\n\n[운동설명]\n한쪽 무릎을 올려 가슴에 붙이고 당깁니다."
     </string>
-    <string name="lls_ds">"[운동제목]\n[LLS-DS]\n하체스트리칭-골반 스트레칭\n\n\n[운동설명]\n한쪽 다리를 옆으로 뻗고, 몸을 낮춥니다."
+    <string name="lls_ds">"[운동제목]\n[LLS-DS]\n하체스트레칭-골반 스트레칭\n\n\n[운동설명]\n한쪽 다리를 옆으로 뻗고, 몸을 낮춥니다."
     </string>
-    <string name="lls_cs">"[운동제목]\n[LLS-CS]\n하체스트리칭-아킬레스건 스트레칭\n\n\n[운동설명]\n양 팔을 위로 뻗고, 한쪽 발을 뒤로 내디딘 후 발 뒤꿈치로 바닥을 밉니다."
+    <string name="lls_cs">"[운동제목]\n[LLS-CS]\n하체스트레칭-아킬레스건 스트레칭\n\n\n[운동설명]\n양 팔을 위로 뻗고, 한쪽 발을 뒤로 내디딘 후 발 뒤꿈치로 바닥을 밉니다."
     </string>
     <string name="llsnc_fl">"[운동제목]\n[LLSNC-FL]\n하체강화의자-다리 앞으로 올리기\n\n\n[운동설명]\n다리를 앞으로 올립니다."
     </string>
