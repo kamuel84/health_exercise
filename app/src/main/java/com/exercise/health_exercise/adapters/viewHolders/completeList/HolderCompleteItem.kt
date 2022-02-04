@@ -10,8 +10,8 @@ class HolderCompleteItem(itemView:View):RecyclerView.ViewHolder(itemView) {
     fun setItem(data : PlayExerciseItemHeaderData){
         with(itemView){
             tvCompleteItem_Title.text = if(TextUtils.isEmpty(data.title)) "" else data.title
-            tvCompleteItem_PlayCount.text = data.completeCount.toString()
-            tvCompleteItem_TotalCount.text = String.format("/%s", data.playTotalCount.toString())
+//            tvCompleteItem_PlayCount.text = data.completeCount.toString()
+//            tvCompleteItem_TotalCount.text = String.format("/%s", data.playTotalCount.toString())
 
             var playSec : Int = (data.playTime / 1000L).toInt()
 
