@@ -59,6 +59,14 @@
             android:textColor="@color/color_white"
             android:textSize="20dp" />
         <TextView
+            android:id="@+id/tvCustom_SelectContent11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:text="(카카오톡이나 SMS 문자 메시지를 복사한 운동코드를 붙여넣어도 됩니다.)"
+            android:textColor="@color/color_white"
+            android:textSize="20dp" />
+        <TextView
             android:id="@+id/tvCustom_SelectTitleLabel_Space3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -90,7 +98,23 @@
             android:text="3. 입력된 운동들이 보이면 원하는 순서대로 운동카드를 누릅니다."
             android:textColor="@color/color_white"
             android:textSize="20dp" />
+        <TextView
+            android:id="@+id/tvCustom_SelectTitleLabel_Space5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:text=""
+            android:textColor="@color/color_white"
+            android:textSize="20dp" />
 
+        <TextView
+            android:id="@+id/tvCustom_SelectContent4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:text="4. 운동코드 예) GSHEW-FH,GSHEW-FV,..."
+            android:textColor="@color/color_0091ff"
+            android:textSize="20dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,7 +29,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/bg_radius3_e5e5e5"
-            android:hint="만드시려는 운동그룹의 이름을 입력하세요"
+            android:hint="만드시려는 운동그룹의 이름을 입력하세요."
             android:textColorHint="@color/colorAccent"
             android:padding="5dp"
             android:singleLine="true"
@@ -41,8 +41,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:text="예) 2022년2월1일 어지럼운동,시야안정운동,..."
-            android:textColor="@color/font_color_black"
-            android:textSize="20dp" />
+            android:text="예) 2022년2월1일 어지럼운동, 시야안정운동,..."
+            android:textColor="@color/color_0091ff"
+            android:textSize="18dp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

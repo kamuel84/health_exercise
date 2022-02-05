@@ -124,7 +124,7 @@ class SplashActivity : AppCompatActivity() {
             /** idx = 20**/
             healthList.add(HealthListData(0L, "3 어지럼 운동 중급A (앉아+기립)", "CD"))
             /** idx = 21**/
-            healthList.add(HealthListData(0L, "4 어지럼 운동 중급B(기립)", "CD"))
+            healthList.add(HealthListData(0L, "4 어지럼 운동 중급B (기립)", "CD"))
             /** idx = 22**/
             healthList.add(HealthListData(0L, "5 어지럼 운동 고급 A (기립)", "CD"))
             /** idx = 23**/
