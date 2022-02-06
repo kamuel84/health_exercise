@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -22,6 +23,7 @@ import com.exercise.health_exercise.utils.ArrayUtils
 import com.exercise.health_exercise.utils.DateUtils
 import com.exercise.health_exercise.utils.ViewUtils
 import kotlinx.android.synthetic.main.activity_exercise.*
+import kotlinx.coroutines.CoroutineScope
 
 class ExerciseActivity :BaseActivity(){
     var exerciseMedia : MediaPlayer ?= null
@@ -68,17 +70,16 @@ class ExerciseActivity :BaseActivity(){
 
                                 if(preTimeCount == 0 || timeCount != preTimeCount) {
                                     preTimeCount = timeCount
-//                                    if(exerciseMedia != null && exerciseMedia!!.isPlaying){
-//                                        exerciseMedia!!.stop()
-//                                        exerciseMedia = null
-//                                    }
+                                    if(exerciseMedia != null && exerciseMedia!!.isPlaying){
+                                        exerciseMedia!!.stop()
+                                        exerciseMedia = null
+                                    }
 
                                     if(countMedia != null) {
                                         countMedia!!.release()
                                     }
 
                                     countMedia = MediaPlayer.create(applicationContext, R.raw.exercisecount)
-
                                     countMedia!!.start()
 
                                     tvExercise_Count.text = "Repeat Count : $timeCount ea"
@@ -101,11 +102,13 @@ class ExerciseActivity :BaseActivity(){
                                     }
                                 } else {
 
-//                                    if(exerciseMedia == null) {
-//                                        exerciseMedia = MediaPlayer.create(this@ExerciseActivity, R.raw.countdown_exercise)
-//                                        exerciseMedia!!.start()
-//                                        exerciseMedia!!.isLooping = true
-//                                    }
+                                    if(exerciseMedia != null){
+                                        exerciseMedia!!.release()
+                                    }
+
+                                    exerciseMedia = MediaPlayer.create(this@ExerciseActivity, R.raw.countdown_exercise)
+                                    exerciseMedia!!.start()
+
 
                                     var playItemData : PlayExerciseItemData = PlayExerciseItemData(
                                             0L,
