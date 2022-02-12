@@ -645,7 +645,7 @@ class SplashActivity : AppCompatActivity() {
             exerciseItemList.add(HealthList_ItemsData(0L, 26, 3, 0, 1, 30000))
             exerciseItemList.add(HealthList_ItemsData(0L, 26, 37, 1, 1, 30000))
             exerciseItemList.add(HealthList_ItemsData(0L, 26, 38, 2, 1, 30000))
-            exerciseItemList.add(HealthList_ItemsData(0L, 26, 38, 2, 1, 30000))
+            exerciseItemList.add(HealthList_ItemsData(0L, 26, 39, 2, 1, 30000))
             /** 27 - 10 **/
 //            exerciseItemList.add(HealthList_ItemsData(0L, 27, 47, 0, 1, 30000))
             exerciseItemList.add(HealthList_ItemsData(0L, 27, 53, 1, 1, 30000))

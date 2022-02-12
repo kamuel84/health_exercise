@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/clExerciseItem_Root"
-    android:layout_width="match_parent"
-    android:layout_height="250dp"
+    android:layout_width="120dp"
+    android:layout_height="120dp"
     android:background="@drawable/bg_radius3_999999">
     <CheckBox
         android:id="@+id/cbExerciseItem_Check"
@@ -27,8 +27,9 @@
         android:padding="10dp"
         android:text="TextView"
         android:textColor="@color/color_font_black"
-        android:textSize="12dp"
+        android:textSize="8dp"
         android:singleLine="false"
+
         app:layout_constraintStart_toEndOf="@id/cbExerciseItem_Check"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -51,7 +52,7 @@
         android:background="@color/color_black_200"
         android:gravity="center"
         android:text="1"
-        android:textSize="100dp"
+        android:textSize="50dp"
         android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"

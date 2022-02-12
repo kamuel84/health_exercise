@@ -59,7 +59,7 @@ class ExerciseFragment : BaseFragment(), ExerciseListAdapter.onExerciseListener 
             if (adapter == null) {
                 adapter = ExerciseListAdapter(mContext!!, this)
                 listHome.adapter = adapter
-                var gridLayoutManager = GridLayoutManager(mContext, 2)
+                var gridLayoutManager = GridLayoutManager(mContext, 3)
                 listHome.layoutManager = gridLayoutManager
                 listHome.addItemDecoration(gridItemDecoration(mContext!!))
                 exerciseViewModel.setItemCheck(baseActivity!!)

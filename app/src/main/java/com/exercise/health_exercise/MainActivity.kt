@@ -73,6 +73,7 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
         nav_view.setNavigationItemSelectedListener {
 
             when (it.itemId) {
+
                 R.id.nav_home -> {
                     setMenu(resources.getString(R.string.menu_home), 1)
                 }

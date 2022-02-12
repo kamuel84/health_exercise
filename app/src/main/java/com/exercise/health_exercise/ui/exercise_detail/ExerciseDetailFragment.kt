@@ -84,7 +84,7 @@ class ExerciseDetailFragment:BaseFragment(), ExerciseDetailAdapter.onExerciseDet
             if (adapter == null) {
                 adapter = ExerciseDetailAdapter(mContext!!, this)
                 listHome.adapter = adapter
-                listHome.layoutManager = GridLayoutManager(mContext, 2)
+                listHome.layoutManager = GridLayoutManager(mContext, 3)
                 listHome.addItemDecoration(gridItemDecoration(mContext!!))
             }
 //

@@ -8,7 +8,7 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">전체운동그룹</string>
-    <string name="menu_custom_list">어지럼추천운동</string>
+    <string name="menu_custom_list">어지럼운동</string>
     <string name="menu_complete_list">운동통계</string>
 
     <string name="select_menu_list">운동리스트에서 선택</string>

@@ -44,7 +44,7 @@ class GroupListDetailFragment : BaseFragment(), onExerciseListener{
                 adapter = ExerciseListAdapter(mContext!!, this)
                 listHome.adapter = adapter
                 adapter!!.updateList(it)
-                var gridLayoutManager = GridLayoutManager(mContext, 2)
+                var gridLayoutManager = GridLayoutManager(mContext, 3)
                 listHome.layoutManager = gridLayoutManager
                 listHome.addItemDecoration(gridItemDecoration(mContext!!))
 

@@ -98,7 +98,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:gravity="center"
-                            android:text="어지럼추천운동"
+                            android:text="어지럼운동"
                             android:textColor="@color/font_color_black"
                             android:textSize="14dp"
                             app:layout_constraintBottom_toBottomOf="parent" />
@@ -111,8 +111,6 @@
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:background="@color/color_e5e5e5"/>
-
-
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/clMain_BottomMenu1"
