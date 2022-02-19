@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     android:background="#EFF6AD">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        android:src="@raw/ex01_04"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -22,7 +30,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="400dp"
+        android:layout_marginBottom="550dp"
         android:text="어지럼을 치료하는"
         android:textColor="@color/black"
         android:textSize="25sp"
@@ -34,7 +42,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="330dp"
+        android:layout_marginBottom="500dp"
         android:text="과학적인 운동법"
         android:textColor="@color/black"
         android:textSize="25sp"
