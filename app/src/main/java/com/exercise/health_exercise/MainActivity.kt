@@ -175,7 +175,7 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
             1 -> {
                 var fragment: HomeFragment = HomeFragment()
                 pushFragment(R.id.nav_host_fragment, fragment)
-                nav_view.menu.getItem(0).isChecked = true
+                nav_view.menu.getItem(1).isChecked = true
                 clMain_BottomMenu1.setBackgroundColor(
                     ContextCompat.getColor(
                         this,
@@ -199,7 +199,7 @@ class MainActivity : BaseActivity(), View.OnClickListener, HomeFragment.onHomeFr
             2 -> {
                 var fragment: CustomListFragment = CustomListFragment()
                 pushFragment(R.id.nav_host_fragment, fragment)
-                nav_view.menu.getItem(1).isChecked = true
+                nav_view.menu.getItem(0).isChecked = true
                 clMain_BottomMenu1.setBackgroundColor(
                     ContextCompat.getColor(
                         this,
